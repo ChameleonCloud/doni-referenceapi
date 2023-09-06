@@ -1,0 +1,106 @@
+{
+    "$id": "http://yourdomain.com/schemas/myschema.json",
+    "type": "object",
+    "properties": {
+        "node_name": {"type": "string"},
+        "node_type": {"type": "string"},
+        "type": {"type": "string"},
+        "uid": {"type": "string"},
+        "architecture": {
+            "type": "object",
+            "platform_type": {"type": "string"},
+            "smp_size": {"type": "number"},
+            "smt_size": {"type": "number"}
+        },
+        "bios": {
+            "type": "object",
+            "release_date": {"type": "string"},
+            "vendor": {"type": "string"},
+            "version": {"type": "string"}
+        },
+        "chassis": {
+            "type": "object",
+            "manufacturer": {"type": "string"},
+            "name": {"type": "string"},
+            "serial": {"type": "string"}
+        },
+        "processor": {
+            "type": "object",
+            "properties": {
+                "cache_l1": {"type": "number"},
+                "cache_l2": {"type": "number"},
+                "cache_l3": {"type": "number"},
+                "clock_speed": {"type": "number"},
+                "instruction_set": {"type": "string"},
+                "model": {"type": "string"},
+                "vendor": {"type": "string"},
+                "version": {"type": "string"}
+            },
+            "required": ["model", "vendor"]
+        },
+        "main_memory": {
+            "type": "object",
+            "humanized_ram_size": {"type": "string"},
+            "ram_size": {"type": "number"}
+        },
+        "placement": {
+            "type": "object",
+            "properties": {
+                "node": {"type": "string"},
+                "rack": {"type": "string"}
+            }
+        },
+        "infiniband": {"type": "boolean"},
+        "network_adapters": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "device": {"type": "string"},
+                    "enabled": {"type": "boolean"},
+                    "interface": {"type": "string"},
+                    "mac": {"type": "string"},
+                    "management": {"type": "boolean"},
+                    "model": {
+                        "anyOf": [
+                            { "type": "string"},
+                            { "type": "null" }
+                          ]
+                    },
+                    "vendor": {"type": "string"},
+                    "rate": {"type": "number"}
+                },
+                "required": ["enabled", "mac"]
+            }
+        },
+        "storage_devices": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "device": {"type": "string"},
+                    "humanized_size": {"type": "string"},
+                    "interface": {"type": "string"},
+                    "media_type": {"type": "string"},
+                    "model": {"type": "string"},
+                    "rev": {"type": "string"},
+                    "size": {"type": "number"},
+                    "vendor": {"type": "string"}
+                },
+                "required": ["size", "media_type", "interface"]
+            }
+        }
+    },
+    "required": [
+        "node_name",
+        "node_type",
+        "uid",
+        "architecture",
+        "processor",
+        "main_memory",
+        "network_adapters",
+        "storage_devices"
+    ]
+}
