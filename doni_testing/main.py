@@ -44,6 +44,7 @@ def generate_rapi_json(doni_item, inspection_item):
     dmi_data = inspection_item.get("dmi", {})
     dmi_cpu=dmi_data.get("cpu")
 
+    inspection_inventory = inspection_item.get("inventory")
 
     data = {
         "uid": doni_item.get("uuid"),
@@ -62,6 +63,42 @@ def generate_rapi_json(doni_item, inspection_item):
         "network_adapters": [],
         "storage_devices": [],
     }
+
+    for iface in inspection_inventory.get("interfaces", []):
+
+        rapi_interface = {
+            "name": iface.get("name"),
+            "mac": iface.get("mac_address"),
+            "enabled": None
+        }
+
+        # if ironic inspection gets an ip address, then the interface
+        # is enabled in neutron
+        if iface.get("ipv4_address"):
+            rapi_interface["enabled"] = True
+        else:
+            rapi_interface["enabled"] = False
+
+        data["network_adapters"].append(rapi_interface)
+
+    for disk in inspection_inventory.get("disks", []):
+        rapi_disk = {
+            "name": disk.get("name"),
+            "model": disk.get("model"),
+            "size": disk.get("size"),
+            "interface": "UNKNOWN"
+        }
+
+        if disk.get("rotational") == False:
+            rapi_disk["media_type"]="SSD"
+        elif disk.get("rotational") == True:
+            rapi_disk["media_type"]="Rotational"
+        else:
+            rapi_disk["media_type"]="UNKNOWN"
+
+        data["storage_devices"].append(rapi_disk)
+
+
 
     return data
 
@@ -85,6 +122,9 @@ def main():
     # generate and then validate data we parse from Doni and inspection
     generated_data = generate_rapi_json(doni_item=doni_item, inspection_item=inspection_dict)
     jsonschema.validate(instance=generated_data, schema=schema)
+
+    with open("output_file_test.json", "w+") as f:
+        json.dump(generated_data, f, indent=2, sort_keys=True)
 
 
 
