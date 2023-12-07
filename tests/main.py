@@ -18,13 +18,13 @@ def get_inspection_api(session=None, node_uuid=None):
 
 def get_inspection_json(*args, **kwargs):
     data = None
-    with open("test_data/p3-ssd-010.json") as f:
+    with open("tests/test_data/p3-ssd-010.json") as f:
         data = json.load(f)
     return data
 
 def get_hw_json(*args, **kwargs):
     data = None
-    with open("test_data/doni_p3-ssd-010.json") as f:
+    with open("tests/test_data/doni_p3-ssd-010.json") as f:
         data = json.load(f)
     return data
 
@@ -107,10 +107,10 @@ def main():
     # doni_item = get_hardware_item(session=conn.session, node_uuid=NODE_UUID)
 
 
-    with open("doni_testing/rapi/rapi.jsonschema") as f:
+    with open("tests/rapi/rapi.jsonschema") as f:
         schema = json.load(f)
 
-    with open("test_data/rapi_p3-ssd-010.json") as f:
+    with open("tests/test_data/rapi_p3-ssd-010.json") as f:
         rapi_data = json.load(f)
 
     # sanity check, make sure schema validates existint rAPI data
