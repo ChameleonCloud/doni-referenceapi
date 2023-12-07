@@ -1,12 +1,17 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
 [project]
-name = "doni_testing"
+name = "doni_referenceapi"
 requires-python = ">=3.8"
 dependencies = [
     "python-doniclient",
     "python-ironicclient",
-    "python-ironic-inspector-client"
+    "python-ironic-inspector-client",
+    "pydantic",
 ]
 dynamic = ["version"]
 
-[project.scripts]
-run_doni_inventory = "doni_testing.main:main"
+[project.optional-dependencies]
+dev = ["black", "isort", "flake8"]
