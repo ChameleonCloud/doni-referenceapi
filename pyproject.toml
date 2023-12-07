@@ -15,3 +15,7 @@ dynamic = ["version"]
 
 [project.optional-dependencies]
 dev = ["black", "isort", "flake8"]
+
+
+[tool.isort]
+profile = "black"
