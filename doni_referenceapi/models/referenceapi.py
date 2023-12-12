@@ -57,7 +57,12 @@ class MainMemory(BaseModel):
 
 
 class Placement(BaseModel):
-    pass
+    """Represents where a node is in terms of racks and rack U."""
+
+    # this should really be a string, but hw browser wants an int.
+    # Represents bottommost rack-U occupied.
+    node: Optional[int] = None
+    rack: Optional[str] = None  # Name of the rack where node is installed.
 
 
 class NetworkInterface(str, Enum):
@@ -117,6 +122,8 @@ StorageDeviceListType = NewType(
 
 
 class SupportedJobTypes(BaseModel):
+    """Exists for compatability with G5K API, left as default for all Chameleon nodes."""
+
     besteffort: bool = False
     deploy: bool = True
     virtual: str = "ivt"
@@ -131,7 +138,7 @@ class Node(BaseModel):
     network_adapters: NetworkAdapterListType
     node_name: str
     node_type: str
-    placement: Placement = Field(default_factory=Placement)
+    placement: Placement
     processor: Processor
     storage_devices: StorageDeviceListType
     supported_job_types: SupportedJobTypes = Field(default_factory=SupportedJobTypes)

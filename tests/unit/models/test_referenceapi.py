@@ -44,6 +44,8 @@ FAKE_MAIN_MEMORY = {
     "ram_size": 256000000000,
 }
 
+FAKE_PLACEMENT = {}
+
 
 def test_processor():
     rapi.Processor(**FAKE_PROCESSOR)
@@ -64,6 +66,9 @@ def test_chassis():
 def test_main_memory():
     rapi.MainMemory(**FAKE_MAIN_MEMORY)
 
+def test_placement():
+    rapi.Placement(**FAKE_PLACEMENT)
+
 
 def test_sanity():
     external_data = {
@@ -77,6 +82,7 @@ def test_sanity():
         "architecture": FAKE_ARCHITECTURE,
         "chassis": FAKE_CHASSIS,
         "main_memory": FAKE_MAIN_MEMORY,
+        "placement": FAKE_PLACEMENT,
     }
     node = rapi.Node(**external_data)
     print(
