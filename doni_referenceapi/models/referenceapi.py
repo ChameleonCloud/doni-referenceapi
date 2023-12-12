@@ -1,32 +1,36 @@
+from datetime import date
 from enum import Enum
 from typing import List, NewType, Optional
 
 from pydantic import UUID4, BaseModel, ByteSize, Field, computed_field, conlist
 
 
-class Architecture(BaseModel):
-    pass
-
-
-class Bios(BaseModel):
-    pass
-
-
-class Chassis(BaseModel):
-    pass
-
-
 class CpuInstructionSet(str, Enum):
     x86_64 = "x86-64"
-    amd64 = "x86-64"
     arm64 = "aarch64"
 
 
-class CpuVendor(str, Enum):
-    amd = "AMD"
-    intel = "Intel"
-    nvidia = "NVIDIA"
-    fujitsu = "Fujitsu"
+class Architecture(BaseModel):
+    """
+    Model for system architecture.
+    Rolls up cpu properties when multiple are present.
+    """
+
+    platform_type: CpuInstructionSet
+    smp_size: int
+    smt_size: int
+
+
+class Bios(BaseModel):
+    release_date: date
+    vendor: str
+    version: str
+
+
+class Chassis(BaseModel):
+    manufacturer: "str"
+    name: "str"
+    serial: Optional["str"] = None
 
 
 class Processor(BaseModel):
@@ -38,12 +42,18 @@ class Processor(BaseModel):
     clock_speed: int
     instruction_set: CpuInstructionSet = CpuInstructionSet.x86_64
     model: str
-    vendor: CpuVendor
+    vendor: str
     version: Optional[str] = None
 
 
 class MainMemory(BaseModel):
-    pass
+    ram_size: ByteSize
+
+    @computed_field
+    @property
+    def humanized_ram_size(self) -> str:
+        """Return ram size in round, human numbers."""
+        return self.ram_size.human_readable(decimal=True)
 
 
 class Placement(BaseModel):

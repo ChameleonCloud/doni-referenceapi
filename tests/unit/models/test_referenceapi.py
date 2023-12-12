@@ -1,7 +1,7 @@
 import json
 from uuid import uuid4
 
-from doni_referenceapi.models.referenceapi import Node
+from doni_referenceapi.models import referenceapi as rapi
 
 FAKE_NODE_UUID = uuid4()
 FAKE_NODE_NAME = "test_node_1234"
@@ -17,14 +17,52 @@ FAKE_STORAGE_DEVICE = {
 }
 
 FAKE_PROCESSOR = {
-    "cache_l1": 3200000,
-    "cache_l2": 51200000,
-    "cache_l3": 61440000,
-    "clock_speed": 2300000000,
+    "cache_l1": 123456,
+    "cache_l2": 35135138,
+    "cache_l3": 73133516,
+    "clock_speed": 3518882187,
     "instruction_set": "x86-64",
-    "model": "Intel(R) Xeon(R) Platinum 8380 CPU @ 2.30GHz",
+    "model": "Fake Vendor with Fake Family and Fake model",
     "vendor": "Intel",
 }
+
+FAKE_ARCHITECTURE = {
+    "platform_type": "x86-64",
+    "smp_size": 2,
+    "smt_size": 48,
+}
+FAKE_BIOS = {
+    "release_date": "2013-11-02",
+    "vendor": "fake_bios_vendor",
+    "version": "fake_version_string",
+}
+FAKE_CHASSIS = {
+    "manufacturer": "fake_manufacturer_string",
+    "name": "fake_chassis_name",
+}
+FAKE_MAIN_MEMORY = {
+    "ram_size": 256000000000,
+}
+
+
+def test_processor():
+    rapi.Processor(**FAKE_PROCESSOR)
+
+
+def test_architecture():
+    rapi.Architecture(**FAKE_ARCHITECTURE)
+
+
+def test_bios():
+    rapi.Bios(**FAKE_BIOS)
+
+
+def test_chassis():
+    rapi.Chassis(**FAKE_CHASSIS)
+
+
+def test_main_memory():
+    rapi.MainMemory(**FAKE_MAIN_MEMORY)
 
 
 def test_sanity():
@@ -35,9 +73,21 @@ def test_sanity():
         "network_adapters": [FAKE_NETWORK_ADAPTER],
         "storage_devices": [FAKE_STORAGE_DEVICE],
         "processor": FAKE_PROCESSOR,
+        "bios": FAKE_BIOS,
+        "architecture": FAKE_ARCHITECTURE,
+        "chassis": FAKE_CHASSIS,
+        "main_memory": FAKE_MAIN_MEMORY,
     }
-    node = Node(**external_data)
-    print(json.dumps(node.model_dump(mode="json"), indent=2))
+    node = rapi.Node(**external_data)
+    print(
+        json.dumps(
+            node.model_dump(
+                mode="json",
+                exclude_unset=True,
+            ),
+            indent=2,
+        )
+    )
 
 
 if __name__ == "__main__":
