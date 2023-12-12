@@ -48,7 +48,14 @@ FAKE_PLACEMENT = {}
 
 
 def test_processor():
-    rapi.Processor(**FAKE_PROCESSOR)
+    test_dict = FAKE_PROCESSOR.copy()
+    proc = rapi.Processor(**test_dict)
+    assert proc.clock_speed == 3518882187
+
+    # test with string
+    test_dict["clock_speed"] = "982 mhz"
+    proc = rapi.Processor(**test_dict)
+    assert proc.clock_speed == 982 * 10**6
 
 
 def test_architecture():
@@ -65,6 +72,7 @@ def test_chassis():
 
 def test_main_memory():
     rapi.MainMemory(**FAKE_MAIN_MEMORY)
+
 
 def test_placement():
     rapi.Placement(**FAKE_PLACEMENT)

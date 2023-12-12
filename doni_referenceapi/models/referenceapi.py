@@ -1,8 +1,14 @@
 from datetime import date
 from enum import Enum
-from typing import List, NewType, Optional
+from typing import NewType, Optional
 
 from pydantic import UUID4, BaseModel, ByteSize, Field, computed_field, conlist
+
+from doni_referenceapi.common.types.si_frequency import SiFrequency
+
+
+class cpu_speed(object):
+    SI_Frequency = [(1, "Hz"), (1000, "kHz"), (1000000, "MHz"), (1000000000, "GHz")]
 
 
 class CpuInstructionSet(str, Enum):
@@ -14,11 +20,28 @@ class Architecture(BaseModel):
     """
     Model for system architecture.
     Rolls up cpu properties when multiple are present.
-    """
+
+    In OpenStack, SMP CPUs are known as cores, NUMA cells or nodes are known as sockets,
+    and SMT CPUs are known as threads.
+    For example, a quad-socket, eight core system with Hyper-Threading would have
+    four sockets, eight cores per socket and two threads per core, for a total of 64 CPUs."""
 
     platform_type: CpuInstructionSet
-    smp_size: int
-    smt_size: int
+    sockets: Optional[int]
+    cores: int
+    threads: int
+
+    @computed_field
+    @property
+    def smp_size(self) -> int:
+        """For backwards compatibility with reference-api."""
+        return self.cores
+
+    @computed_field
+    @property
+    def smt_size(self) -> int:
+        """For backwards compatibility with reference-api."""
+        return self.threads
 
 
 class Bios(BaseModel):
@@ -39,11 +62,13 @@ class Processor(BaseModel):
     cache_l1i: Optional[int] = None
     cache_l2: Optional[int] = None
     cache_l3: Optional[int] = None
-    clock_speed: int
+    clock_speed: SiFrequency
     instruction_set: CpuInstructionSet = CpuInstructionSet.x86_64
     model: str
     vendor: str
     version: Optional[str] = None
+    cores: Optional[int] = None
+    threads: Optional[int] = None
 
 
 class MainMemory(BaseModel):
