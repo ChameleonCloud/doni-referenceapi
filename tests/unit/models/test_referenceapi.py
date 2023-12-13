@@ -28,8 +28,9 @@ FAKE_PROCESSOR = {
 
 FAKE_ARCHITECTURE = {
     "platform_type": "x86-64",
-    "smp_size": 2,
-    "smt_size": 48,
+    "sockets": 2,
+    "cores": 24,
+    "threads": 48,
 }
 FAKE_BIOS = {
     "release_date": "2013-11-02",

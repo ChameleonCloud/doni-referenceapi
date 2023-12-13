@@ -35,26 +35,28 @@ class Architecture(BaseModel):
     four sockets, eight cores per socket and two threads per core, for a total of 64 CPUs."""
 
     platform_type: CpuInstructionSet
-    sockets: int
-    cores: int
-    threads: int
+    smp_size: int
+    smt_size: int
+    # sockets: int
+    # cores: int
+    # threads: int
 
     @field_validator("platform_type", mode="before")
     def transform(cls, raw: str) -> CpuInstructionSet:
         output = raw.lower().replace("-", "_")
         return CpuInstructionSet(output)
 
-    @computed_field
-    @property
-    def smp_size(self) -> int:
-        """For backwards compatibility with reference-api."""
-        return self.sockets
+    # @computed_field
+    # @property
+    # def smp_size(self) -> int:
+    #     """For backwards compatibility with reference-api."""
+    #     return self.sockets
 
-    @computed_field
-    @property
-    def smt_size(self) -> int:
-        """For backwards compatibility with reference-api."""
-        return self.threads
+    # @computed_field
+    # @property
+    # def smt_size(self) -> int:
+    #     """For backwards compatibility with reference-api."""
+    #     return self.threads
 
 
 class Bios(BaseModel):
@@ -80,8 +82,8 @@ class Processor(BaseModel):
     model: str
     vendor: str
     version: Optional[str] = None
-    cores: Optional[int] = None
-    threads: Optional[int] = None
+    # cores: Optional[int] = None
+    # threads: Optional[int] = None
 
     @field_validator("instruction_set", mode="before")
     def transform(cls, raw: str) -> CpuInstructionSet:
@@ -172,12 +174,17 @@ class SupportedJobTypes(BaseModel):
     virtual: str = "ivt"
 
 
+class Monitoring(BaseModel):
+    wattmeter: bool = False
+
+
 class Node(BaseModel):
     architecture: Architecture
     bios: Bios
     chassis: Optional[Chassis] = None
     infiniband: Optional[bool] = False
     main_memory: MainMemory
+    monitoring: Monitoring = Field(default_factory=Monitoring)
     network_adapters: NetworkAdapterListType
     node_name: str
     node_type: str
