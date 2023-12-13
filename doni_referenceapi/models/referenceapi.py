@@ -2,7 +2,15 @@ from datetime import date
 from enum import Enum
 from typing import NewType, Optional
 
-from pydantic import UUID4, BaseModel, ByteSize, Field, computed_field, conlist
+from pydantic import (
+    UUID4,
+    BaseModel,
+    ByteSize,
+    Field,
+    computed_field,
+    conlist,
+    field_validator,
+)
 
 from doni_referenceapi.common.types.si_frequency import SiFrequency
 
@@ -12,7 +20,7 @@ class cpu_speed(object):
 
 
 class CpuInstructionSet(str, Enum):
-    x86_64 = "x86-64"
+    x86_64 = "x86_64"
     arm64 = "aarch64"
 
 
@@ -27,15 +35,20 @@ class Architecture(BaseModel):
     four sockets, eight cores per socket and two threads per core, for a total of 64 CPUs."""
 
     platform_type: CpuInstructionSet
-    sockets: Optional[int]
+    sockets: int
     cores: int
     threads: int
+
+    @field_validator("platform_type", mode="before")
+    def transform(cls, raw: str) -> CpuInstructionSet:
+        output = raw.lower().replace("-", "_")
+        return CpuInstructionSet(output)
 
     @computed_field
     @property
     def smp_size(self) -> int:
         """For backwards compatibility with reference-api."""
-        return self.cores
+        return self.sockets
 
     @computed_field
     @property
@@ -69,6 +82,11 @@ class Processor(BaseModel):
     version: Optional[str] = None
     cores: Optional[int] = None
     threads: Optional[int] = None
+
+    @field_validator("instruction_set", mode="before")
+    def transform(cls, raw: str) -> CpuInstructionSet:
+        output = raw.lower().replace("-", "_")
+        return CpuInstructionSet(output)
 
 
 class MainMemory(BaseModel):
@@ -125,7 +143,7 @@ class StorageMediaType(str, Enum):
 
 class StorageDevice(BaseModel):
     device: str
-    interface: StorageInterface
+    interface: Optional[StorageInterface] = None
     media_type: StorageMediaType
     model: Optional[str] = None
     rev: Optional[str] = None
@@ -157,13 +175,13 @@ class SupportedJobTypes(BaseModel):
 class Node(BaseModel):
     architecture: Architecture
     bios: Bios
-    chassis: Chassis
-    infiniband: bool = False
+    chassis: Optional[Chassis] = None
+    infiniband: Optional[bool] = False
     main_memory: MainMemory
     network_adapters: NetworkAdapterListType
     node_name: str
     node_type: str
-    placement: Placement
+    placement: Optional[Placement] = None
     processor: Processor
     storage_devices: StorageDeviceListType
     supported_job_types: SupportedJobTypes = Field(default_factory=SupportedJobTypes)
