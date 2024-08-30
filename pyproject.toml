@@ -16,3 +16,6 @@ packages = ["transmogrifier"]
 
 [project.scripts]
 generate-reference-repo = "transmogrifier.main:main"
+
+[tool.setuptools.package-data]
+transmogrifier = ["*.jsonschema"]
