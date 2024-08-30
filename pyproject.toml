@@ -15,4 +15,4 @@ dynamic = ["version"]
 packages = ["transmogrifier"]
 
 [project.scripts]
-run_doni_inventory = "doni_testing.main:main"
+generate-reference-repo = "transmogrifier.main:main"
