@@ -1,6 +1,5 @@
 import argparse
 
-import jsonschema
 import openstack
 from openstack.exceptions import BadRequestException, NotFoundException
 
@@ -26,8 +25,6 @@ def main():
     ironic = conn.baremetal
     inspector = conn.baremetal_introspection
 
-    schema = reference_api.SCHEMA
-
     ironic_uuid_to_blazar_hosts = {
         h.hypervisor_hostname: h for h in conn.reservation.hosts()
     }
@@ -50,13 +47,13 @@ def main():
         generated_data = reference_api.generate_rapi_json(
             blazar_host, node, inspection_dict
         )
-        jsonschema.validate(instance=generated_data, schema=schema)
+        validated_node = reference_api.model.Node(**generated_data)
 
         if args.reference_repo_dir:
             reference_api.write_reference_repo(
-                args.reference_repo_dir, cloud_name, generated_data
+                args.reference_repo_dir, cloud_name, validated_node
             )
-            print(f"wrote reference data for {node.id}")
+            print(f"wrote reference data for {validated_node.uid}")
 
 
 if __name__ == "__main__":

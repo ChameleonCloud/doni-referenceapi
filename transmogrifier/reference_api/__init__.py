@@ -4,6 +4,8 @@ import pathlib
 from openstack.baremetal.v1.node import Node as IronicNode
 from openstack.reservation.v1.host import Host as BlazarHost
 
+from transmogrifier.models import reference_repo as model
+
 REGION_NAME_MAP = {
     "CHI@UC": "uc",
     "CHI@TACC": "tacc",
@@ -128,30 +130,31 @@ def generate_rapi_json(
             "model": disk.get("model"),
             "serial": disk.get("serial"),
             "size": disk.get("size"),
-            "interface": "UNKNOWN",
         }
 
         if disk.get("rotational") == False:
             rapi_disk["media_type"] = "SSD"
         elif disk.get("rotational") == True:
             rapi_disk["media_type"] = "Rotational"
-        else:
-            rapi_disk["media_type"] = "UNKNOWN"
 
         data["storage_devices"].append(rapi_disk)
 
     return data
 
 
-def write_reference_repo(repo_dir, cloud_name, data: dict) -> None:
-    node_id = data.get("uid")
-
+def write_reference_repo(repo_dir, cloud_name, node: model.Node) -> None:
     repo_path = pathlib.Path(repo_dir)
     node_data_path = repo_path.joinpath(
         "data/chameleoncloud/sites",
         cloud_name,
         "clusters/chameleon/nodes",
-        f"{node_id}.json",
+        f"{node.uid}.json",
     )
     with open(node_data_path, "w") as f:
-        json.dump(data, fp=f, indent=2, sort_keys=True)
+        f.write(
+            node.model_dump_json(
+                exclude_none=True,
+                exclude_unset=True,
+                indent=2,
+            )
+        )

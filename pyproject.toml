@@ -7,7 +7,8 @@ name = "transmogrifier"
 requires-python = ">=3.9"
 dependencies = [
     "openstacksdk@git+https://github.com/ChameleonCloud/openstacksdk@chameleoncloud/blazar",
-    "jsonschema"
+    "jsonschema",
+    "pydantic"
 ]
 dynamic = ["version"]
 
@@ -16,6 +17,3 @@ packages = ["transmogrifier"]
 
 [project.scripts]
 generate-reference-repo = "transmogrifier.main:main"
-
-[tool.setuptools.package-data]
-transmogrifier = ["*.jsonschema"]
