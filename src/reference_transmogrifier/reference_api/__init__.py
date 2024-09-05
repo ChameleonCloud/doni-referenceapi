@@ -1,9 +1,6 @@
 import json
 import pathlib
 
-from openstack.baremetal.v1.node import Node as IronicNode
-from openstack.reservation.v1.host import Host as BlazarHost
-
 from reference_transmogrifier.models import reference_repo as model
 
 REGION_NAME_MAP = {
@@ -12,17 +9,8 @@ REGION_NAME_MAP = {
     "CHI@NRP": "nrp",
 }
 
-# allow us to import the referenceapi jsonschema without knowing the path in other modules.
-SCHEMA = None
-with open("data_files/rapi.jsonschema") as f:
-    SCHEMA = json.load(f)
 
-
-def generate_rapi_json(
-    blazar_host: BlazarHost, ironic_node: IronicNode, inspection_item: dict
-):
-    blazar_properties = blazar_host.properties
-
+def generate_rapi_json(blazar_host: dict, inspection_item: dict):
     dmi_data = inspection_item.get("dmi", {})
     dmi_cpu = dmi_data.get("cpu")
     dmi_bios = dmi_data.get("bios")
@@ -42,9 +30,9 @@ def generate_rapi_json(
         return hz
 
     data = {
-        "uid": ironic_node.id,
-        "node_name": ironic_node.name,
-        "node_type": blazar_properties.get("node_type"),
+        "uid": blazar_host.get("hypervisor_hostname"),
+        "node_name": blazar_host.get("node_name"),
+        "node_type": blazar_host.get("node_type"),
         "architecture": {
             "platform_type": inspection_item.get("cpu_arch"),
             "smp_size": len(dmi_cpu),
@@ -84,10 +72,10 @@ def generate_rapi_json(
 
     # hacky, set placement info IFF it exists
     placement = {}
-    placement_node = blazar_properties.get("placement.node")
+    placement_node = blazar_host.get("placement.node")
     if placement_node:
         placement["node"] = placement_node
-    placement_rack = blazar_properties.get("placement.rack")
+    placement_rack = blazar_host.get("placement.rack")
     if placement_rack:
         placement["rack"] = placement_rack
 
