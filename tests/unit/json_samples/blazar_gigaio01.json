@@ -1,0 +1,22 @@
+{
+  "availability_zone": "nova",
+  "cpu_arch": "x86_64",
+  "cpu_info": "",
+  "created_at": "2024-06-05 22:41:51",
+  "disabled": false,
+  "hypervisor_hostname": "d389fc04-f030-425d-8556-55b8d9ec12eb",
+  "hypervisor_type": "ironic",
+  "hypervisor_version": 1,
+  "id": "fc75ac3b-a1f2-4090-8c90-c6d41498266c",
+  "local_gb": 0,
+  "memory_mb": 0,
+  "node_name": "gigaio01",
+  "node_type": "compute_gigaio",
+  "reservable": true,
+  "service_name": "chi01-ironic",
+  "status": "",
+  "su_factor": "1",
+  "trust_id": "ca3dc71ae6bc4b68a497ac1a35f555b6",
+  "updated_at": "2024-09-04 20:03:36",
+  "vcpus": 0
+}
