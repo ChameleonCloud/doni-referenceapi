@@ -4,7 +4,7 @@ import pathlib
 from openstack.baremetal.v1.node import Node as IronicNode
 from openstack.reservation.v1.host import Host as BlazarHost
 
-from transmogrifier.models import reference_repo as model
+from reference_transmogrifier.models import reference_repo as model
 
 REGION_NAME_MAP = {
     "CHI@UC": "uc",

@@ -3,7 +3,7 @@ import argparse
 import openstack
 from openstack.exceptions import BadRequestException, NotFoundException
 
-from transmogrifier import reference_api
+from reference_transmogrifier import reference_api
 
 
 def parse_args():
