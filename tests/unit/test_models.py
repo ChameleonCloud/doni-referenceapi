@@ -12,19 +12,16 @@ class TestIronicInspectorModel(base.TestCase):
         with open("tests/unit/json_samples/ironic_inspector_gigaio01.json") as f:
             self.ironic_inspector_node_json = json.load(f)
 
+        self.model = ironic_inspector.InspectorResult(**self.ironic_inspector_node_json)
+
     def test_inspector_extra_hardware(self):
         extra = self.ironic_inspector_node_json.get("extra")
         ironic_inspector.InspectorExtraHardware.model_validate(extra)
 
-    def test_inspector_result(self):
-        ironic_inspector.InspectorResult.model_validate(self.ironic_inspector_node_json)
-
     def test_get_nic_info(self):
-        model = ironic_inspector.InspectorResult(**self.ironic_inspector_node_json)
-        ifaces = model.extra.network
-        for name, value in ifaces.items():
-            result = value.as_reference_iface(name)
-            reference_repo.NetworkAdapter.model_validate(result)
+        ifaces = self.model.get_referenceapi_network_adapters()
+        for iface in ifaces:
+            reference_repo.NetworkAdapter.model_validate(iface)
 
 
 class ReferenceRepoNode(base.TestCase):

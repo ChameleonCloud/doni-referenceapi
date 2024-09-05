@@ -61,3 +61,10 @@ class InspectorResult(BaseModel):
     cpu_arch: str
     memory_mb: int
     extra: Optional[InspectorExtraHardware]
+
+    def get_referenceapi_network_adapters(self):
+        extra_hardware_ifaces = self.extra.network.items()
+        ifaces = [
+            iface.as_reference_iface(name) for name, iface in extra_hardware_ifaces
+        ]
+        return ifaces

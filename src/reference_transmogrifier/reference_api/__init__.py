@@ -1,6 +1,6 @@
 import pathlib
 
-from reference_transmogrifier.models import reference_repo as model
+from reference_transmogrifier.models import ironic_inspector, reference_repo
 
 REGION_NAME_MAP = {
     "CHI@UC": "uc",
@@ -10,6 +10,8 @@ REGION_NAME_MAP = {
 
 
 def generate_rapi_json(blazar_host: dict, inspection_item: dict):
+    inspector_data = ironic_inspector.InspectorResult(**inspection_item)
+
     dmi_data = inspection_item.get("dmi", {})
     dmi_cpu = dmi_data.get("cpu")
     dmi_bios = dmi_data.get("bios")
@@ -81,26 +83,7 @@ def generate_rapi_json(blazar_host: dict, inspection_item: dict):
     if placement:
         data["placement"] = placement
 
-    # sort all present interfaces by mac address
-    sorted_interface_list = sorted(
-        inspection_item.get("all_interfaces", []).items(),
-        key=lambda i: i[1]["mac"],
-    )
-    for name, values in sorted_interface_list:
-        rapi_interface = {
-            "device": name,
-            "mac": values.get("mac"),
-            "enabled": None,
-        }
-
-        # if ironic inspection gets an ip address, then the interface
-        # is enabled in neutron
-        if values.get("ip"):
-            rapi_interface["enabled"] = True
-        else:
-            rapi_interface["enabled"] = False
-
-        data["network_adapters"].append(rapi_interface)
+    data["network_adapters"] = inspector_data.get_referenceapi_network_adapters()
 
     for disk in inspection_inventory.get("disks", []):
         rapi_disk = {
@@ -120,7 +103,7 @@ def generate_rapi_json(blazar_host: dict, inspection_item: dict):
     return data
 
 
-def write_reference_repo(repo_dir, cloud_name, node: model.Node) -> None:
+def write_reference_repo(repo_dir, cloud_name, node: reference_repo.Node) -> None:
     repo_path = pathlib.Path(repo_dir)
     node_data_path = repo_path.joinpath(
         "data/chameleoncloud/sites",
