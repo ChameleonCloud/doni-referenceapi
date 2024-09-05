@@ -105,7 +105,7 @@ class Architecture(BaseModel):
 
 
 class Bios(BaseModel):
-    release_date: Optional[datetime.date] = None
+    release_date: datetime.date
     vendor: NormalizedManufacturer
     version: str
 
@@ -170,8 +170,8 @@ class ChassisModelEnum(str, Enum):
 
 class Chassis(BaseModel):
     manufacturer: NormalizedManufacturer
-    name: Optional[ChassisModelEnum] = None
-    serial: Optional[str] = None
+    name: ChassisModelEnum
+    serial: str
 
     @field_validator("name", mode="before")
     @classmethod
@@ -213,8 +213,8 @@ class Chassis(BaseModel):
 
 #
 class MainMemory(BaseModel):
-    humanized_ram_size: Optional[str] = None
-    ram_size: Optional[int]
+    humanized_ram_size: str
+    ram_size: int
 
 
 class Monitoring(BaseModel):
@@ -223,17 +223,16 @@ class Monitoring(BaseModel):
 
 class NetworkAdapter(BaseModel):
     bridged: bool = False
-    device: Optional[str] = None
-    driver: Optional[str] = None
+    device: str
+    driver: str
     enabled: bool = False
-    interface: Optional[str] = None
-    mac: Optional[str] = None
-    management: Optional[bool] = False
-    model: Optional[str] = None
-    mounted: Optional[bool] = None
-    name: Optional[str] = None
-    rate: Optional[int] = None
-    vendor: Optional[NormalizedManufacturer] = None
+    interface: str = "Ethernet"
+    mac: str
+    management: bool = False
+    model: str
+    mounted: bool = False
+    rate: int
+    vendor: NormalizedManufacturer
 
 
 class Placement(BaseModel):
@@ -303,17 +302,17 @@ class SupportedJobTypes(BaseModel):
 
 class Node(BaseModel):
     architecture: Architecture
-    bios: Optional[Bios] = None
-    chassis: Optional[Chassis] = None
-    infiniband: Optional[bool] = None
-    main_memory: Optional[MainMemory] = None
-    monitoring: Optional[Monitoring] = None
+    bios: Bios
+    chassis: Chassis
+    infiniband: bool = False
+    main_memory: MainMemory
+    monitoring: Monitoring
     network_adapters: List[NetworkAdapter]
     node_name: str
     node_type: NodeTypeEnum
-    placement: Optional[Placement] = None
+    placement: Placement = {}
     processor: Processor
     storage_devices: List[StorageDevice]
-    supported_job_types: Optional[SupportedJobTypes] = None
+    supported_job_types: SupportedJobTypes
     type: str = "node"
     uid: UUID4

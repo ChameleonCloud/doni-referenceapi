@@ -1,4 +1,3 @@
-import json
 import pathlib
 
 from reference_transmogrifier.models import reference_repo as model
@@ -89,7 +88,7 @@ def generate_rapi_json(blazar_host: dict, inspection_item: dict):
     )
     for name, values in sorted_interface_list:
         rapi_interface = {
-            "name": name,
+            "device": name,
             "mac": values.get("mac"),
             "enabled": None,
         }
@@ -100,15 +99,6 @@ def generate_rapi_json(blazar_host: dict, inspection_item: dict):
             rapi_interface["enabled"] = True
         else:
             rapi_interface["enabled"] = False
-
-        lldp = values.get("lldp_processed")
-        if lldp:
-            rapi_interface["local_link_connection"] = {
-                "switch_id": lldp.get("switch_chassis_id"),
-                "switch_info": lldp.get("switch_system_name"),
-                "switch_port_id": lldp.get("switch_port_id"),
-                "switch_port_mtu": lldp.get("switch_port_mtu"),
-            }
 
         data["network_adapters"].append(rapi_interface)
 
