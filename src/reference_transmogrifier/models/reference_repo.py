@@ -75,6 +75,7 @@ def normalize_manufacturer(name: str) -> ManufacturerEnum:
         "gigabyte": ManufacturerEnum.gigabyte,
         "amd": ManufacturerEnum.amd,
         "intel": ManufacturerEnum.intel,
+        "genuineintel": ManufacturerEnum.intel,
         "micron": ManufacturerEnum.micron,
         "mellanox": ManufacturerEnum.mellanox,
         "phison": ManufacturerEnum.phison,
@@ -250,11 +251,12 @@ class Placement(BaseModel):
 
 
 class Processor(BaseModel):
-    cache_l1: Optional[int] = None
-    cache_l2: Optional[int] = None
-    cache_l3: Optional[int] = None
-    clock_speed: Optional[int] = None
-    instruction_set: Optional[str] = None
+    cache_l1d: int
+    cache_l1i: int
+    cache_l2: int
+    cache_l3: int
+    clock_speed: int
+    instruction_set: str
     model: str
     vendor: NormalizedManufacturer
     version: Optional[str] = None

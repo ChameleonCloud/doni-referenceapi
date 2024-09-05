@@ -1,6 +1,7 @@
 import pathlib
 
-from reference_transmogrifier.models import ironic_inspector, reference_repo
+from reference_transmogrifier.models import reference_repo
+from reference_transmogrifier.models.inspector import main
 
 REGION_NAME_MAP = {
     "CHI@UC": "uc",
@@ -10,25 +11,18 @@ REGION_NAME_MAP = {
 
 
 def generate_rapi_json(blazar_host: dict, inspection_item: dict):
-    inspector_data = ironic_inspector.InspectorResult(**inspection_item)
+    inspector_data = main.InspectorResult(**inspection_item)
 
     dmi_data = inspection_item.get("dmi", {})
     dmi_cpu = dmi_data.get("cpu")
     dmi_bios = dmi_data.get("bios")
 
     inspection_inventory = inspection_item.get("inventory", {})
-    inventory_cpu = inspection_inventory.get("cpu")
     chassis = inspection_inventory.get("system_vendor")
     memory = inspection_inventory.get("memory")
 
     # // for integer floor division, don't convert to float
     memory_gb = memory.get("physical_mb") // 1024
-
-    def hz_from_mhz(mhz):
-        # string to float to int...
-        mhz_int = int(float(mhz))
-        hz = mhz_int * 1000 * 1000
-        return hz
 
     data = {
         "uid": blazar_host.get("hypervisor_hostname"),
@@ -48,13 +42,6 @@ def generate_rapi_json(blazar_host: dict, inspection_item: dict):
             "manufacturer": chassis.get("manufacturer"),
             "name": chassis.get("product_name"),
             "serial": chassis.get("serial_number"),
-        },
-        "processor": {
-            "model": f"{dmi_cpu[0].get('Manufacturer')} {dmi_cpu[0].get('Family')}",
-            "other_description": inventory_cpu.get("model_name"),
-            "clock_speed": hz_from_mhz(inventory_cpu.get("frequency")),
-            "instruction_set": inventory_cpu.get("architecture"),
-            "vendor": dmi_cpu[0].get("Manufacturer"),
         },
         "main_memory": {
             "humanized_ram_size": f"{memory_gb} GiB",
@@ -83,6 +70,7 @@ def generate_rapi_json(blazar_host: dict, inspection_item: dict):
     if placement:
         data["placement"] = placement
 
+    data["processor"] = inspector_data.get_referenceapi_cpu_info()
     data["network_adapters"] = inspector_data.get_referenceapi_network_adapters()
 
     for disk in inspection_inventory.get("disks", []):

@@ -7,14 +7,12 @@ name = "reference-transmogrifier"
 requires-python = ">=3.9"
 dependencies = [
     "openstacksdk@git+https://github.com/ChameleonCloud/openstacksdk@chameleoncloud/blazar",
-    "pydantic"
+    "pydantic",
 ]
 dynamic = ["version"]
 
 [project.optional-dependencies]
-dev = [
-    "oslotest"
-]
+dev = ["oslotest"]
 
 
 [project.scripts]
