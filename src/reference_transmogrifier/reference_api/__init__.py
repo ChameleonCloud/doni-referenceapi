@@ -1,7 +1,6 @@
 import pathlib
 
-from reference_transmogrifier.models import reference_repo
-from reference_transmogrifier.models.inspector import main
+from reference_transmogrifier.models import inspector, reference_repo
 
 REGION_NAME_MAP = {
     "CHI@UC": "uc",
@@ -11,7 +10,7 @@ REGION_NAME_MAP = {
 
 
 def generate_rapi_json(blazar_host: dict, inspection_item: dict):
-    inspector_data = main.InspectorResult(**inspection_item)
+    inspector_data = inspector.InspectorResult(**inspection_item)
 
     dmi_data = inspection_item.get("dmi", {})
     dmi_cpu = dmi_data.get("cpu")

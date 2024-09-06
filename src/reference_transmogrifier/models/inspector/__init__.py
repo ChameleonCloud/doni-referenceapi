@@ -21,16 +21,16 @@ class InspectorResult(BaseModel):
     cpus: int
     cpu_arch: str
     memory_mb: int
-    extra: Optional[extra_hardware.InspectorExtraHardware]
+    extra: Optional[extra_hardware.InspectorExtraHardware] = None
 
-    def get_referenceapi_network_adapters(self):
+    def get_referenceapi_network_adapters(self) -> List[reference_repo.NetworkAdapter]:
         extra_hardware_ifaces = self.extra.network.items()
         ifaces = [
             iface.as_reference_iface(name) for name, iface in extra_hardware_ifaces
         ]
         return ifaces
 
-    def get_referenceapi_cpu_info(self):
+    def get_referenceapi_cpu_info(self) -> reference_repo.Processor:
         extra_hardware_cpu = self.extra.cpu
         dmi_cpu = self.dmi.cpu[0]
 
@@ -45,7 +45,7 @@ class InspectorResult(BaseModel):
             vendor=extra_hardware_cpu.physical_0.vendor,
         )
 
-    def get_referenceapi_disks(self):
+    def get_referenceapi_disks(self) -> List[reference_repo.StorageDevice]:
         """Combine data from multiple ironic collectors.
 
         We can use the wwn-id to match disks from inventory and extra data sources
@@ -53,43 +53,36 @@ class InspectorResult(BaseModel):
 
         output_disks_list = []
 
-        extra_data_disks = self.extra.disk
         extra_disks_by_wwn = {}
-        # index by wwn
-        for name, disk in extra_data_disks.items():
-            wwn = disk.wwn_id.lstrip("wwn-")
-            extra_disks_by_wwn[wwn] = disk
+        if self.extra:
+            extra_data_disks = self.extra.disk
+            # index by wwn
+            for name, disk in extra_data_disks.items():
+                wwn = disk.wwn_id.lstrip("wwn-")
+                extra_disks_by_wwn[wwn] = disk
 
         inventory_disks_list = self.inventory.disks
         for d in inventory_disks_list:
             wwn = d.wwn_with_extension
             # find matching disk by wwn
-            extra_disk = extra_disks_by_wwn[wwn]
+            extra_disk = extra_disks_by_wwn.get(wwn)
 
-            disk_vendor = d.vendor
-            """A number of nodes incorrectly report ATA as the vendor."""
-            if disk_vendor == "ATA":
-                disk_vendor = None
+            extra_args = {}
+            if isinstance(extra_disk, extra_hardware.Disk):
+                extra_args["rev"] = extra_disk.rev
 
-            # guess interface from path
-            if "scsi" in d.by_path:
-                disk_interface = "SAS"
-            elif "nvme" in d.by_path:
-                disk_interface = "PCIe"
-            elif "sata" in d.by_path:
-                disk_interface = "SATA"
-            else:
-                disk_interface = None
+            if d.serial:
+                extra_args["serial"] = d.serial
 
             output = reference_repo.StorageDevice(
                 device=d.name,
-                humanized_size=d.size.human_readable(),
+                humanized_size=d.humanized_size,
                 size=d.size,
                 model=d.model,
-                vendor=disk_vendor,
-                rev=extra_disk.rev,
-                interface=disk_interface,
-                media_type=extra_disk.media_type,
+                vendor=d.vendor,
+                interface=d.interface,
+                media_type=d.media_type,
+                **extra_args,
             )
             output_disks_list.append(output)
         return output_disks_list

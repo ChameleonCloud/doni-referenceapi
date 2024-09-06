@@ -1,8 +1,8 @@
 import json
 
 import reference_transmogrifier.reference_api
-from reference_transmogrifier.models import reference_repo
-from reference_transmogrifier.models.inspector import extra_hardware, main
+from reference_transmogrifier.models import inspector, reference_repo
+from reference_transmogrifier.models.inspector import extra_hardware
 from tests.unit import base
 
 
@@ -43,22 +43,39 @@ class TestIronicInspectorModel(base.TestCase):
         super().setUp()
 
         with open("tests/unit/json_samples/ironic_inspector_gigaio01.json") as f:
-            self.ironic_inspector_node_json = json.load(f)
+            self.ironic_inspector_node_json_extra = json.load(f)
 
-        self.model = main.InspectorResult(**self.ironic_inspector_node_json)
+        with open(
+            "tests/unit/json_samples/ironic_inspector_gigaio01_noextra.json"
+        ) as f:
+            self.ironic_inspector_node_json_noextra = json.load(f)
+
+    def test_fullmodel_extra(self):
+        model = inspector.InspectorResult(**self.ironic_inspector_node_json_extra)
+
+    def test_fullmodel_noextra(self):
+        model = inspector.InspectorResult(**self.ironic_inspector_node_json_noextra)
 
     def test_get_nic_info(self):
-        ifaces = self.model.get_referenceapi_network_adapters()
+        model = inspector.InspectorResult(**self.ironic_inspector_node_json_noextra)
+        ifaces = model.get_referenceapi_network_adapters()
         for iface in ifaces:
             reference_repo.NetworkAdapter.model_validate(iface)
 
     def test_get_cpu_info(self):
-        result = self.model.get_referenceapi_cpu_info()
+        model = inspector.InspectorResult(**self.ironic_inspector_node_json_noextra)
+        result = model.get_referenceapi_cpu_info()
         reference_repo.Processor.model_validate(result)
 
     def test_get_disks(self):
-        result = self.model.get_referenceapi_disks()
-        print(result)
+        model = inspector.InspectorResult(**self.ironic_inspector_node_json_noextra)
+        result = model.get_referenceapi_disks()
+        assert result[0].rev is None
+
+    def test_get_disks_extra(self):
+        model = inspector.InspectorResult(**self.ironic_inspector_node_json_extra)
+        result = model.get_referenceapi_disks()
+        assert result[0].rev == "J004"
 
 
 class ReferenceRepoNode(base.TestCase):

@@ -279,7 +279,8 @@ class StorageDevice(BaseModel):
     interface: StorageInterfaceEnum
     media_type: Optional[StorageMediaTypeEnum] = None
     model: str
-    rev: str
+    serial: Optional[str] = None
+    rev: Optional[str] = None
     size: int
     vendor: Optional[NormalizedManufacturer] = None
 
@@ -312,7 +313,7 @@ class Node(BaseModel):
     network_adapters: List[NetworkAdapter]
     node_name: str
     node_type: NodeTypeEnum
-    placement: Placement = {}
+    placement: Optional[Placement] = None
     processor: Processor
     storage_devices: List[StorageDevice]
     supported_job_types: SupportedJobTypes
