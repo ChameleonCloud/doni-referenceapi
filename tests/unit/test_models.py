@@ -39,42 +39,43 @@ class TestIronicInspectorExtraData(base.TestCase):
 
 
 class TestIronicInspectorModel(base.TestCase):
+    """Test methods for generating referenceapi info."""
+
     def setUp(self):
         super().setUp()
-
-        with open("tests/unit/json_samples/ironic_inspector_gigaio01.json") as f:
-            self.ironic_inspector_node_json_extra = json.load(f)
-
         with open(
             "tests/unit/json_samples/ironic_inspector_gigaio01_noextra.json"
         ) as f:
-            self.ironic_inspector_node_json_noextra = json.load(f)
+            self.ironic_inspector_node_json = json.load(f)
 
-    def test_fullmodel_extra(self):
-        model = inspector.InspectorResult(**self.ironic_inspector_node_json_extra)
-
-    def test_fullmodel_noextra(self):
-        model = inspector.InspectorResult(**self.ironic_inspector_node_json_noextra)
+        self.model = inspector.InspectorResult(**self.ironic_inspector_node_json)
 
     def test_get_nic_info(self):
-        model = inspector.InspectorResult(**self.ironic_inspector_node_json_noextra)
-        ifaces = model.get_referenceapi_network_adapters()
+        ifaces = self.model.get_referenceapi_network_adapters()
         for iface in ifaces:
             reference_repo.NetworkAdapter.model_validate(iface)
 
     def test_get_cpu_info(self):
-        model = inspector.InspectorResult(**self.ironic_inspector_node_json_noextra)
-        result = model.get_referenceapi_cpu_info()
+        result = self.model.get_referenceapi_cpu_info()
         reference_repo.Processor.model_validate(result)
 
     def test_get_disks(self):
-        model = inspector.InspectorResult(**self.ironic_inspector_node_json_noextra)
-        result = model.get_referenceapi_disks()
+        result = self.model.get_referenceapi_disks()
         assert result[0].rev is None
 
-    def test_get_disks_extra(self):
-        model = inspector.InspectorResult(**self.ironic_inspector_node_json_extra)
-        result = model.get_referenceapi_disks()
+
+class TestIronicInspectorModelExtra(TestIronicInspectorModel):
+    """Test methods for generating referenceapi info, with extra_data dict present."""
+
+    def setUp(self):
+        super().setUp()
+        with open("tests/unit/json_samples/ironic_inspector_gigaio01.json") as f:
+            self.ironic_inspector_node_json = json.load(f)
+
+        self.model = inspector.InspectorResult(**self.ironic_inspector_node_json)
+
+    def test_get_disks(self):
+        result = self.model.get_referenceapi_disks()
         assert result[0].rev == "J004"
 
 
