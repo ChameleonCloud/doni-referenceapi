@@ -1,6 +1,13 @@
 from typing import Optional, Self
 
-from pydantic import BaseModel, ByteSize, Field, computed_field, model_validator
+from pydantic import (
+    BaseModel,
+    ByteSize,
+    Field,
+    computed_field,
+    field_validator,
+    model_validator,
+)
 
 from reference_transmogrifier.models import reference_repo
 
@@ -72,6 +79,24 @@ class PhysicalCPU(BaseModel):
     max_Mhz: int
     flags: str
     threads_per_core: int
+
+    @model_validator(mode="before")
+    def cache_per_core(self) -> Self:
+        """Cache is provided as totals, but we care about per-core."""
+        keys = ["l1d cache", "l1i cache", "l2 cache", "l3 cache"]
+        for k in keys:
+            value = self.get(k)
+            if not value:
+                raise ValueError(f"{k} not found in input")
+
+            size_str = value.split("(")[0].strip()
+            instances_str = value.split("(")[1].strip().split(" ")[0]
+
+            num_instances = int(instances_str)
+            total_size_bytes = ByteSize._validate(size_str, None)
+            per_core_bytes = total_size_bytes // num_instances
+            self[k] = per_core_bytes
+        return self
 
 
 class CPU(BaseModel):

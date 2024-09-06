@@ -48,7 +48,7 @@ class InspectorResult(BaseModel):
         return reference_repo.Processor(
             clock_speed=dmi_cpu.current_speed_hz(),
             instruction_set=inv_cpu.architecture,
-            model=inv_cpu.model_name,
+            model=inv_cpu.name,
             vendor=dmi_cpu.manufacturer,
             **args,
         )

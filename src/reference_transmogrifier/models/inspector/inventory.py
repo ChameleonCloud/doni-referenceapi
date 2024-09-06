@@ -1,6 +1,6 @@
 from typing import List, Optional, Self
 
-from pydantic import BaseModel, ByteSize, computed_field, field_validator
+from pydantic import BaseModel, ByteSize, Field, computed_field, field_validator
 
 from reference_transmogrifier.models import reference_repo
 
@@ -69,7 +69,7 @@ class Disk(BaseModel):
 
 
 class CPU(BaseModel):
-    model_name: str
+    name: str = Field(alias="model_name")
     frequency: str
     count: int
     architecture: str
