@@ -24,10 +24,13 @@ class InspectorResult(BaseModel):
     extra: Optional[extra_hardware.InspectorExtraHardware] = None
 
     def get_referenceapi_network_adapters(self) -> List[reference_repo.NetworkAdapter]:
-        extra_hardware_ifaces = self.extra.network.items()
-        ifaces = [
-            iface.as_reference_iface(name) for name, iface in extra_hardware_ifaces
-        ]
+        if self.extra:
+            ifaces = [
+                iface.as_reference_iface(name)
+                for name, iface in self.extra.network.items()
+            ]
+        else:
+            ifaces = [iface.as_reference_iface() for iface in self.inventory.interfaces]
         return ifaces
 
     def get_referenceapi_cpu_info(self) -> reference_repo.Processor:

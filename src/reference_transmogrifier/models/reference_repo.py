@@ -225,15 +225,15 @@ class Monitoring(BaseModel):
 class NetworkAdapter(BaseModel):
     bridged: bool = False
     device: str
-    driver: str
+    driver: Optional[str] = None
     enabled: bool = False
     interface: str = "Ethernet"
     mac: str
     management: bool = False
-    model: str
+    model: Optional[str] = None
     mounted: bool = False
-    rate: int
-    vendor: NormalizedManufacturer
+    rate: Optional[int] = None
+    vendor: Optional[NormalizedManufacturer] = None
 
 
 class Placement(BaseModel):

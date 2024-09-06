@@ -2,6 +2,21 @@ from typing import List, Optional, Self
 
 from pydantic import BaseModel, ByteSize, computed_field, field_validator
 
+from reference_transmogrifier.models import reference_repo
+
+
+class NetworkInterface(BaseModel):
+    name: str
+    mac_address: str
+    has_carrier: bool
+    vendor: str
+    product: str
+
+    def as_reference_iface(self) -> reference_repo.NetworkAdapter:
+        return reference_repo.NetworkAdapter(
+            device=self.name, mac=self.mac_address, enabled=self.has_carrier
+        )
+
 
 class Disk(BaseModel):
     name: str
@@ -54,7 +69,7 @@ class Disk(BaseModel):
 
 
 class Inventory(BaseModel):
-    interfaces: List[dict]
+    interfaces: List[NetworkInterface]
     cpu: dict
     disks: List[Disk]
     memory: dict
