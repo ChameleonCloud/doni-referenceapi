@@ -34,18 +34,23 @@ class InspectorResult(BaseModel):
         return ifaces
 
     def get_referenceapi_cpu_info(self) -> reference_repo.Processor:
-        extra_hardware_cpu = self.extra.cpu
+        inv_cpu = self.inventory.cpu
         dmi_cpu = self.dmi.cpu[0]
 
+        args = {}
+        if self.extra:
+            ecpu = self.extra.cpu
+            args["cache_l1d"] = ecpu.physical_0.l1d_cache
+            args["cache_l1i"] = ecpu.physical_0.l1i_cache
+            args["cache_l2"] = ecpu.physical_0.l2_cache
+            args["cache_l3"] = ecpu.physical_0.l3_cache
+
         return reference_repo.Processor(
-            cache_l1d=extra_hardware_cpu.physical_0.l1d_cache,
-            cache_l1i=extra_hardware_cpu.physical_0.l1i_cache,
-            cache_l2=extra_hardware_cpu.physical_0.l2_cache,
-            cache_l3=extra_hardware_cpu.physical_0.l3_cache,
             clock_speed=dmi_cpu.current_speed_hz(),
-            instruction_set=extra_hardware_cpu.physical_0.architecture,
-            model=extra_hardware_cpu.physical_0.product,
-            vendor=extra_hardware_cpu.physical_0.vendor,
+            instruction_set=inv_cpu.architecture,
+            model=inv_cpu.model_name,
+            vendor=dmi_cpu.manufacturer,
+            **args,
         )
 
     def get_referenceapi_disks(self) -> List[reference_repo.StorageDevice]:

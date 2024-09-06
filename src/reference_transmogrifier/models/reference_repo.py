@@ -251,10 +251,10 @@ class Placement(BaseModel):
 
 
 class Processor(BaseModel):
-    cache_l1d: int
-    cache_l1i: int
-    cache_l2: int
-    cache_l3: int
+    cache_l1d: Optional[int] = None
+    cache_l1i: Optional[int] = None
+    cache_l2: Optional[int] = None
+    cache_l3: Optional[int] = None
     clock_speed: int
     instruction_set: str
     model: str

@@ -68,9 +68,17 @@ class Disk(BaseModel):
             return None
 
 
+class CPU(BaseModel):
+    model_name: str
+    frequency: str
+    count: int
+    architecture: str
+    flags: List[str]
+
+
 class Inventory(BaseModel):
     interfaces: List[NetworkInterface]
-    cpu: dict
+    cpu: CPU
     disks: List[Disk]
     memory: dict
     system_vendor: dict
