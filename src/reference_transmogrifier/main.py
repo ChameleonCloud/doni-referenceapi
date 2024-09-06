@@ -35,6 +35,11 @@ def main():
     for node in all_baremetal_nodes:
         blazar_host = ironic_uuid_to_blazar_hosts.get(node.id)
 
+        # HACK: convert back to the form the API returns, instead of using properties field
+        blazar_host_dict = blazar_host.to_dict()
+        blazar_host_properties = blazar_host_dict.pop("properties")
+        blazar_host_dict.update(blazar_host_properties)
+
         # For each node, get the inspection data from ironic_inspector
         try:
             inspection_dict = inspector.get_introspection_data(
@@ -44,10 +49,15 @@ def main():
             print(f"failed to get inspection data for node {node.id}")
             continue
 
-        generated_data = reference_api.generate_rapi_json(
-            blazar_host, node, inspection_dict
-        )
-        validated_node = reference_api.model.Node(**generated_data)
+        try:
+            generated_data = reference_api.generate_rapi_json(
+                blazar_host_dict, inspection_dict
+            )
+        except Exception as ex:
+            print(ex)
+            continue
+
+        validated_node = reference_api.reference_repo.Node(**generated_data)
 
         if args.reference_repo_dir:
             reference_api.write_reference_repo(
