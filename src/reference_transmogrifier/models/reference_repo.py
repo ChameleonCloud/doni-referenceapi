@@ -275,13 +275,13 @@ class StorageMediaTypeEnum(str, Enum):
 
 class StorageDevice(BaseModel):
     device: str
-    humanized_size: Optional[str] = None
-    interface: Optional[StorageInterfaceEnum] = None
+    humanized_size: str
+    interface: StorageInterfaceEnum
     media_type: Optional[StorageMediaTypeEnum] = None
     model: str
-    rev: Optional[str] = None
-    size: Optional[int] = None
-    vendor: NormalizedManufacturer = None
+    rev: str
+    size: int
+    vendor: Optional[NormalizedManufacturer] = None
 
     @field_validator("media_type", mode="before")
     @classmethod

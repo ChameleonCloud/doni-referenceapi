@@ -1,6 +1,6 @@
-from typing import Optional
+from typing import Optional, Self
 
-from pydantic import BaseModel, ByteSize, Field
+from pydantic import BaseModel, ByteSize, Field, computed_field, model_validator
 
 from reference_transmogrifier.models import reference_repo
 
@@ -30,6 +30,24 @@ class NetworkAdapter(BaseModel):
         )
 
         return output
+
+
+class Disk(BaseModel):
+    size_gb: int = Field(alias="size")
+    vendor: str
+    model: str
+    rev: str
+    rotational: bool
+    serial: str = Field(alias="SMART/serial_number")
+    wwn_id: str = Field(alias="wwn-id")
+
+    @computed_field
+    @property
+    def media_type(self) -> str:
+        if self.rotational:
+            return "Rotational"
+        else:
+            return "SSD"
 
 
 class CPUSummary(BaseModel):
@@ -65,7 +83,7 @@ class CPU(BaseModel):
 
 
 class InspectorExtraHardware(BaseModel):
-    disk: dict
+    disk: dict[str, Disk]
     system: dict
     firmware: dict
     memory: dict
@@ -75,3 +93,11 @@ class InspectorExtraHardware(BaseModel):
     numa: dict
     ipmi: dict
     hw: dict
+
+    @model_validator(mode="before")
+    def pop_logical_disk(self) -> None:
+        """The disk model is not well formed, having two data types."""
+        disk_data = self.get("disk")
+        disk_data.pop("logical")
+        self["disk"] = disk_data
+        return self

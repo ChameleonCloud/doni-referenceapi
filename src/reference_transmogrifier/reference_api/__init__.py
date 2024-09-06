@@ -72,21 +72,7 @@ def generate_rapi_json(blazar_host: dict, inspection_item: dict):
 
     data["processor"] = inspector_data.get_referenceapi_cpu_info()
     data["network_adapters"] = inspector_data.get_referenceapi_network_adapters()
-
-    for disk in inspection_inventory.get("disks", []):
-        rapi_disk = {
-            "device": disk.get("name"),
-            "model": disk.get("model"),
-            "serial": disk.get("serial"),
-            "size": disk.get("size"),
-        }
-
-        if disk.get("rotational") == False:
-            rapi_disk["media_type"] = "SSD"
-        elif disk.get("rotational") == True:
-            rapi_disk["media_type"] = "Rotational"
-
-        data["storage_devices"].append(rapi_disk)
+    data["storage_devices"] = inspector_data.get_referenceapi_disks()
 
     return data
 
