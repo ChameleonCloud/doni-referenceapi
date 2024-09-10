@@ -289,7 +289,7 @@ class StorageDevice(BaseModel):
     device: str
     humanized_size: str
     interface: StorageInterfaceEnum
-    media_type: StorageMediaTypeEnum
+    media_type: Optional[StorageMediaTypeEnum] = None
     model: str
     serial: Optional[str] = None
     rev: Optional[str] = None

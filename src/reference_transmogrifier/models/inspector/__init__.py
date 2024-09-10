@@ -3,7 +3,12 @@ from typing import List, Optional
 from pydantic import BaseModel
 
 from reference_transmogrifier.models import reference_repo
-from reference_transmogrifier.models.inspector import dmi, extra_hardware, inventory
+from reference_transmogrifier.models.inspector import (
+    dmi,
+    extra_hardware,
+    inventory,
+    pci,
+)
 
 
 class InspectorResult(BaseModel):
@@ -21,7 +26,7 @@ class InspectorResult(BaseModel):
     cpus: int
     cpu_arch: str
     memory_mb: int
-    extra: extra_hardware.InspectorExtraHardware
+    extra: Optional[extra_hardware.InspectorExtraHardware] = None
 
     def get_referenceapi_network_adapters(self) -> List[reference_repo.NetworkAdapter]:
         if self.extra:

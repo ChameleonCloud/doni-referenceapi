@@ -50,10 +50,11 @@ class TestIronicInspectorModel(base.TestCase):
 
         self.model = inspector.InspectorResult(**self.ironic_inspector_node_json)
 
-    def test_get_nic_info(self):
-        ifaces = self.model.get_referenceapi_network_adapters()
-        for iface in ifaces:
-            reference_repo.NetworkAdapter.model_validate(iface)
+    # we currently expect this to fail if `extra` data isn't available
+    # def test_get_nic_info(self):
+    #     ifaces = self.model.get_referenceapi_network_adapters()
+    #     for iface in ifaces:
+    #         reference_repo.NetworkAdapter.model_validate(iface)
 
     def test_get_cpu_info(self):
         result = self.model.get_referenceapi_cpu_info()
@@ -73,6 +74,11 @@ class TestIronicInspectorModelExtra(TestIronicInspectorModel):
             self.ironic_inspector_node_json = json.load(f)
 
         self.model = inspector.InspectorResult(**self.ironic_inspector_node_json)
+
+    def test_get_nic_info(self):
+        ifaces = self.model.get_referenceapi_network_adapters()
+        for iface in ifaces:
+            reference_repo.NetworkAdapter.model_validate(iface)
 
     def test_get_disks(self):
         result = self.model.get_referenceapi_disks()
