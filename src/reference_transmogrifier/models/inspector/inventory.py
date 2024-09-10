@@ -31,6 +31,11 @@ class Disk(BaseModel):
     hctl: str
     by_path: str
 
+    @field_validator("name", mode="after")
+    @classmethod
+    def remove_dev_prefix(cls, v: str) -> str:
+        return v.lstrip("/dev/")
+
     @field_validator("vendor", mode="after")
     @classmethod
     def check_disk_vendor(cls, v: str) -> str:
@@ -60,9 +65,11 @@ class Disk(BaseModel):
         # guess interface from path
         if "scsi" in self.by_path:
             return "SAS"
+        elif "sas" in self.by_path:
+            return "SAS"
         elif "nvme" in self.by_path:
             return "PCIe"
-        elif "sata" in self.by_path:
+        elif "ata" in self.by_path:
             return "SATA"
         else:
             return None

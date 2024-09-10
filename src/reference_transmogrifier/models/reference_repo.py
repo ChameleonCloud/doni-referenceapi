@@ -1,6 +1,6 @@
 import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import List, Optional, Self
 
 from pydantic import UUID4, BaseModel, field_validator
 from pydantic.functional_validators import BeforeValidator
@@ -225,15 +225,27 @@ class Monitoring(BaseModel):
 class NetworkAdapter(BaseModel):
     bridged: bool = False
     device: str
-    driver: Optional[str] = None
+    driver: str
     enabled: bool = False
     interface: str = "Ethernet"
     mac: str
     management: bool = False
     model: Optional[str] = None
     mounted: bool = False
-    rate: Optional[int] = None
+    rate: int
     vendor: Optional[NormalizedManufacturer] = None
+
+    def __lt__(self: Self, other: Self):
+        return self.mac < other.mac
+
+    def __le__(self: Self, other: Self):
+        return self.mac <= other.mac
+
+    def __gt__(self: Self, other: Self):
+        return self.mac > other.mac
+
+    def __ge__(self: Self, other: Self):
+        return self.mac >= other.mac
 
 
 class Placement(BaseModel):
@@ -277,7 +289,7 @@ class StorageDevice(BaseModel):
     device: str
     humanized_size: str
     interface: StorageInterfaceEnum
-    media_type: Optional[StorageMediaTypeEnum] = None
+    media_type: StorageMediaTypeEnum
     model: str
     serial: Optional[str] = None
     rev: Optional[str] = None

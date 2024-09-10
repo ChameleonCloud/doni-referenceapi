@@ -21,7 +21,7 @@ class InspectorResult(BaseModel):
     cpus: int
     cpu_arch: str
     memory_mb: int
-    extra: Optional[extra_hardware.InspectorExtraHardware] = None
+    extra: extra_hardware.InspectorExtraHardware
 
     def get_referenceapi_network_adapters(self) -> List[reference_repo.NetworkAdapter]:
         if self.extra:
@@ -31,6 +31,9 @@ class InspectorResult(BaseModel):
             ]
         else:
             ifaces = [iface.as_reference_iface() for iface in self.inventory.interfaces]
+
+        # we want interfaces to be sorted by mac address, since it's a consistent ordering
+        ifaces.sort()
         return ifaces
 
     def get_referenceapi_cpu_info(self) -> reference_repo.Processor:

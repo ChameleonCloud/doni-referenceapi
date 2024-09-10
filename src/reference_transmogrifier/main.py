@@ -22,17 +22,11 @@ def main():
     region_name = conn.config.get_region_name()
     cloud_name = reference_api.REGION_NAME_MAP[region_name]
 
-    ironic = conn.baremetal
-    inspector = conn.baremetal_introspection
-
     ironic_uuid_to_blazar_hosts = {
         h.hypervisor_hostname: h for h in conn.reservation.hosts()
     }
 
-    # generator, yields ironic baremetal.v1.Node objects
-    all_baremetal_nodes = ironic.nodes()
-
-    for node in all_baremetal_nodes:
+    for node in conn.baremetal.nodes():
         blazar_host = ironic_uuid_to_blazar_hosts.get(node.id)
 
         # HACK: convert back to the form the API returns, instead of using properties field
@@ -42,7 +36,7 @@ def main():
 
         # For each node, get the inspection data from ironic_inspector
         try:
-            inspection_dict = inspector.get_introspection_data(
+            inspection_dict = conn.baremetal_introspection.get_introspection_data(
                 introspection=node.id, processed=True
             )
         except (BadRequestException, NotFoundException):
@@ -54,6 +48,7 @@ def main():
                 blazar_host_dict, inspection_dict
             )
         except Exception as ex:
+            print(node.name)
             print(ex)
             continue
 

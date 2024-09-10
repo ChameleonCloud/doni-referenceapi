@@ -45,7 +45,7 @@ class Disk(BaseModel):
     model: str
     rev: str
     rotational: bool
-    serial: str = Field(alias="SMART/serial_number")
+    serial: Optional[str] = Field(alias="SMART/serial_number", default=None)
     wwn_id: str = Field(alias="wwn-id")
 
     @computed_field
@@ -113,7 +113,7 @@ class InspectorExtraHardware(BaseModel):
     firmware: dict
     memory: dict
     network: dict[str, NetworkAdapter]
-    lldp: dict
+    lldp: Optional[dict] = None
     cpu: CPU
     numa: dict
     ipmi: dict
