@@ -16,7 +16,7 @@ class InspectorResult(BaseModel):
     root_disk: dict
     boot_interface: str
     configuration: dict
-    pci_devices: List[dict]
+    pci_devices: List[pci.PciDevice]
     dmi: dmi.DMI
     numa_topology: dict
     all_interfaces: dict

@@ -1,0 +1,4994 @@
+{
+  "inventory": {
+    "interfaces": [
+      {
+        "name": "eno3",
+        "mac_address": "24:6e:96:7e:24:a6",
+        "ipv4_address": null,
+        "ipv6_address": null,
+        "has_carrier": false,
+        "lldp": [],
+        "vendor": "0x8086",
+        "product": "0x1521",
+        "client_id": null,
+        "biosdevname": null
+      },
+      {
+        "name": "eno1",
+        "mac_address": "24:6e:96:7e:24:86",
+        "ipv4_address": "10.51.0.40",
+        "ipv6_address": "fe80::266e:96ff:fe7e:2486%eno1",
+        "has_carrier": true,
+        "lldp": [
+          [
+            1,
+            "048c47bec52841"
+          ],
+          [
+            2,
+            "0565746865726e6574312f312f33323a31"
+          ],
+          [
+            3,
+            "0078"
+          ],
+          [
+            4,
+            "626172656d6574616c206e6f646520706f7274"
+          ],
+          [
+            5,
+            "6368616d656c656f6e2d3130672d62643431"
+          ],
+          [
+            6,
+            "44656c6c20454d43204e6574776f726b696e67204f53313020456e74657270726973652e0d0a436f707972696768742028632920313939392d323032312062792044656c6c20496e632e20416c6c205269676874732052657365727665642e0d0a53797374656d204465736372697074696f6e3a204f53313020456e74657270726973652e0d0a4f532056657273696f6e3a2031302e352e332e322e0d0a53797374656d20547970653a205335323438462d4f4e"
+          ],
+          [
+            7,
+            "00160016"
+          ],
+          [
+            8,
+            "05010ac05705020000000a00"
+          ],
+          [
+            8,
+            "1102fe800000000000008e47befffec52841020000000a00"
+          ],
+          [
+            127,
+            "0080c2010bc2"
+          ],
+          [
+            127,
+            "0080c2070100000000"
+          ],
+          [
+            127,
+            "00120f010100020047"
+          ],
+          [
+            127,
+            "00120f042400"
+          ],
+          [
+            127,
+            "f8b1561542344c51333633"
+          ],
+          [
+            127,
+            "f8b1561620"
+          ],
+          [
+            127,
+            "f8b1561720"
+          ],
+          [
+            127,
+            "f8b1561820"
+          ],
+          [
+            0,
+            ""
+          ]
+        ],
+        "vendor": "0x8086",
+        "product": "0x1572",
+        "client_id": null,
+        "biosdevname": null
+      },
+      {
+        "name": "eno4",
+        "mac_address": "24:6e:96:7e:24:a7",
+        "ipv4_address": null,
+        "ipv6_address": null,
+        "has_carrier": false,
+        "lldp": [],
+        "vendor": "0x8086",
+        "product": "0x1521",
+        "client_id": null,
+        "biosdevname": null
+      },
+      {
+        "name": "eno2",
+        "mac_address": "24:6e:96:7e:24:88",
+        "ipv4_address": "10.51.0.219",
+        "ipv6_address": "fe80::266e:96ff:fe7e:2488%eno2",
+        "has_carrier": true,
+        "lldp": [
+          [
+            1,
+            "048c47bec52841"
+          ],
+          [
+            2,
+            "0565746865726e6574312f312f34383a31"
+          ],
+          [
+            3,
+            "0078"
+          ],
+          [
+            4,
+            "65746865726e6574312f312f34383a31"
+          ],
+          [
+            5,
+            "6368616d656c656f6e2d3130672d62643431"
+          ],
+          [
+            6,
+            "44656c6c20454d43204e6574776f726b696e67204f53313020456e74657270726973652e0d0a436f707972696768742028632920313939392d323032312062792044656c6c20496e632e20416c6c205269676874732052657365727665642e0d0a53797374656d204465736372697074696f6e3a204f53313020456e74657270726973652e0d0a4f532056657273696f6e3a2031302e352e332e322e0d0a53797374656d20547970653a205335323438462d4f4e"
+          ],
+          [
+            7,
+            "00160016"
+          ],
+          [
+            8,
+            "05010ac05705020000000a00"
+          ],
+          [
+            8,
+            "1102fe800000000000008e47befffec52841020000000a00"
+          ],
+          [
+            127,
+            "0080c2010bc2"
+          ],
+          [
+            127,
+            "0080c2070100000000"
+          ],
+          [
+            127,
+            "00120f010100020047"
+          ],
+          [
+            127,
+            "00120f0405fc"
+          ],
+          [
+            127,
+            "f8b1561542344c51333633"
+          ],
+          [
+            127,
+            "f8b1561620"
+          ],
+          [
+            127,
+            "f8b1561720"
+          ],
+          [
+            127,
+            "f8b1561820"
+          ],
+          [
+            0,
+            ""
+          ]
+        ],
+        "vendor": "0x8086",
+        "product": "0x1572",
+        "client_id": null,
+        "biosdevname": null
+      }
+    ],
+    "cpu": {
+      "model_name": "Intel(R) Xeon(R) Gold 6126 CPU @ 2.60GHz",
+      "frequency": "3700.0000",
+      "count": 48,
+      "architecture": "x86_64",
+      "flags": [
+        "fpu",
+        "vme",
+        "de",
+        "pse",
+        "tsc",
+        "msr",
+        "pae",
+        "mce",
+        "cx8",
+        "apic",
+        "sep",
+        "mtrr",
+        "pge",
+        "mca",
+        "cmov",
+        "pat",
+        "pse36",
+        "clflush",
+        "dts",
+        "acpi",
+        "mmx",
+        "fxsr",
+        "sse",
+        "sse2",
+        "ss",
+        "ht",
+        "tm",
+        "pbe",
+        "syscall",
+        "nx",
+        "pdpe1gb",
+        "rdtscp",
+        "lm",
+        "constant_tsc",
+        "art",
+        "arch_perfmon",
+        "pebs",
+        "bts",
+        "rep_good",
+        "nopl",
+        "xtopology",
+        "nonstop_tsc",
+        "cpuid",
+        "aperfmperf",
+        "pni",
+        "pclmulqdq",
+        "dtes64",
+        "monitor",
+        "ds_cpl",
+        "vmx",
+        "smx",
+        "est",
+        "tm2",
+        "ssse3",
+        "sdbg",
+        "fma",
+        "cx16",
+        "xtpr",
+        "pdcm",
+        "pcid",
+        "dca",
+        "sse4_1",
+        "sse4_2",
+        "x2apic",
+        "movbe",
+        "popcnt",
+        "tsc_deadline_timer",
+        "aes",
+        "xsave",
+        "avx",
+        "f16c",
+        "rdrand",
+        "lahf_lm",
+        "abm",
+        "3dnowprefetch",
+        "cpuid_fault",
+        "epb",
+        "cat_l3",
+        "cdp_l3",
+        "invpcid_single",
+        "pti",
+        "intel_ppin",
+        "ssbd",
+        "mba",
+        "ibrs",
+        "ibpb",
+        "stibp",
+        "tpr_shadow",
+        "vnmi",
+        "flexpriority",
+        "ept",
+        "vpid",
+        "ept_ad",
+        "fsgsbase",
+        "tsc_adjust",
+        "bmi1",
+        "hle",
+        "avx2",
+        "smep",
+        "bmi2",
+        "erms",
+        "invpcid",
+        "rtm",
+        "cqm",
+        "mpx",
+        "rdt_a",
+        "avx512f",
+        "avx512dq",
+        "rdseed",
+        "adx",
+        "smap",
+        "clflushopt",
+        "clwb",
+        "intel_pt",
+        "avx512cd",
+        "avx512bw",
+        "avx512vl",
+        "xsaveopt",
+        "xsavec",
+        "xgetbv1",
+        "xsaves",
+        "cqm_llc",
+        "cqm_occup_llc",
+        "cqm_mbm_total",
+        "cqm_mbm_local",
+        "dtherm",
+        "ida",
+        "arat",
+        "pln",
+        "pts",
+        "hwp",
+        "hwp_act_window",
+        "hwp_epp",
+        "hwp_pkg_req",
+        "pku",
+        "ospke",
+        "md_clear",
+        "flush_l1d",
+        "arch_capabilities"
+      ]
+    },
+    "disks": [
+      {
+        "name": "/dev/sda",
+        "model": "MZ7KM240HMHQ0D3",
+        "size": 240057409536,
+        "rotational": false,
+        "wwn": "0x5002538c40778230",
+        "serial": "S3BSNX0J800427",
+        "vendor": "ATA",
+        "wwn_with_extension": "0x5002538c40778230",
+        "wwn_vendor_extension": null,
+        "hctl": "0:0:0:0",
+        "by_path": "/dev/disk/by-path/pci-0000:86:00.0-scsi-0:0:0:0"
+      }
+    ],
+    "memory": {
+      "total": 201219342336,
+      "physical_mb": 196608
+    },
+    "bmc_address": "172.30.0.44",
+    "bmc_v6address": "::/0",
+    "system_vendor": {
+      "product_name": "PowerEdge R740 (SKU=0715;ModelName=PowerEdge R740)",
+      "serial_number": "9YPX7M2",
+      "manufacturer": "Dell Inc."
+    },
+    "boot": {
+      "current_boot_mode": "uefi",
+      "pxe_interface": "24:6e:96:7e:24:86"
+    },
+    "hostname": "ironic-agent",
+    "bmc_mac": "d0:94:66:23:8d:75"
+  },
+  "root_disk": {
+    "name": "/dev/sda",
+    "model": "MZ7KM240HMHQ0D3",
+    "size": 240057409536,
+    "rotational": false,
+    "wwn": "0x5002538c40778230",
+    "serial": "S3BSNX0J800427",
+    "vendor": "ATA",
+    "wwn_with_extension": "0x5002538c40778230",
+    "wwn_vendor_extension": null,
+    "hctl": "0:0:0:0",
+    "by_path": "/dev/disk/by-path/pci-0000:86:00.0-scsi-0:0:0:0"
+  },
+  "boot_interface": "24:6e:96:7e:24:86",
+  "configuration": {
+    "collectors": [
+      "default",
+      "pci-devices",
+      "dmi-decode",
+      "numa-topology",
+      "extra-hardware",
+      "logs"
+    ],
+    "managers": [
+      {
+        "name": "IntelCnaHardwareManager",
+        "version": "1.0"
+      },
+      {
+        "name": "generic_hardware_manager",
+        "version": "1.1"
+      }
+    ]
+  },
+  "pci_devices": [
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:0f.3"
+    },
+    {
+      "vendor_id": "102b",
+      "product_id": "0536",
+      "class": "030000",
+      "revision": "04",
+      "bus": "0000:03:00.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:0e.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "a182",
+      "class": "010601",
+      "revision": "09",
+      "bus": "0000:00:17.0"
+    },
+    {
+      "vendor_id": "10de",
+      "product_id": "1e30",
+      "class": "030000",
+      "revision": "a1",
+      "bus": "0000:3b:00.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:11.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:0b.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "a1a1",
+      "class": "058000",
+      "revision": "09",
+      "bus": "0000:00:1f.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:10.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2043",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:ae:0a.3"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2043",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:3a:0a.3"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:10.6"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "a190",
+      "class": "060400",
+      "revision": "f9",
+      "bus": "0000:00:1c.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:08.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2035",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:05.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2014",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:00:08.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2032",
+      "class": "060400",
+      "revision": "04",
+      "bus": "0000:17:02.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2035",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:d7:05.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2081",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:1e.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:0f.7"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2040",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:ae:0c.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2040",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:3a:0c.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:0a.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2056",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:1d.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2025",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:80:05.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:09.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:09.7"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2018",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:5d:16.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "a1d2",
+      "class": "010601",
+      "revision": "09",
+      "bus": "0000:00:11.5"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:0f.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:0e.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2059",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:d7:0f.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:0e.7"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:0b.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "204b",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:ae:0d.3"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "204c",
+      "class": "110100",
+      "revision": "04",
+      "bus": "0000:5d:12.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "204b",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:3a:0d.3"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "a1c1",
+      "class": "060100",
+      "revision": "09",
+      "bus": "0000:00:1f.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2085",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:1e.5"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2041",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:ae:0a.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2041",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:3a:0a.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "a1be",
+      "class": "078000",
+      "revision": "09",
+      "bus": "0000:00:16.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:10.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:0a.6"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:08.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2034",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:05.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2034",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:d7:05.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:0f.5"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:0a.0"
+    },
+    {
+      "vendor_id": "1556",
+      "product_id": "be00",
+      "class": "060400",
+      "revision": "02",
+      "bus": "0000:02:00.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2054",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:1d.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2030",
+      "class": "060400",
+      "revision": "04",
+      "bus": "0000:3a:00.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2016",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:80:08.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:11.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "204d",
+      "class": "110100",
+      "revision": "04",
+      "bus": "0000:d7:12.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2024",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:80:05.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:09.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:09.5"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:08.6"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:0e.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2036",
+      "class": "080020",
+      "revision": "04",
+      "bus": "0000:85:05.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2018",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:d7:17.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:0e.5"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2049",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:ae:0d.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "204e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:5d:12.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2049",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:3a:0d.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:0b.3"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2083",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:1e.3"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:10.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:0a.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2047",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:ae:0c.7"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2047",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:3a:0c.7"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:08.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2058",
+      "class": "110100",
+      "revision": "04",
+      "bus": "0000:5d:0f.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:0f.3"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2057",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:1d.3"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2014",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:80:08.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:11.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "204a",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:ae:0b.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "204a",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:3a:0b.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:09.3"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:10.6"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:08.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2035",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:05.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:0e.3"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "204c",
+      "class": "110100",
+      "revision": "04",
+      "bus": "0000:5d:12.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:0b.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2081",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:1e.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "a1ba",
+      "class": "078000",
+      "revision": "09",
+      "bus": "0000:00:16.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2018",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:d7:16.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2086",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:1e.6"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:10.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:0a.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "1521",
+      "class": "020000",
+      "revision": "01",
+      "bus": "0000:01:00.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2045",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:ae:0c.5"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2045",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:3a:0c.5"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:0a.7"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2058",
+      "class": "110100",
+      "revision": "04",
+      "bus": "0000:d7:10.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:09.7"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:0f.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:0f.6"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2055",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:1d.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:0e.7"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2048",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:ae:0b.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2059",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:5d:10.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2048",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:3a:0b.0"
+    },
+    {
+      "vendor_id": "10de",
+      "product_id": "1ad7",
+      "class": "0c8000",
+      "revision": "a1",
+      "bus": "0000:3b:00.3"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:11.3"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:09.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "a1a4",
+      "class": "0c8000",
+      "revision": "09",
+      "bus": "0000:00:1f.5"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:10.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2046",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:ae:0a.6"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2046",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:3a:0a.6"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:08.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:08.7"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2034",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:05.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2018",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:5d:15.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:0e.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2059",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:d7:0e.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2084",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:1e.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:0a.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2043",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:ae:0c.3"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2043",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:3a:0c.3"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:0a.5"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2066",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:ae:09.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2066",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:3a:09.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:09.5"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:0f.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2036",
+      "class": "080020",
+      "revision": "04",
+      "bus": "0000:ae:05.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2036",
+      "class": "080020",
+      "revision": "04",
+      "bus": "0000:3a:05.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:0e.5"
+    },
+    {
+      "vendor_id": "10de",
+      "product_id": "10f7",
+      "class": "040300",
+      "revision": "a1",
+      "bus": "0000:3b:00.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:11.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:0b.3"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2020",
+      "class": "060000",
+      "revision": "04",
+      "bus": "0000:00:00.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:10.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2044",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:ae:0a.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2044",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:3a:0a.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:10.7"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:08.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:08.5"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2015",
+      "class": "110100",
+      "revision": "04",
+      "bus": "0000:00:08.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "1572",
+      "class": "020000",
+      "revision": "01",
+      "bus": "0000:18:00.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2018",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:d7:16.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2082",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:1e.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2041",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:ae:0c.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2041",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:3a:0c.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:0a.3"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2057",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:1d.3"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "204c",
+      "class": "110100",
+      "revision": "04",
+      "bus": "0000:d7:12.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:09.3"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2058",
+      "class": "110100",
+      "revision": "04",
+      "bus": "0000:5d:0e.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2036",
+      "class": "080020",
+      "revision": "04",
+      "bus": "0000:5d:05.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:0f.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2035",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:ae:05.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2035",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:3a:05.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:0e.3"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:0b.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "204d",
+      "class": "110100",
+      "revision": "04",
+      "bus": "0000:5d:12.5"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2086",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:1e.6"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:10.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2042",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:ae:0a.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2042",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:3a:0a.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:10.5"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:0a.7"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:08.3"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2080",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:1e.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:0f.6"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:0a.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2055",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:1d.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:11.3"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "204e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:d7:12.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:09.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:09.6"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2035",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:5d:05.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:0f.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:08.7"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2034",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:ae:05.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2034",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:3a:05.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:0e.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2058",
+      "class": "110100",
+      "revision": "04",
+      "bus": "0000:d7:0f.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:0e.6"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "204a",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:ae:0d.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "204a",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:3a:0d.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2084",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:1e.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2040",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:ae:0a.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2040",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:3a:0a.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:10.3"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:0a.5"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:08.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2059",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:5d:0f.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:0f.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2015",
+      "class": "110100",
+      "revision": "04",
+      "bus": "0000:80:08.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:11.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "204b",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:ae:0b.3"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "204c",
+      "class": "110100",
+      "revision": "04",
+      "bus": "0000:d7:12.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "204b",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:3a:0b.3"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:09.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2034",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:5d:05.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:10.7"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2066",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:ae:08.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2066",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:3a:08.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:08.5"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:0e.4"
+    },
+    {
+      "vendor_id": "1000",
+      "product_id": "005f",
+      "class": "010400",
+      "revision": "02",
+      "bus": "0000:86:00.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2048",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:ae:0d.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "204d",
+      "class": "110100",
+      "revision": "04",
+      "bus": "0000:5d:12.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2048",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:3a:0d.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:0b.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2082",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:1e.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2026",
+      "class": "080020",
+      "revision": "04",
+      "bus": "0000:00:05.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "a1bb",
+      "class": "078000",
+      "revision": "09",
+      "bus": "0000:00:16.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:10.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:0a.3"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "1521",
+      "class": "020000",
+      "revision": "01",
+      "bus": "0000:01:00.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2046",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:ae:0c.6"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2046",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:3a:0c.6"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2059",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:d7:10.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2018",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:5d:17.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:0f.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:0f.7"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2018",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:d7:15.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2056",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:1d.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2049",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:ae:0b.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2049",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:3a:0b.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "a1b1",
+      "class": "118000",
+      "revision": "09",
+      "bus": "0000:00:14.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:09.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "a1ec",
+      "class": "ff0000",
+      "revision": "09",
+      "bus": "0000:00:11.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:10.5"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2047",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:ae:0a.7"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2047",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:3a:0a.7"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "a194",
+      "class": "060400",
+      "revision": "f9",
+      "bus": "0000:00:1c.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:08.3"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:0e.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:0b.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2080",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:1e.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2025",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:00:05.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2085",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:1e.5"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:0a.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2044",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:ae:0c.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2044",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:3a:0c.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:0a.6"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:09.6"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:0f.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2018",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:5d:16.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:0f.5"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2054",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:1d.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:0e.6"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2030",
+      "class": "060400",
+      "revision": "04",
+      "bus": "0000:85:00.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2058",
+      "class": "110100",
+      "revision": "04",
+      "bus": "0000:5d:10.0"
+    },
+    {
+      "vendor_id": "10de",
+      "product_id": "1ad6",
+      "class": "0c0330",
+      "revision": "a1",
+      "bus": "0000:3b:00.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:11.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "a1af",
+      "class": "0c0330",
+      "revision": "09",
+      "bus": "0000:00:14.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:09.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "a1a3",
+      "class": "0c0500",
+      "revision": "09",
+      "bus": "0000:00:1f.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:10.3"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2045",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:ae:0a.5"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2045",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:3a:0a.5"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:08.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:08.6"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208e",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:0e.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2036",
+      "class": "080020",
+      "revision": "04",
+      "bus": "0000:17:05.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2016",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:00:08.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "1572",
+      "class": "020000",
+      "revision": "01",
+      "bus": "0000:18:00.1"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2058",
+      "class": "110100",
+      "revision": "04",
+      "bus": "0000:d7:0e.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2024",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:00:05.0"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2036",
+      "class": "080020",
+      "revision": "04",
+      "bus": "0000:d7:05.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2083",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:1e.3"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2042",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:ae:0c.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2042",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:3a:0c.2"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:17:0a.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "204d",
+      "class": "110100",
+      "revision": "04",
+      "bus": "0000:d7:12.5"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2026",
+      "class": "080020",
+      "revision": "04",
+      "bus": "0000:80:05.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "208d",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:85:09.4"
+    },
+    {
+      "vendor_id": "8086",
+      "product_id": "2059",
+      "class": "088000",
+      "revision": "04",
+      "bus": "0000:5d:0e.1"
+    }
+  ],
+  "dmi": {
+    "bios": {
+      "Handle": "Handle 0x0000, DMI type 0, 26 bytes",
+      "Vendor": "Dell Inc.",
+      "Version": "2.22.1",
+      "Release Date": "08/09/2024",
+      "Address": "0xF0000",
+      "Runtime Size": "64 kB",
+      "ROM Size": "32 MB",
+      "Characteristics": [
+        "ISA is supported",
+        "PCI is supported",
+        "PNP is supported",
+        "BIOS is upgradeable",
+        "BIOS shadowing is allowed",
+        "Boot from CD is supported",
+        "Selectable boot is supported",
+        "EDD is supported",
+        "Japanese floppy for Toshiba 1.2 MB is supported (int 13h)",
+        "5.25\"/360 kB floppy services are supported (int 13h)",
+        "5.25\"/1.2 MB floppy services are supported (int 13h)",
+        "3.5\"/720 kB floppy services are supported (int 13h)",
+        "8042 keyboard services are supported (int 9h)",
+        "Serial services are supported (int 14h)",
+        "CGA/mono video services are supported (int 10h)",
+        "ACPI is supported",
+        "USB legacy is supported",
+        "BIOS boot specification is supported",
+        "Function key-initiated network boot is supported",
+        "Targeted content distribution is supported",
+        "UEFI is supported"
+      ],
+      "BIOS Revision": "2.22"
+    },
+    "cpu": [
+      {
+        "Handle": "Handle 0x0400, DMI type 4, 48 bytes",
+        "Socket Designation": "CPU1",
+        "Type": "Central Processor",
+        "Family": "Xeon",
+        "Manufacturer": "Intel",
+        "ID": "54 06 05 00 FF FB EB BF",
+        "Signature": "Type 0, Family 6, Model 85, Stepping 4",
+        "Flags": [
+          "FPU (Floating-point unit on-chip)",
+          "VME (Virtual mode extension)",
+          "DE (Debugging extension)",
+          "PSE (Page size extension)",
+          "TSC (Time stamp counter)",
+          "MSR (Model specific registers)",
+          "PAE (Physical address extension)",
+          "MCE (Machine check exception)",
+          "CX8 (CMPXCHG8 instruction supported)",
+          "APIC (On-chip APIC hardware supported)",
+          "SEP (Fast system call)",
+          "MTRR (Memory type range registers)",
+          "PGE (Page global enable)",
+          "MCA (Machine check architecture)",
+          "CMOV (Conditional move instruction supported)",
+          "PAT (Page attribute table)",
+          "PSE-36 (36-bit page size extension)",
+          "CLFSH (CLFLUSH instruction supported)",
+          "DS (Debug store)",
+          "ACPI (ACPI supported)",
+          "MMX (MMX technology supported)",
+          "FXSR (FXSAVE and FXSTOR instructions supported)",
+          "SSE (Streaming SIMD extensions)",
+          "SSE2 (Streaming SIMD extensions 2)",
+          "SS (Self-snoop)",
+          "HTT (Multi-threading)",
+          "TM (Thermal monitor supported)",
+          "PBE (Pending break enabled)"
+        ],
+        "Version": "Intel(R) Xeon(R) Gold 6126 CPU @ 2.60GHz",
+        "Voltage": "1.8 V",
+        "External Clock": "10400 MHz",
+        "Max Speed": "4000 MHz",
+        "Current Speed": "2600 MHz",
+        "Status": "Populated, Enabled",
+        "Upgrade": "Socket LGA2011",
+        "L1 Cache Handle": "0x0700",
+        "L2 Cache Handle": "0x0701",
+        "L3 Cache Handle": "0x0702",
+        "Serial Number": "Not Specified",
+        "Asset Tag": "Not Specified",
+        "Part Number": "Not Specified",
+        "Core Count": "12",
+        "Core Enabled": "12",
+        "Thread Count": "24",
+        "Characteristics": [
+          "64-bit capable",
+          "Multi-Core",
+          "Hardware Thread",
+          "Execute Protection",
+          "Enhanced Virtualization",
+          "Power/Performance Control"
+        ]
+      },
+      {
+        "Handle": "Handle 0x0401, DMI type 4, 48 bytes",
+        "Socket Designation": "CPU2",
+        "Type": "Central Processor",
+        "Family": "Xeon",
+        "Manufacturer": "Intel",
+        "ID": "54 06 05 00 FF FB EB BF",
+        "Signature": "Type 0, Family 6, Model 85, Stepping 4",
+        "Flags": [
+          "FPU (Floating-point unit on-chip)",
+          "VME (Virtual mode extension)",
+          "DE (Debugging extension)",
+          "PSE (Page size extension)",
+          "TSC (Time stamp counter)",
+          "MSR (Model specific registers)",
+          "PAE (Physical address extension)",
+          "MCE (Machine check exception)",
+          "CX8 (CMPXCHG8 instruction supported)",
+          "APIC (On-chip APIC hardware supported)",
+          "SEP (Fast system call)",
+          "MTRR (Memory type range registers)",
+          "PGE (Page global enable)",
+          "MCA (Machine check architecture)",
+          "CMOV (Conditional move instruction supported)",
+          "PAT (Page attribute table)",
+          "PSE-36 (36-bit page size extension)",
+          "CLFSH (CLFLUSH instruction supported)",
+          "DS (Debug store)",
+          "ACPI (ACPI supported)",
+          "MMX (MMX technology supported)",
+          "FXSR (FXSAVE and FXSTOR instructions supported)",
+          "SSE (Streaming SIMD extensions)",
+          "SSE2 (Streaming SIMD extensions 2)",
+          "SS (Self-snoop)",
+          "HTT (Multi-threading)",
+          "TM (Thermal monitor supported)",
+          "PBE (Pending break enabled)"
+        ],
+        "Version": "Intel(R) Xeon(R) Gold 6126 CPU @ 2.60GHz",
+        "Voltage": "1.8 V",
+        "External Clock": "10400 MHz",
+        "Max Speed": "4000 MHz",
+        "Current Speed": "2600 MHz",
+        "Status": "Populated, Enabled",
+        "Upgrade": "Socket LGA2011",
+        "L1 Cache Handle": "0x0703",
+        "L2 Cache Handle": "0x0704",
+        "L3 Cache Handle": "0x0705",
+        "Serial Number": "Not Specified",
+        "Asset Tag": "Not Specified",
+        "Part Number": "Not Specified",
+        "Core Count": "12",
+        "Core Enabled": "12",
+        "Thread Count": "24",
+        "Characteristics": [
+          "64-bit capable",
+          "Multi-Core",
+          "Hardware Thread",
+          "Execute Protection",
+          "Enhanced Virtualization",
+          "Power/Performance Control"
+        ]
+      }
+    ],
+    "memory": {
+      "Location": "System Board Or Motherboard",
+      "Use": "System Memory",
+      "Error Correction Type": "Multi-bit ECC",
+      "Maximum Capacity": "7680 GB",
+      "Error Information Handle": "Not Provided",
+      "Number Of Devices": 24,
+      "devices": [
+        {
+          "Handle": "Handle 0x1100, DMI type 17, 84 bytes",
+          "Array Handle": "0x1000",
+          "Error Information Handle": "Not Provided",
+          "Total Width": "72 bits",
+          "Data Width": "64 bits",
+          "Size": "16 GB",
+          "Form Factor": "DIMM",
+          "Set": "1",
+          "Locator": "A1",
+          "Bank Locator": "Not Specified",
+          "Type": "DDR4",
+          "Type Detail": "Synchronous Registered (Buffered)",
+          "Speed": "2666 MT/s",
+          "Manufacturer": "002C0632002C",
+          "Serial Number": "18E6DB3F",
+          "Asset Tag": "0F1739A0",
+          "Part Number": "18ASF2G72PDZ-2G6D1",
+          "Rank": "2",
+          "Configured Memory Speed": "2666 MT/s",
+          "Minimum Voltage": "1.2 V",
+          "Maximum Voltage": "1.2 V",
+          "Configured Voltage": "1.2 V",
+          "Memory Technology": "DRAM",
+          "Memory Operating Mode Capability": "Volatile memory",
+          "Firmware Version": "Not Specified",
+          "Module Manufacturer ID": "Unknown",
+          "Module Product ID": "Unknown",
+          "Memory Subsystem Controller Manufacturer ID": "Unknown",
+          "Memory Subsystem Controller Product ID": "Unknown",
+          "Non-Volatile Size": "None",
+          "Volatile Size": "16 GB",
+          "Cache Size": "None",
+          "Logical Size": "None"
+        },
+        {
+          "Handle": "Handle 0x1101, DMI type 17, 84 bytes",
+          "Array Handle": "0x1000",
+          "Error Information Handle": "Not Provided",
+          "Total Width": "72 bits",
+          "Data Width": "64 bits",
+          "Size": "16 GB",
+          "Form Factor": "DIMM",
+          "Set": "1",
+          "Locator": "A2",
+          "Bank Locator": "Not Specified",
+          "Type": "DDR4",
+          "Type Detail": "Synchronous Registered (Buffered)",
+          "Speed": "2666 MT/s",
+          "Manufacturer": "002C0632002C",
+          "Serial Number": "18E6D456",
+          "Asset Tag": "0F1739A0",
+          "Part Number": "18ASF2G72PDZ-2G6D1",
+          "Rank": "2",
+          "Configured Memory Speed": "2666 MT/s",
+          "Minimum Voltage": "1.2 V",
+          "Maximum Voltage": "1.2 V",
+          "Configured Voltage": "1.2 V",
+          "Memory Technology": "DRAM",
+          "Memory Operating Mode Capability": "Volatile memory",
+          "Firmware Version": "Not Specified",
+          "Module Manufacturer ID": "Unknown",
+          "Module Product ID": "Unknown",
+          "Memory Subsystem Controller Manufacturer ID": "Unknown",
+          "Memory Subsystem Controller Product ID": "Unknown",
+          "Non-Volatile Size": "None",
+          "Volatile Size": "16 GB",
+          "Cache Size": "None",
+          "Logical Size": "None"
+        },
+        {
+          "Handle": "Handle 0x1102, DMI type 17, 84 bytes",
+          "Array Handle": "0x1000",
+          "Error Information Handle": "Not Provided",
+          "Total Width": "72 bits",
+          "Data Width": "64 bits",
+          "Size": "16 GB",
+          "Form Factor": "DIMM",
+          "Set": "1",
+          "Locator": "A3",
+          "Bank Locator": "Not Specified",
+          "Type": "DDR4",
+          "Type Detail": "Synchronous Registered (Buffered)",
+          "Speed": "2666 MT/s",
+          "Manufacturer": "002C0632002C",
+          "Serial Number": "18E6D45E",
+          "Asset Tag": "0F1739A0",
+          "Part Number": "18ASF2G72PDZ-2G6D1",
+          "Rank": "2",
+          "Configured Memory Speed": "2666 MT/s",
+          "Minimum Voltage": "1.2 V",
+          "Maximum Voltage": "1.2 V",
+          "Configured Voltage": "1.2 V",
+          "Memory Technology": "DRAM",
+          "Memory Operating Mode Capability": "Volatile memory",
+          "Firmware Version": "Not Specified",
+          "Module Manufacturer ID": "Unknown",
+          "Module Product ID": "Unknown",
+          "Memory Subsystem Controller Manufacturer ID": "Unknown",
+          "Memory Subsystem Controller Product ID": "Unknown",
+          "Non-Volatile Size": "None",
+          "Volatile Size": "16 GB",
+          "Cache Size": "None",
+          "Logical Size": "None"
+        },
+        {
+          "Handle": "Handle 0x1103, DMI type 17, 84 bytes",
+          "Array Handle": "0x1000",
+          "Error Information Handle": "Not Provided",
+          "Total Width": "72 bits",
+          "Data Width": "64 bits",
+          "Size": "16 GB",
+          "Form Factor": "DIMM",
+          "Set": "1",
+          "Locator": "A4",
+          "Bank Locator": "Not Specified",
+          "Type": "DDR4",
+          "Type Detail": "Synchronous Registered (Buffered)",
+          "Speed": "2666 MT/s",
+          "Manufacturer": "002C0632002C",
+          "Serial Number": "18E6DB0D",
+          "Asset Tag": "0F1739A0",
+          "Part Number": "18ASF2G72PDZ-2G6D1",
+          "Rank": "2",
+          "Configured Memory Speed": "2666 MT/s",
+          "Minimum Voltage": "1.2 V",
+          "Maximum Voltage": "1.2 V",
+          "Configured Voltage": "1.2 V",
+          "Memory Technology": "DRAM",
+          "Memory Operating Mode Capability": "Volatile memory",
+          "Firmware Version": "Not Specified",
+          "Module Manufacturer ID": "Unknown",
+          "Module Product ID": "Unknown",
+          "Memory Subsystem Controller Manufacturer ID": "Unknown",
+          "Memory Subsystem Controller Product ID": "Unknown",
+          "Non-Volatile Size": "None",
+          "Volatile Size": "16 GB",
+          "Cache Size": "None",
+          "Logical Size": "None"
+        },
+        {
+          "Handle": "Handle 0x1104, DMI type 17, 84 bytes",
+          "Array Handle": "0x1000",
+          "Error Information Handle": "Not Provided",
+          "Total Width": "72 bits",
+          "Data Width": "64 bits",
+          "Size": "16 GB",
+          "Form Factor": "DIMM",
+          "Set": "1",
+          "Locator": "A5",
+          "Bank Locator": "Not Specified",
+          "Type": "DDR4",
+          "Type Detail": "Synchronous Registered (Buffered)",
+          "Speed": "2666 MT/s",
+          "Manufacturer": "002C0632002C",
+          "Serial Number": "18E6DA05",
+          "Asset Tag": "0F1739A0",
+          "Part Number": "18ASF2G72PDZ-2G6D1",
+          "Rank": "2",
+          "Configured Memory Speed": "2666 MT/s",
+          "Minimum Voltage": "1.2 V",
+          "Maximum Voltage": "1.2 V",
+          "Configured Voltage": "1.2 V",
+          "Memory Technology": "DRAM",
+          "Memory Operating Mode Capability": "Volatile memory",
+          "Firmware Version": "Not Specified",
+          "Module Manufacturer ID": "Unknown",
+          "Module Product ID": "Unknown",
+          "Memory Subsystem Controller Manufacturer ID": "Unknown",
+          "Memory Subsystem Controller Product ID": "Unknown",
+          "Non-Volatile Size": "None",
+          "Volatile Size": "16 GB",
+          "Cache Size": "None",
+          "Logical Size": "None"
+        },
+        {
+          "Handle": "Handle 0x1105, DMI type 17, 84 bytes",
+          "Array Handle": "0x1000",
+          "Error Information Handle": "Not Provided",
+          "Total Width": "72 bits",
+          "Data Width": "64 bits",
+          "Size": "16 GB",
+          "Form Factor": "DIMM",
+          "Set": "1",
+          "Locator": "A6",
+          "Bank Locator": "Not Specified",
+          "Type": "DDR4",
+          "Type Detail": "Synchronous Registered (Buffered)",
+          "Speed": "2666 MT/s",
+          "Manufacturer": "002C0632002C",
+          "Serial Number": "18E6DB0A",
+          "Asset Tag": "0F1739A0",
+          "Part Number": "18ASF2G72PDZ-2G6D1",
+          "Rank": "2",
+          "Configured Memory Speed": "2666 MT/s",
+          "Minimum Voltage": "1.2 V",
+          "Maximum Voltage": "1.2 V",
+          "Configured Voltage": "1.2 V",
+          "Memory Technology": "DRAM",
+          "Memory Operating Mode Capability": "Volatile memory",
+          "Firmware Version": "Not Specified",
+          "Module Manufacturer ID": "Unknown",
+          "Module Product ID": "Unknown",
+          "Memory Subsystem Controller Manufacturer ID": "Unknown",
+          "Memory Subsystem Controller Product ID": "Unknown",
+          "Non-Volatile Size": "None",
+          "Volatile Size": "16 GB",
+          "Cache Size": "None",
+          "Logical Size": "None"
+        },
+        {
+          "Handle": "Handle 0x1106, DMI type 17, 84 bytes",
+          "Array Handle": "0x1000",
+          "Error Information Handle": "Not Provided",
+          "Total Width": "Unknown",
+          "Data Width": "Unknown",
+          "Size": "No Module Installed",
+          "Form Factor": "Unknown",
+          "Set": "2",
+          "Locator": "A7",
+          "Bank Locator": "Not Specified",
+          "Type": "Unknown",
+          "Type Detail": "None"
+        },
+        {
+          "Handle": "Handle 0x1107, DMI type 17, 84 bytes",
+          "Array Handle": "0x1000",
+          "Error Information Handle": "Not Provided",
+          "Total Width": "Unknown",
+          "Data Width": "Unknown",
+          "Size": "No Module Installed",
+          "Form Factor": "Unknown",
+          "Set": "2",
+          "Locator": "A8",
+          "Bank Locator": "Not Specified",
+          "Type": "Unknown",
+          "Type Detail": "None"
+        },
+        {
+          "Handle": "Handle 0x1108, DMI type 17, 84 bytes",
+          "Array Handle": "0x1000",
+          "Error Information Handle": "Not Provided",
+          "Total Width": "Unknown",
+          "Data Width": "Unknown",
+          "Size": "No Module Installed",
+          "Form Factor": "Unknown",
+          "Set": "2",
+          "Locator": "A9",
+          "Bank Locator": "Not Specified",
+          "Type": "Unknown",
+          "Type Detail": "None"
+        },
+        {
+          "Handle": "Handle 0x1109, DMI type 17, 84 bytes",
+          "Array Handle": "0x1000",
+          "Error Information Handle": "Not Provided",
+          "Total Width": "Unknown",
+          "Data Width": "Unknown",
+          "Size": "No Module Installed",
+          "Form Factor": "Unknown",
+          "Set": "2",
+          "Locator": "A10",
+          "Bank Locator": "Not Specified",
+          "Type": "Unknown",
+          "Type Detail": "None"
+        },
+        {
+          "Handle": "Handle 0x110A, DMI type 17, 84 bytes",
+          "Array Handle": "0x1000",
+          "Error Information Handle": "Not Provided",
+          "Total Width": "Unknown",
+          "Data Width": "Unknown",
+          "Size": "No Module Installed",
+          "Form Factor": "Unknown",
+          "Set": "2",
+          "Locator": "A11",
+          "Bank Locator": "Not Specified",
+          "Type": "Unknown",
+          "Type Detail": "None"
+        },
+        {
+          "Handle": "Handle 0x110B, DMI type 17, 84 bytes",
+          "Array Handle": "0x1000",
+          "Error Information Handle": "Not Provided",
+          "Total Width": "Unknown",
+          "Data Width": "Unknown",
+          "Size": "No Module Installed",
+          "Form Factor": "Unknown",
+          "Set": "2",
+          "Locator": "A12",
+          "Bank Locator": "Not Specified",
+          "Type": "Unknown",
+          "Type Detail": "None"
+        },
+        {
+          "Handle": "Handle 0x110C, DMI type 17, 84 bytes",
+          "Array Handle": "0x1000",
+          "Error Information Handle": "Not Provided",
+          "Total Width": "72 bits",
+          "Data Width": "64 bits",
+          "Size": "16 GB",
+          "Form Factor": "DIMM",
+          "Set": "3",
+          "Locator": "B1",
+          "Bank Locator": "Not Specified",
+          "Type": "DDR4",
+          "Type Detail": "Synchronous Registered (Buffered)",
+          "Speed": "2666 MT/s",
+          "Manufacturer": "002C0632002C",
+          "Serial Number": "18E6DAFA",
+          "Asset Tag": "0F1739A0",
+          "Part Number": "18ASF2G72PDZ-2G6D1",
+          "Rank": "2",
+          "Configured Memory Speed": "2666 MT/s",
+          "Minimum Voltage": "1.2 V",
+          "Maximum Voltage": "1.2 V",
+          "Configured Voltage": "1.2 V",
+          "Memory Technology": "DRAM",
+          "Memory Operating Mode Capability": "Volatile memory",
+          "Firmware Version": "Not Specified",
+          "Module Manufacturer ID": "Unknown",
+          "Module Product ID": "Unknown",
+          "Memory Subsystem Controller Manufacturer ID": "Unknown",
+          "Memory Subsystem Controller Product ID": "Unknown",
+          "Non-Volatile Size": "None",
+          "Volatile Size": "16 GB",
+          "Cache Size": "None",
+          "Logical Size": "None"
+        },
+        {
+          "Handle": "Handle 0x110D, DMI type 17, 84 bytes",
+          "Array Handle": "0x1000",
+          "Error Information Handle": "Not Provided",
+          "Total Width": "72 bits",
+          "Data Width": "64 bits",
+          "Size": "16 GB",
+          "Form Factor": "DIMM",
+          "Set": "3",
+          "Locator": "B2",
+          "Bank Locator": "Not Specified",
+          "Type": "DDR4",
+          "Type Detail": "Synchronous Registered (Buffered)",
+          "Speed": "2666 MT/s",
+          "Manufacturer": "002C0632002C",
+          "Serial Number": "18E6D41C",
+          "Asset Tag": "0F1739A0",
+          "Part Number": "18ASF2G72PDZ-2G6D1",
+          "Rank": "2",
+          "Configured Memory Speed": "2666 MT/s",
+          "Minimum Voltage": "1.2 V",
+          "Maximum Voltage": "1.2 V",
+          "Configured Voltage": "1.2 V",
+          "Memory Technology": "DRAM",
+          "Memory Operating Mode Capability": "Volatile memory",
+          "Firmware Version": "Not Specified",
+          "Module Manufacturer ID": "Unknown",
+          "Module Product ID": "Unknown",
+          "Memory Subsystem Controller Manufacturer ID": "Unknown",
+          "Memory Subsystem Controller Product ID": "Unknown",
+          "Non-Volatile Size": "None",
+          "Volatile Size": "16 GB",
+          "Cache Size": "None",
+          "Logical Size": "None"
+        },
+        {
+          "Handle": "Handle 0x110E, DMI type 17, 84 bytes",
+          "Array Handle": "0x1000",
+          "Error Information Handle": "Not Provided",
+          "Total Width": "72 bits",
+          "Data Width": "64 bits",
+          "Size": "16 GB",
+          "Form Factor": "DIMM",
+          "Set": "3",
+          "Locator": "B3",
+          "Bank Locator": "Not Specified",
+          "Type": "DDR4",
+          "Type Detail": "Synchronous Registered (Buffered)",
+          "Speed": "2666 MT/s",
+          "Manufacturer": "002C0632002C",
+          "Serial Number": "18E6DAC8",
+          "Asset Tag": "0F1739A0",
+          "Part Number": "18ASF2G72PDZ-2G6D1",
+          "Rank": "2",
+          "Configured Memory Speed": "2666 MT/s",
+          "Minimum Voltage": "1.2 V",
+          "Maximum Voltage": "1.2 V",
+          "Configured Voltage": "1.2 V",
+          "Memory Technology": "DRAM",
+          "Memory Operating Mode Capability": "Volatile memory",
+          "Firmware Version": "Not Specified",
+          "Module Manufacturer ID": "Unknown",
+          "Module Product ID": "Unknown",
+          "Memory Subsystem Controller Manufacturer ID": "Unknown",
+          "Memory Subsystem Controller Product ID": "Unknown",
+          "Non-Volatile Size": "None",
+          "Volatile Size": "16 GB",
+          "Cache Size": "None",
+          "Logical Size": "None"
+        },
+        {
+          "Handle": "Handle 0x110F, DMI type 17, 84 bytes",
+          "Array Handle": "0x1000",
+          "Error Information Handle": "Not Provided",
+          "Total Width": "72 bits",
+          "Data Width": "64 bits",
+          "Size": "16 GB",
+          "Form Factor": "DIMM",
+          "Set": "3",
+          "Locator": "B4",
+          "Bank Locator": "Not Specified",
+          "Type": "DDR4",
+          "Type Detail": "Synchronous Registered (Buffered)",
+          "Speed": "2666 MT/s",
+          "Manufacturer": "002C0632002C",
+          "Serial Number": "18E6DAF8",
+          "Asset Tag": "0F1739A0",
+          "Part Number": "18ASF2G72PDZ-2G6D1",
+          "Rank": "2",
+          "Configured Memory Speed": "2666 MT/s",
+          "Minimum Voltage": "1.2 V",
+          "Maximum Voltage": "1.2 V",
+          "Configured Voltage": "1.2 V",
+          "Memory Technology": "DRAM",
+          "Memory Operating Mode Capability": "Volatile memory",
+          "Firmware Version": "Not Specified",
+          "Module Manufacturer ID": "Unknown",
+          "Module Product ID": "Unknown",
+          "Memory Subsystem Controller Manufacturer ID": "Unknown",
+          "Memory Subsystem Controller Product ID": "Unknown",
+          "Non-Volatile Size": "None",
+          "Volatile Size": "16 GB",
+          "Cache Size": "None",
+          "Logical Size": "None"
+        },
+        {
+          "Handle": "Handle 0x1110, DMI type 17, 84 bytes",
+          "Array Handle": "0x1000",
+          "Error Information Handle": "Not Provided",
+          "Total Width": "72 bits",
+          "Data Width": "64 bits",
+          "Size": "16 GB",
+          "Form Factor": "DIMM",
+          "Set": "3",
+          "Locator": "B5",
+          "Bank Locator": "Not Specified",
+          "Type": "DDR4",
+          "Type Detail": "Synchronous Registered (Buffered)",
+          "Speed": "2666 MT/s",
+          "Manufacturer": "002C0632002C",
+          "Serial Number": "18E6DAD0",
+          "Asset Tag": "0F1739A0",
+          "Part Number": "18ASF2G72PDZ-2G6D1",
+          "Rank": "2",
+          "Configured Memory Speed": "2666 MT/s",
+          "Minimum Voltage": "1.2 V",
+          "Maximum Voltage": "1.2 V",
+          "Configured Voltage": "1.2 V",
+          "Memory Technology": "DRAM",
+          "Memory Operating Mode Capability": "Volatile memory",
+          "Firmware Version": "Not Specified",
+          "Module Manufacturer ID": "Unknown",
+          "Module Product ID": "Unknown",
+          "Memory Subsystem Controller Manufacturer ID": "Unknown",
+          "Memory Subsystem Controller Product ID": "Unknown",
+          "Non-Volatile Size": "None",
+          "Volatile Size": "16 GB",
+          "Cache Size": "None",
+          "Logical Size": "None"
+        },
+        {
+          "Handle": "Handle 0x1111, DMI type 17, 84 bytes",
+          "Array Handle": "0x1000",
+          "Error Information Handle": "Not Provided",
+          "Total Width": "72 bits",
+          "Data Width": "64 bits",
+          "Size": "16 GB",
+          "Form Factor": "DIMM",
+          "Set": "3",
+          "Locator": "B6",
+          "Bank Locator": "Not Specified",
+          "Type": "DDR4",
+          "Type Detail": "Synchronous Registered (Buffered)",
+          "Speed": "2666 MT/s",
+          "Manufacturer": "002C0632002C",
+          "Serial Number": "18E6D305",
+          "Asset Tag": "0F1739A0",
+          "Part Number": "18ASF2G72PDZ-2G6D1",
+          "Rank": "2",
+          "Configured Memory Speed": "2666 MT/s",
+          "Minimum Voltage": "1.2 V",
+          "Maximum Voltage": "1.2 V",
+          "Configured Voltage": "1.2 V",
+          "Memory Technology": "DRAM",
+          "Memory Operating Mode Capability": "Volatile memory",
+          "Firmware Version": "Not Specified",
+          "Module Manufacturer ID": "Unknown",
+          "Module Product ID": "Unknown",
+          "Memory Subsystem Controller Manufacturer ID": "Unknown",
+          "Memory Subsystem Controller Product ID": "Unknown",
+          "Non-Volatile Size": "None",
+          "Volatile Size": "16 GB",
+          "Cache Size": "None",
+          "Logical Size": "None"
+        },
+        {
+          "Handle": "Handle 0x1112, DMI type 17, 84 bytes",
+          "Array Handle": "0x1000",
+          "Error Information Handle": "Not Provided",
+          "Total Width": "Unknown",
+          "Data Width": "Unknown",
+          "Size": "No Module Installed",
+          "Form Factor": "Unknown",
+          "Set": "4",
+          "Locator": "B7",
+          "Bank Locator": "Not Specified",
+          "Type": "Unknown",
+          "Type Detail": "None"
+        },
+        {
+          "Handle": "Handle 0x1113, DMI type 17, 84 bytes",
+          "Array Handle": "0x1000",
+          "Error Information Handle": "Not Provided",
+          "Total Width": "Unknown",
+          "Data Width": "Unknown",
+          "Size": "No Module Installed",
+          "Form Factor": "Unknown",
+          "Set": "4",
+          "Locator": "B8",
+          "Bank Locator": "Not Specified",
+          "Type": "Unknown",
+          "Type Detail": "None"
+        },
+        {
+          "Handle": "Handle 0x1114, DMI type 17, 84 bytes",
+          "Array Handle": "0x1000",
+          "Error Information Handle": "Not Provided",
+          "Total Width": "Unknown",
+          "Data Width": "Unknown",
+          "Size": "No Module Installed",
+          "Form Factor": "Unknown",
+          "Set": "4",
+          "Locator": "B9",
+          "Bank Locator": "Not Specified",
+          "Type": "Unknown",
+          "Type Detail": "None"
+        },
+        {
+          "Handle": "Handle 0x1115, DMI type 17, 84 bytes",
+          "Array Handle": "0x1000",
+          "Error Information Handle": "Not Provided",
+          "Total Width": "Unknown",
+          "Data Width": "Unknown",
+          "Size": "No Module Installed",
+          "Form Factor": "Unknown",
+          "Set": "4",
+          "Locator": "B10",
+          "Bank Locator": "Not Specified",
+          "Type": "Unknown",
+          "Type Detail": "None"
+        },
+        {
+          "Handle": "Handle 0x1116, DMI type 17, 84 bytes",
+          "Array Handle": "0x1000",
+          "Error Information Handle": "Not Provided",
+          "Total Width": "Unknown",
+          "Data Width": "Unknown",
+          "Size": "No Module Installed",
+          "Form Factor": "Unknown",
+          "Set": "4",
+          "Locator": "B11",
+          "Bank Locator": "Not Specified",
+          "Type": "Unknown",
+          "Type Detail": "None"
+        },
+        {
+          "Handle": "Handle 0x1117, DMI type 17, 84 bytes",
+          "Array Handle": "0x1000",
+          "Error Information Handle": "Not Provided",
+          "Total Width": "Unknown",
+          "Data Width": "Unknown",
+          "Size": "No Module Installed",
+          "Form Factor": "Unknown",
+          "Set": "4",
+          "Locator": "B12",
+          "Bank Locator": "Not Specified",
+          "Type": "Unknown",
+          "Type Detail": "None"
+        }
+      ]
+    }
+  },
+  "numa_topology": {
+    "ram": [
+      {
+        "numa_node": 0,
+        "size_kb": 97467324
+      },
+      {
+        "numa_node": 1,
+        "size_kb": 99035940
+      }
+    ],
+    "cpus": [
+      {
+        "thread_siblings": [
+          38,
+          14
+        ],
+        "cpu": 14,
+        "numa_node": 0
+      },
+      {
+        "thread_siblings": [
+          28,
+          4
+        ],
+        "cpu": 2,
+        "numa_node": 0
+      },
+      {
+        "thread_siblings": [
+          18,
+          42
+        ],
+        "cpu": 13,
+        "numa_node": 0
+      },
+      {
+        "thread_siblings": [
+          46,
+          22
+        ],
+        "cpu": 11,
+        "numa_node": 0
+      },
+      {
+        "thread_siblings": [
+          36,
+          12
+        ],
+        "cpu": 8,
+        "numa_node": 0
+      },
+      {
+        "thread_siblings": [
+          26,
+          2
+        ],
+        "cpu": 6,
+        "numa_node": 0
+      },
+      {
+        "thread_siblings": [
+          16,
+          40
+        ],
+        "cpu": 9,
+        "numa_node": 0
+      },
+      {
+        "thread_siblings": [
+          44,
+          20
+        ],
+        "cpu": 10,
+        "numa_node": 0
+      },
+      {
+        "thread_siblings": [
+          34,
+          10
+        ],
+        "cpu": 4,
+        "numa_node": 0
+      },
+      {
+        "thread_siblings": [
+          24,
+          0
+        ],
+        "cpu": 1,
+        "numa_node": 0
+      },
+      {
+        "thread_siblings": [
+          32,
+          8
+        ],
+        "cpu": 3,
+        "numa_node": 0
+      },
+      {
+        "thread_siblings": [
+          30,
+          6
+        ],
+        "cpu": 5,
+        "numa_node": 0
+      },
+      {
+        "thread_siblings": [
+          21,
+          45
+        ],
+        "cpu": 10,
+        "numa_node": 1
+      },
+      {
+        "thread_siblings": [
+          11,
+          35
+        ],
+        "cpu": 14,
+        "numa_node": 1
+      },
+      {
+        "thread_siblings": [
+          9,
+          33
+        ],
+        "cpu": 3,
+        "numa_node": 1
+      },
+      {
+        "thread_siblings": [
+          7,
+          31
+        ],
+        "cpu": 4,
+        "numa_node": 1
+      },
+      {
+        "thread_siblings": [
+          5,
+          29
+        ],
+        "cpu": 2,
+        "numa_node": 1
+      },
+      {
+        "thread_siblings": [
+          3,
+          27
+        ],
+        "cpu": 5,
+        "numa_node": 1
+      },
+      {
+        "thread_siblings": [
+          1,
+          25
+        ],
+        "cpu": 0,
+        "numa_node": 1
+      },
+      {
+        "thread_siblings": [
+          39,
+          15
+        ],
+        "cpu": 13,
+        "numa_node": 1
+      },
+      {
+        "thread_siblings": [
+          19,
+          43
+        ],
+        "cpu": 12,
+        "numa_node": 1
+      },
+      {
+        "thread_siblings": [
+          47,
+          23
+        ],
+        "cpu": 11,
+        "numa_node": 1
+      },
+      {
+        "thread_siblings": [
+          37,
+          13
+        ],
+        "cpu": 8,
+        "numa_node": 1
+      },
+      {
+        "thread_siblings": [
+          17,
+          41
+        ],
+        "cpu": 9,
+        "numa_node": 1
+      }
+    ],
+    "nics": [
+      {
+        "name": "eno3",
+        "numa_node": 0
+      },
+      {
+        "name": "eno1",
+        "numa_node": 0
+      },
+      {
+        "name": "eno4",
+        "numa_node": 0
+      },
+      {
+        "name": "eno2",
+        "numa_node": 0
+      }
+    ]
+  },
+  "error": null,
+  "ipmi_address": "172.30.0.44",
+  "ipmi_v6address": null,
+  "all_interfaces": {
+    "eno3": {
+      "ip": null,
+      "mac": "24:6e:96:7e:24:a6",
+      "client_id": null,
+      "pxe": false
+    },
+    "eno1": {
+      "ip": "10.51.0.40",
+      "mac": "24:6e:96:7e:24:86",
+      "client_id": null,
+      "pxe": true,
+      "lldp_processed": {
+        "switch_chassis_id": "8c:47:be:c5:28:41",
+        "switch_port_id": "ethernet1/1/32:1",
+        "switch_port_description": "baremetal node port",
+        "switch_system_name": "chameleon-10g-bd41",
+        "switch_system_description": "Dell EMC Networking OS10 Enterprise.\r\nCopyright (c) 1999-2021 by Dell Inc. All Rights Reserved.\r\nSystem Description: OS10 Enterprise.\r\nOS Version: 10.5.3.2.\r\nSystem Type: S5248F-ON",
+        "switch_capabilities_support": [
+          "Repeater",
+          "Bridge",
+          "Router"
+        ],
+        "switch_capabilities_enabled": [
+          "Repeater",
+          "Bridge",
+          "Router"
+        ],
+        "switch_mgmt_addresses": [
+          "10.192.87.5",
+          "fe80::8e47:beff:fec5:2841"
+        ],
+        "switch_port_untagged_vlan_id": 3010,
+        "switch_port_link_aggregation_enabled": false,
+        "switch_port_link_aggregation_support": true,
+        "switch_port_link_aggregation_id": 0,
+        "switch_port_mtu": 9216
+      }
+    },
+    "eno4": {
+      "ip": null,
+      "mac": "24:6e:96:7e:24:a7",
+      "client_id": null,
+      "pxe": false
+    },
+    "eno2": {
+      "ip": "10.51.0.219",
+      "mac": "24:6e:96:7e:24:88",
+      "client_id": null,
+      "pxe": false,
+      "lldp_processed": {
+        "switch_chassis_id": "8c:47:be:c5:28:41",
+        "switch_port_id": "ethernet1/1/48:1",
+        "switch_port_description": "ethernet1/1/48:1",
+        "switch_system_name": "chameleon-10g-bd41",
+        "switch_system_description": "Dell EMC Networking OS10 Enterprise.\r\nCopyright (c) 1999-2021 by Dell Inc. All Rights Reserved.\r\nSystem Description: OS10 Enterprise.\r\nOS Version: 10.5.3.2.\r\nSystem Type: S5248F-ON",
+        "switch_capabilities_support": [
+          "Repeater",
+          "Bridge",
+          "Router"
+        ],
+        "switch_capabilities_enabled": [
+          "Repeater",
+          "Bridge",
+          "Router"
+        ],
+        "switch_mgmt_addresses": [
+          "10.192.87.5",
+          "fe80::8e47:beff:fec5:2841"
+        ],
+        "switch_port_untagged_vlan_id": 3010,
+        "switch_port_link_aggregation_enabled": false,
+        "switch_port_link_aggregation_support": true,
+        "switch_port_link_aggregation_id": 0,
+        "switch_port_mtu": 1532
+      }
+    }
+  },
+  "interfaces": {
+    "eno3": {
+      "ip": null,
+      "mac": "24:6e:96:7e:24:a6",
+      "client_id": null,
+      "pxe": false
+    },
+    "eno1": {
+      "ip": "10.51.0.40",
+      "mac": "24:6e:96:7e:24:86",
+      "client_id": null,
+      "pxe": true,
+      "lldp_processed": {
+        "switch_chassis_id": "8c:47:be:c5:28:41",
+        "switch_port_id": "ethernet1/1/32:1",
+        "switch_port_description": "baremetal node port",
+        "switch_system_name": "chameleon-10g-bd41",
+        "switch_system_description": "Dell EMC Networking OS10 Enterprise.\r\nCopyright (c) 1999-2021 by Dell Inc. All Rights Reserved.\r\nSystem Description: OS10 Enterprise.\r\nOS Version: 10.5.3.2.\r\nSystem Type: S5248F-ON",
+        "switch_capabilities_support": [
+          "Repeater",
+          "Bridge",
+          "Router"
+        ],
+        "switch_capabilities_enabled": [
+          "Repeater",
+          "Bridge",
+          "Router"
+        ],
+        "switch_mgmt_addresses": [
+          "10.192.87.5",
+          "fe80::8e47:beff:fec5:2841"
+        ],
+        "switch_port_untagged_vlan_id": 3010,
+        "switch_port_link_aggregation_enabled": false,
+        "switch_port_link_aggregation_support": true,
+        "switch_port_link_aggregation_id": 0,
+        "switch_port_mtu": 9216
+      }
+    },
+    "eno4": {
+      "ip": null,
+      "mac": "24:6e:96:7e:24:a7",
+      "client_id": null,
+      "pxe": false
+    },
+    "eno2": {
+      "ip": "10.51.0.219",
+      "mac": "24:6e:96:7e:24:88",
+      "client_id": null,
+      "pxe": false,
+      "lldp_processed": {
+        "switch_chassis_id": "8c:47:be:c5:28:41",
+        "switch_port_id": "ethernet1/1/48:1",
+        "switch_port_description": "ethernet1/1/48:1",
+        "switch_system_name": "chameleon-10g-bd41",
+        "switch_system_description": "Dell EMC Networking OS10 Enterprise.\r\nCopyright (c) 1999-2021 by Dell Inc. All Rights Reserved.\r\nSystem Description: OS10 Enterprise.\r\nOS Version: 10.5.3.2.\r\nSystem Type: S5248F-ON",
+        "switch_capabilities_support": [
+          "Repeater",
+          "Bridge",
+          "Router"
+        ],
+        "switch_capabilities_enabled": [
+          "Repeater",
+          "Bridge",
+          "Router"
+        ],
+        "switch_mgmt_addresses": [
+          "10.192.87.5",
+          "fe80::8e47:beff:fec5:2841"
+        ],
+        "switch_port_untagged_vlan_id": 3010,
+        "switch_port_link_aggregation_enabled": false,
+        "switch_port_link_aggregation_support": true,
+        "switch_port_link_aggregation_id": 0,
+        "switch_port_mtu": 1532
+      }
+    }
+  },
+  "macs": [
+    "24:6e:96:7e:24:a6",
+    "24:6e:96:7e:24:86",
+    "24:6e:96:7e:24:a7",
+    "24:6e:96:7e:24:88"
+  ],
+  "local_gb": 222,
+  "cpus": 48,
+  "cpu_arch": "x86_64",
+  "memory_mb": 196608,
+  "extra": {
+    "disk": {
+      "logical": {
+        "count": 1
+      },
+      "sda": {
+        "size": 240,
+        "vendor": "ATA",
+        "model": "MZ7KM240HMHQ0D3",
+        "rev": "GD53",
+        "optimal_io_size": 0,
+        "physical_block_size": 512,
+        "rotational": 0,
+        "nr_requests": 256,
+        "scheduler": "mq-deadline",
+        "Write Cache Enable": 1,
+        "Read Cache Disable": 0,
+        "wwn-id": "wwn-0x5002538c40778230",
+        "id": "ata-MZ7KM240HMHQ0D3_S3BSNX0J800427",
+        "SMART/device_model": "MZ7KM240HMHQ0D3",
+        "SMART/serial_number": "S3BSNX0J800427",
+        "SMART/firmware_version": "GD53",
+        "SMART/rotation_rate": "Solid State Device",
+        "SMART/Raw_Read_Error_Rate(1)/value": 200,
+        "SMART/Raw_Read_Error_Rate(1)/worst": 200,
+        "SMART/Raw_Read_Error_Rate(1)/thresh": 0,
+        "SMART/Raw_Read_Error_Rate(1)/when_failed": "NEVER",
+        "SMART/Raw_Read_Error_Rate(1)/raw": 0,
+        "SMART/Reallocated_Sector_Ct(5)/value": 100,
+        "SMART/Reallocated_Sector_Ct(5)/worst": 100,
+        "SMART/Reallocated_Sector_Ct(5)/thresh": 10,
+        "SMART/Reallocated_Sector_Ct(5)/when_failed": "NEVER",
+        "SMART/Reallocated_Sector_Ct(5)/raw": 0,
+        "SMART/Power_On_Hours(9)/value": 93,
+        "SMART/Power_On_Hours(9)/worst": 93,
+        "SMART/Power_On_Hours(9)/thresh": 0,
+        "SMART/Power_On_Hours(9)/when_failed": "NEVER",
+        "SMART/Power_On_Hours(9)/raw": 33735,
+        "SMART/Power_Cycle_Count(12)/value": 99,
+        "SMART/Power_Cycle_Count(12)/worst": 99,
+        "SMART/Power_Cycle_Count(12)/thresh": 0,
+        "SMART/Power_Cycle_Count(12)/when_failed": "NEVER",
+        "SMART/Power_Cycle_Count(12)/raw": 830,
+        "SMART/Read_Soft_Error_Rate(13)/value": 200,
+        "SMART/Read_Soft_Error_Rate(13)/worst": 200,
+        "SMART/Read_Soft_Error_Rate(13)/thresh": 0,
+        "SMART/Read_Soft_Error_Rate(13)/when_failed": "NEVER",
+        "SMART/Read_Soft_Error_Rate(13)/raw": 0,
+        "SMART/Wear_Leveling_Count(177)/value": 99,
+        "SMART/Wear_Leveling_Count(177)/worst": 99,
+        "SMART/Wear_Leveling_Count(177)/thresh": 5,
+        "SMART/Wear_Leveling_Count(177)/when_failed": "NEVER",
+        "SMART/Wear_Leveling_Count(177)/raw": 233,
+        "SMART/Used_Rsvd_Blk_Cnt_Tot(179)/value": 100,
+        "SMART/Used_Rsvd_Blk_Cnt_Tot(179)/worst": 100,
+        "SMART/Used_Rsvd_Blk_Cnt_Tot(179)/thresh": 10,
+        "SMART/Used_Rsvd_Blk_Cnt_Tot(179)/when_failed": "NEVER",
+        "SMART/Used_Rsvd_Blk_Cnt_Tot(179)/raw": 0,
+        "SMART/Unused_Rsvd_Blk_Cnt_Tot(180)/value": 100,
+        "SMART/Unused_Rsvd_Blk_Cnt_Tot(180)/worst": 100,
+        "SMART/Unused_Rsvd_Blk_Cnt_Tot(180)/thresh": 0,
+        "SMART/Unused_Rsvd_Blk_Cnt_Tot(180)/when_failed": "NEVER",
+        "SMART/Unused_Rsvd_Blk_Cnt_Tot(180)/raw": 1374,
+        "SMART/Program_Fail_Cnt_Total(181)/value": 100,
+        "SMART/Program_Fail_Cnt_Total(181)/worst": 100,
+        "SMART/Program_Fail_Cnt_Total(181)/thresh": 0,
+        "SMART/Program_Fail_Cnt_Total(181)/when_failed": "NEVER",
+        "SMART/Program_Fail_Cnt_Total(181)/raw": 0,
+        "SMART/Erase_Fail_Count_Total(182)/value": 100,
+        "SMART/Erase_Fail_Count_Total(182)/worst": 100,
+        "SMART/Erase_Fail_Count_Total(182)/thresh": 0,
+        "SMART/Erase_Fail_Count_Total(182)/when_failed": "NEVER",
+        "SMART/Erase_Fail_Count_Total(182)/raw": 0,
+        "SMART/End-to-End_Error(184)/value": 100,
+        "SMART/End-to-End_Error(184)/worst": 100,
+        "SMART/End-to-End_Error(184)/thresh": 97,
+        "SMART/End-to-End_Error(184)/when_failed": "NEVER",
+        "SMART/End-to-End_Error(184)/raw": 0,
+        "SMART/Temperature_Celsius(194)/value": 70,
+        "SMART/Temperature_Celsius(194)/worst": 45,
+        "SMART/Temperature_Celsius(194)/thresh": 0,
+        "SMART/Temperature_Celsius(194)/when_failed": "NEVER",
+        "SMART/Temperature_Celsius(194)/raw": 30,
+        "SMART/ECC_Error_Rate(195)/value": 100,
+        "SMART/ECC_Error_Rate(195)/worst": 100,
+        "SMART/ECC_Error_Rate(195)/thresh": 0,
+        "SMART/ECC_Error_Rate(195)/when_failed": "NEVER",
+        "SMART/ECC_Error_Rate(195)/raw": 0,
+        "SMART/Offline_Uncorrectable(198)/value": 100,
+        "SMART/Offline_Uncorrectable(198)/worst": 100,
+        "SMART/Offline_Uncorrectable(198)/thresh": 0,
+        "SMART/Offline_Uncorrectable(198)/when_failed": "NEVER",
+        "SMART/Offline_Uncorrectable(198)/raw": 0,
+        "SMART/CRC_Error_Count(199)/value": 100,
+        "SMART/CRC_Error_Count(199)/worst": 100,
+        "SMART/CRC_Error_Count(199)/thresh": 0,
+        "SMART/CRC_Error_Count(199)/when_failed": "NEVER",
+        "SMART/CRC_Error_Count(199)/raw": 0,
+        "SMART/Supercap_Status(201)/value": 100,
+        "SMART/Supercap_Status(201)/worst": 100,
+        "SMART/Supercap_Status(201)/thresh": 1,
+        "SMART/Supercap_Status(201)/when_failed": "NEVER",
+        "SMART/Supercap_Status(201)/raw": 0,
+        "SMART/Exception_Mode_Status(202)/value": 100,
+        "SMART/Exception_Mode_Status(202)/worst": 100,
+        "SMART/Exception_Mode_Status(202)/thresh": 10,
+        "SMART/Exception_Mode_Status(202)/when_failed": "NEVER",
+        "SMART/Exception_Mode_Status(202)/raw": 0,
+        "SMART/Media_Wearout_Indicator(233)/value": 99,
+        "SMART/Media_Wearout_Indicator(233)/worst": 99,
+        "SMART/Media_Wearout_Indicator(233)/thresh": 0,
+        "SMART/Media_Wearout_Indicator(233)/when_failed": "NEVER",
+        "SMART/Media_Wearout_Indicator(233)/raw": 108736603062,
+        "SMART/POR_Recovery_Count(235)/value": 99,
+        "SMART/POR_Recovery_Count(235)/worst": 99,
+        "SMART/POR_Recovery_Count(235)/thresh": 0,
+        "SMART/POR_Recovery_Count(235)/when_failed": "NEVER",
+        "SMART/POR_Recovery_Count(235)/raw": 383,
+        "SMART/Total_LBAs_Read(242)/value": 99,
+        "SMART/Total_LBAs_Read(242)/worst": 99,
+        "SMART/Total_LBAs_Read(242)/thresh": 0,
+        "SMART/Total_LBAs_Read(242)/when_failed": "NEVER",
+        "SMART/Total_LBAs_Read(242)/raw": 17220256631,
+        "SMART/SATA_Downshift_Ct(243)/value": 100,
+        "SMART/SATA_Downshift_Ct(243)/worst": 100,
+        "SMART/SATA_Downshift_Ct(243)/thresh": 0,
+        "SMART/SATA_Downshift_Ct(243)/when_failed": "NEVER",
+        "SMART/SATA_Downshift_Ct(243)/raw": 0,
+        "SMART/Thermal_Throttle_St(244)/value": 100,
+        "SMART/Thermal_Throttle_St(244)/worst": 100,
+        "SMART/Thermal_Throttle_St(244)/thresh": 0,
+        "SMART/Thermal_Throttle_St(244)/when_failed": "NEVER",
+        "SMART/Thermal_Throttle_St(244)/raw": 0,
+        "SMART/Timed_Workld_Media_Wear(245)/value": 99,
+        "SMART/Timed_Workld_Media_Wear(245)/worst": 99,
+        "SMART/Timed_Workld_Media_Wear(245)/thresh": 0,
+        "SMART/Timed_Workld_Media_Wear(245)/when_failed": "NEVER",
+        "SMART/Timed_Workld_Media_Wear(245)/raw": 99,
+        "SMART/Timed_Workld_RdWr_Ratio(246)/value": 100,
+        "SMART/Timed_Workld_RdWr_Ratio(246)/worst": 100,
+        "SMART/Timed_Workld_RdWr_Ratio(246)/thresh": 0,
+        "SMART/Timed_Workld_RdWr_Ratio(246)/when_failed": "NEVER",
+        "SMART/Timed_Workld_RdWr_Ratio(246)/raw": 65535,
+        "SMART/Timed_Workld_Timer(247)/value": 100,
+        "SMART/Timed_Workld_Timer(247)/worst": 100,
+        "SMART/Timed_Workld_Timer(247)/thresh": 0,
+        "SMART/Timed_Workld_Timer(247)/when_failed": "NEVER",
+        "SMART/Timed_Workld_Timer(247)/raw": 65535,
+        "SMART/Unknown_Attribute(248)/value": 100,
+        "SMART/Unknown_Attribute(248)/worst": 100,
+        "SMART/Unknown_Attribute(248)/thresh": 0,
+        "SMART/Unknown_Attribute(248)/when_failed": "NEVER",
+        "SMART/Unknown_Attribute(248)/raw": 65535,
+        "SMART/NAND_Writes(251)/value": 100,
+        "SMART/NAND_Writes(251)/worst": 100,
+        "SMART/NAND_Writes(251)/thresh": 0,
+        "SMART/NAND_Writes(251)/when_failed": "NEVER",
+        "SMART/NAND_Writes(251)/raw": 122529997312
+      }
+    },
+    "system": {
+      "product": {
+        "serial": ".9YPX7M2.CNFCP007AJ007I.",
+        "name": "0JM3W2",
+        "vendor": "Dell Inc.",
+        "version": "A02",
+        "uuid": "4c4c4544-0059-5010-8058-b9c04f374d32"
+      },
+      "motherboard": {
+        "name": "0JM3W2",
+        "vendor": "Dell Inc.",
+        "version": "A02",
+        "serial": ".9YPX7M2.CNFCP007AJ007I."
+      },
+      "os": {
+        "vendor": "Debian",
+        "version": "Debian GNU/Linux 12 (bookworm)"
+      },
+      "kernel": {
+        "version": "6.1.0-25-amd64",
+        "arch": "unknown",
+        "cmdline": "deploy_kernel selinux=0 troubleshoot=0 text nofb vga=normal console=tty0 console=ttyS0,115200n8 rootpwd=\"$1$4l8udTW3$.IeLFKKhgp5G094Fg6lFh.\" ipa-inspection-collectors=default,pci-devices,dmi-decode,numa-topology,extra-hardware,logs ipa-collect-lldp=1 ipa-inspection-callback-url=http://10.140.81.2:5050/v1/continue ipa-global-request-id=req-f5eb23f7-8850-4e17-a6da-c12c7b6ee434 BOOTIF=24:6e:96:7e:24:86 initrd=deploy_ramdisk"
+      },
+      "ipmi": {
+        "channel": 1
+      },
+      "rtc": {
+        "utc": "no"
+      }
+    },
+    "firmware": {
+      "bios": {
+        "version": "2.22.1",
+        "date": "08/09/2024",
+        "vendor": "Dell Inc."
+      }
+    },
+    "memory": {
+      "total": {
+        "size": 206158430208
+      },
+      "bank:0": {
+        "size": 17179869184,
+        "clock": 2666000000,
+        "description": "DIMM DDR4 Synchronous Registered (Buffered) 2666 MHz (0.4 ns)",
+        "vendor": "002C0632002C",
+        "product": "18ASF2G72PDZ-2G6D1",
+        "serial": "18E6DB3F",
+        "slot": "A1"
+      },
+      "bank:1": {
+        "size": 17179869184,
+        "clock": 2666000000,
+        "description": "DIMM DDR4 Synchronous Registered (Buffered) 2666 MHz (0.4 ns)",
+        "vendor": "002C0632002C",
+        "product": "18ASF2G72PDZ-2G6D1",
+        "serial": "18E6D456",
+        "slot": "A2"
+      },
+      "bank:2": {
+        "size": 17179869184,
+        "clock": 2666000000,
+        "description": "DIMM DDR4 Synchronous Registered (Buffered) 2666 MHz (0.4 ns)",
+        "vendor": "002C0632002C",
+        "product": "18ASF2G72PDZ-2G6D1",
+        "serial": "18E6D45E",
+        "slot": "A3"
+      },
+      "bank:3": {
+        "size": 17179869184,
+        "clock": 2666000000,
+        "description": "DIMM DDR4 Synchronous Registered (Buffered) 2666 MHz (0.4 ns)",
+        "vendor": "002C0632002C",
+        "product": "18ASF2G72PDZ-2G6D1",
+        "serial": "18E6DB0D",
+        "slot": "A4"
+      },
+      "bank:4": {
+        "size": 17179869184,
+        "clock": 2666000000,
+        "description": "DIMM DDR4 Synchronous Registered (Buffered) 2666 MHz (0.4 ns)",
+        "vendor": "002C0632002C",
+        "product": "18ASF2G72PDZ-2G6D1",
+        "serial": "18E6DA05",
+        "slot": "A5"
+      },
+      "bank:5": {
+        "size": 17179869184,
+        "clock": 2666000000,
+        "description": "DIMM DDR4 Synchronous Registered (Buffered) 2666 MHz (0.4 ns)",
+        "vendor": "002C0632002C",
+        "product": "18ASF2G72PDZ-2G6D1",
+        "serial": "18E6DB0A",
+        "slot": "A6"
+      },
+      "bank:6": {
+        "description": "[empty]",
+        "slot": "A7"
+      },
+      "bank:7": {
+        "description": "[empty]",
+        "slot": "A8"
+      },
+      "bank:8": {
+        "description": "[empty]",
+        "slot": "A9"
+      },
+      "bank:9": {
+        "description": "[empty]",
+        "slot": "A10"
+      },
+      "bank:10": {
+        "description": "[empty]",
+        "slot": "A11"
+      },
+      "bank:11": {
+        "description": "[empty]",
+        "slot": "A12"
+      },
+      "bank:12": {
+        "size": 17179869184,
+        "clock": 2666000000,
+        "description": "DIMM DDR4 Synchronous Registered (Buffered) 2666 MHz (0.4 ns)",
+        "vendor": "002C0632002C",
+        "product": "18ASF2G72PDZ-2G6D1",
+        "serial": "18E6DAFA",
+        "slot": "B1"
+      },
+      "bank:13": {
+        "size": 17179869184,
+        "clock": 2666000000,
+        "description": "DIMM DDR4 Synchronous Registered (Buffered) 2666 MHz (0.4 ns)",
+        "vendor": "002C0632002C",
+        "product": "18ASF2G72PDZ-2G6D1",
+        "serial": "18E6D41C",
+        "slot": "B2"
+      },
+      "bank:14": {
+        "size": 17179869184,
+        "clock": 2666000000,
+        "description": "DIMM DDR4 Synchronous Registered (Buffered) 2666 MHz (0.4 ns)",
+        "vendor": "002C0632002C",
+        "product": "18ASF2G72PDZ-2G6D1",
+        "serial": "18E6DAC8",
+        "slot": "B3"
+      },
+      "bank:15": {
+        "size": 17179869184,
+        "clock": 2666000000,
+        "description": "DIMM DDR4 Synchronous Registered (Buffered) 2666 MHz (0.4 ns)",
+        "vendor": "002C0632002C",
+        "product": "18ASF2G72PDZ-2G6D1",
+        "serial": "18E6DAF8",
+        "slot": "B4"
+      },
+      "bank:16": {
+        "size": 17179869184,
+        "clock": 2666000000,
+        "description": "DIMM DDR4 Synchronous Registered (Buffered) 2666 MHz (0.4 ns)",
+        "vendor": "002C0632002C",
+        "product": "18ASF2G72PDZ-2G6D1",
+        "serial": "18E6DAD0",
+        "slot": "B5"
+      },
+      "bank:17": {
+        "size": 17179869184,
+        "clock": 2666000000,
+        "description": "DIMM DDR4 Synchronous Registered (Buffered) 2666 MHz (0.4 ns)",
+        "vendor": "002C0632002C",
+        "product": "18ASF2G72PDZ-2G6D1",
+        "serial": "18E6D305",
+        "slot": "B6"
+      },
+      "bank:18": {
+        "description": "[empty]",
+        "slot": "B7"
+      },
+      "bank:19": {
+        "description": "[empty]",
+        "slot": "B8"
+      },
+      "bank:20": {
+        "description": "[empty]",
+        "slot": "B9"
+      },
+      "bank:21": {
+        "description": "[empty]",
+        "slot": "B10"
+      },
+      "bank:22": {
+        "description": "[empty]",
+        "slot": "B11"
+      },
+      "bank:23": {
+        "description": "[empty]",
+        "slot": "B12"
+      },
+      "banks": {
+        "count": 24
+      }
+    },
+    "network": {
+      "eno3": {
+        "businfo": "pci@0000:01:00.0",
+        "vendor": "Intel Corporation",
+        "product": "I350 Gigabit Network Connection",
+        "firmware": "1.67, 0x800010dd, 22.5.7",
+        "capacity": 1000000000,
+        "link": "no",
+        "driver": "igb",
+        "latency": 0,
+        "autonegotiation": "on",
+        "serial": "24:6e:96:7e:24:a6",
+        "Autonegotiate": "on",
+        "RX": "on",
+        "TX": "on",
+        "rx-checksumming": "on",
+        "tx-checksumming": "on",
+        "tx-checksumming/tx-checksum-ipv4": "off [fixed]",
+        "tx-checksumming/tx-checksum-ip-generic": "on",
+        "tx-checksumming/tx-checksum-ipv6": "off [fixed]",
+        "tx-checksumming/tx-checksum-fcoe-crc": "off [fixed]",
+        "tx-checksumming/tx-checksum-sctp": "on",
+        "scatter-gather": "on",
+        "scatter-gather/tx-scatter-gather": "on",
+        "scatter-gather/tx-scatter-gather-fraglist": "off [fixed]",
+        "tcp-segmentation-offload": "on",
+        "tcp-segmentation-offload/tx-tcp-segmentation": "on",
+        "tcp-segmentation-offload/tx-tcp-ecn-segmentation": "off [fixed]",
+        "tcp-segmentation-offload/tx-tcp-mangleid-segmentation": "off",
+        "tcp-segmentation-offload/tx-tcp6-segmentation": "on",
+        "generic-segmentation-offload": "on",
+        "generic-receive-offload": "on",
+        "large-receive-offload": "off [fixed]",
+        "rx-vlan-offload": "on",
+        "tx-vlan-offload": "on",
+        "ntuple-filters": "off",
+        "receive-hashing": "on",
+        "highdma": "on [fixed]",
+        "rx-vlan-filter": "on [fixed]",
+        "vlan-challenged": "off [fixed]",
+        "tx-lockless": "off [fixed]",
+        "netns-local": "off [fixed]",
+        "tx-gso-robust": "off [fixed]",
+        "tx-fcoe-segmentation": "off [fixed]",
+        "tx-gre-segmentation": "on",
+        "tx-gre-csum-segmentation": "on",
+        "tx-ipxip4-segmentation": "on",
+        "tx-ipxip6-segmentation": "on",
+        "tx-udp_tnl-segmentation": "on",
+        "tx-udp_tnl-csum-segmentation": "on",
+        "tx-gso-partial": "on",
+        "tx-tunnel-remcsum-segmentation": "off [fixed]",
+        "tx-sctp-segmentation": "off [fixed]",
+        "tx-esp-segmentation": "off [fixed]",
+        "tx-udp-segmentation": "on",
+        "tx-gso-list": "off [fixed]",
+        "fcoe-mtu": "off [fixed]",
+        "tx-nocache-copy": "off",
+        "loopback": "off [fixed]",
+        "rx-fcs": "off [fixed]",
+        "rx-all": "off",
+        "tx-vlan-stag-hw-insert": "off [fixed]",
+        "rx-vlan-stag-hw-parse": "off [fixed]",
+        "rx-vlan-stag-filter": "off [fixed]",
+        "l2-fwd-offload": "off [fixed]",
+        "hw-tc-offload": "on",
+        "esp-hw-offload": "off [fixed]",
+        "esp-tx-csum-hw-offload": "off [fixed]",
+        "rx-udp_tunnel-port-offload": "off [fixed]",
+        "tls-hw-tx-offload": "off [fixed]",
+        "tls-hw-rx-offload": "off [fixed]",
+        "rx-gro-hw": "off [fixed]",
+        "tls-hw-record": "off [fixed]",
+        "rx-gro-list": "off",
+        "macsec-hw-offload": "off [fixed]",
+        "rx-udp-gro-forwarding": "off",
+        "hsr-tag-ins-offload": "off [fixed]",
+        "hsr-tag-rm-offload": "off [fixed]",
+        "hsr-fwd-offload": "off [fixed]",
+        "hsr-dup-offload": "off [fixed]"
+      },
+      "eno4": {
+        "businfo": "pci@0000:01:00.1",
+        "vendor": "Intel Corporation",
+        "product": "I350 Gigabit Network Connection",
+        "firmware": "1.67, 0x800010dd, 22.5.7",
+        "capacity": 1000000000,
+        "link": "no",
+        "driver": "igb",
+        "latency": 0,
+        "autonegotiation": "on",
+        "serial": "24:6e:96:7e:24:a7",
+        "Autonegotiate": "on",
+        "RX": "on",
+        "TX": "on",
+        "rx-checksumming": "on",
+        "tx-checksumming": "on",
+        "tx-checksumming/tx-checksum-ipv4": "off [fixed]",
+        "tx-checksumming/tx-checksum-ip-generic": "on",
+        "tx-checksumming/tx-checksum-ipv6": "off [fixed]",
+        "tx-checksumming/tx-checksum-fcoe-crc": "off [fixed]",
+        "tx-checksumming/tx-checksum-sctp": "on",
+        "scatter-gather": "on",
+        "scatter-gather/tx-scatter-gather": "on",
+        "scatter-gather/tx-scatter-gather-fraglist": "off [fixed]",
+        "tcp-segmentation-offload": "on",
+        "tcp-segmentation-offload/tx-tcp-segmentation": "on",
+        "tcp-segmentation-offload/tx-tcp-ecn-segmentation": "off [fixed]",
+        "tcp-segmentation-offload/tx-tcp-mangleid-segmentation": "off",
+        "tcp-segmentation-offload/tx-tcp6-segmentation": "on",
+        "generic-segmentation-offload": "on",
+        "generic-receive-offload": "on",
+        "large-receive-offload": "off [fixed]",
+        "rx-vlan-offload": "on",
+        "tx-vlan-offload": "on",
+        "ntuple-filters": "off",
+        "receive-hashing": "on",
+        "highdma": "on [fixed]",
+        "rx-vlan-filter": "on [fixed]",
+        "vlan-challenged": "off [fixed]",
+        "tx-lockless": "off [fixed]",
+        "netns-local": "off [fixed]",
+        "tx-gso-robust": "off [fixed]",
+        "tx-fcoe-segmentation": "off [fixed]",
+        "tx-gre-segmentation": "on",
+        "tx-gre-csum-segmentation": "on",
+        "tx-ipxip4-segmentation": "on",
+        "tx-ipxip6-segmentation": "on",
+        "tx-udp_tnl-segmentation": "on",
+        "tx-udp_tnl-csum-segmentation": "on",
+        "tx-gso-partial": "on",
+        "tx-tunnel-remcsum-segmentation": "off [fixed]",
+        "tx-sctp-segmentation": "off [fixed]",
+        "tx-esp-segmentation": "off [fixed]",
+        "tx-udp-segmentation": "on",
+        "tx-gso-list": "off [fixed]",
+        "fcoe-mtu": "off [fixed]",
+        "tx-nocache-copy": "off",
+        "loopback": "off [fixed]",
+        "rx-fcs": "off [fixed]",
+        "rx-all": "off",
+        "tx-vlan-stag-hw-insert": "off [fixed]",
+        "rx-vlan-stag-hw-parse": "off [fixed]",
+        "rx-vlan-stag-filter": "off [fixed]",
+        "l2-fwd-offload": "off [fixed]",
+        "hw-tc-offload": "on",
+        "esp-hw-offload": "off [fixed]",
+        "esp-tx-csum-hw-offload": "off [fixed]",
+        "rx-udp_tunnel-port-offload": "off [fixed]",
+        "tls-hw-tx-offload": "off [fixed]",
+        "tls-hw-rx-offload": "off [fixed]",
+        "rx-gro-hw": "off [fixed]",
+        "tls-hw-record": "off [fixed]",
+        "rx-gro-list": "off",
+        "macsec-hw-offload": "off [fixed]",
+        "rx-udp-gro-forwarding": "off",
+        "hsr-tag-ins-offload": "off [fixed]",
+        "hsr-tag-rm-offload": "off [fixed]",
+        "hsr-fwd-offload": "off [fixed]",
+        "hsr-dup-offload": "off [fixed]"
+      },
+      "eno1": {
+        "businfo": "pci@0000:18:00.0",
+        "vendor": "Intel Corporation",
+        "product": "Ethernet Controller X710 for 10GbE SFP+",
+        "firmware": "9.40 0x8000e9c1 22.5.7",
+        "size": 10000000000,
+        "capacity": 10000000000,
+        "ipv4": "10.51.0.40",
+        "ipv4-netmask": "255.255.255.0",
+        "ipv4-cidr": 24,
+        "ipv4-network": "10.51.0.0",
+        "link": "yes",
+        "driver": "i40e",
+        "duplex": "full",
+        "speed": "10Gbit/s",
+        "latency": 0,
+        "autonegotiation": "off",
+        "serial": "24:6e:96:7e:24:86",
+        "Autonegotiate": "off",
+        "RX": "off",
+        "TX": "off",
+        "rx-checksumming": "on",
+        "tx-checksumming": "on",
+        "tx-checksumming/tx-checksum-ipv4": "off [fixed]",
+        "tx-checksumming/tx-checksum-ip-generic": "on",
+        "tx-checksumming/tx-checksum-ipv6": "off [fixed]",
+        "tx-checksumming/tx-checksum-fcoe-crc": "off [fixed]",
+        "tx-checksumming/tx-checksum-sctp": "on",
+        "scatter-gather": "on",
+        "scatter-gather/tx-scatter-gather": "on",
+        "scatter-gather/tx-scatter-gather-fraglist": "off [fixed]",
+        "tcp-segmentation-offload": "on",
+        "tcp-segmentation-offload/tx-tcp-segmentation": "on",
+        "tcp-segmentation-offload/tx-tcp-ecn-segmentation": "on",
+        "tcp-segmentation-offload/tx-tcp-mangleid-segmentation": "off",
+        "tcp-segmentation-offload/tx-tcp6-segmentation": "on",
+        "generic-segmentation-offload": "on",
+        "generic-receive-offload": "on",
+        "large-receive-offload": "off [fixed]",
+        "rx-vlan-offload": "on",
+        "tx-vlan-offload": "on",
+        "ntuple-filters": "on",
+        "receive-hashing": "on",
+        "highdma": "on",
+        "rx-vlan-filter": "on [fixed]",
+        "vlan-challenged": "off [fixed]",
+        "tx-lockless": "off [fixed]",
+        "netns-local": "off [fixed]",
+        "tx-gso-robust": "off [fixed]",
+        "tx-fcoe-segmentation": "off [fixed]",
+        "tx-gre-segmentation": "on",
+        "tx-gre-csum-segmentation": "on",
+        "tx-ipxip4-segmentation": "on",
+        "tx-ipxip6-segmentation": "on",
+        "tx-udp_tnl-segmentation": "on",
+        "tx-udp_tnl-csum-segmentation": "on",
+        "tx-gso-partial": "on",
+        "tx-tunnel-remcsum-segmentation": "off [fixed]",
+        "tx-sctp-segmentation": "off [fixed]",
+        "tx-esp-segmentation": "off [fixed]",
+        "tx-udp-segmentation": "on",
+        "tx-gso-list": "off [fixed]",
+        "fcoe-mtu": "off [fixed]",
+        "tx-nocache-copy": "off",
+        "loopback": "off [fixed]",
+        "rx-fcs": "off [fixed]",
+        "rx-all": "off [fixed]",
+        "tx-vlan-stag-hw-insert": "off [fixed]",
+        "rx-vlan-stag-hw-parse": "off [fixed]",
+        "rx-vlan-stag-filter": "off [fixed]",
+        "l2-fwd-offload": "off",
+        "hw-tc-offload": "off",
+        "esp-hw-offload": "off [fixed]",
+        "esp-tx-csum-hw-offload": "off [fixed]",
+        "rx-udp_tunnel-port-offload": "on",
+        "tls-hw-tx-offload": "off [fixed]",
+        "tls-hw-rx-offload": "off [fixed]",
+        "rx-gro-hw": "off [fixed]",
+        "tls-hw-record": "off [fixed]",
+        "rx-gro-list": "off",
+        "macsec-hw-offload": "off [fixed]",
+        "rx-udp-gro-forwarding": "off",
+        "hsr-tag-ins-offload": "off [fixed]",
+        "hsr-tag-rm-offload": "off [fixed]",
+        "hsr-fwd-offload": "off [fixed]",
+        "hsr-dup-offload": "off [fixed]"
+      },
+      "eno2": {
+        "businfo": "pci@0000:18:00.1",
+        "vendor": "Intel Corporation",
+        "product": "Ethernet Controller X710 for 10GbE SFP+",
+        "firmware": "9.40 0x8000e9c1 22.5.7",
+        "size": 10000000000,
+        "capacity": 10000000000,
+        "ipv4": "10.51.0.219",
+        "ipv4-netmask": "255.255.255.0",
+        "ipv4-cidr": 24,
+        "ipv4-network": "10.51.0.0",
+        "link": "yes",
+        "driver": "i40e",
+        "duplex": "full",
+        "speed": "10Gbit/s",
+        "latency": 0,
+        "autonegotiation": "off",
+        "serial": "24:6e:96:7e:24:88",
+        "Autonegotiate": "off",
+        "RX": "off",
+        "TX": "off",
+        "rx-checksumming": "on",
+        "tx-checksumming": "on",
+        "tx-checksumming/tx-checksum-ipv4": "off [fixed]",
+        "tx-checksumming/tx-checksum-ip-generic": "on",
+        "tx-checksumming/tx-checksum-ipv6": "off [fixed]",
+        "tx-checksumming/tx-checksum-fcoe-crc": "off [fixed]",
+        "tx-checksumming/tx-checksum-sctp": "on",
+        "scatter-gather": "on",
+        "scatter-gather/tx-scatter-gather": "on",
+        "scatter-gather/tx-scatter-gather-fraglist": "off [fixed]",
+        "tcp-segmentation-offload": "on",
+        "tcp-segmentation-offload/tx-tcp-segmentation": "on",
+        "tcp-segmentation-offload/tx-tcp-ecn-segmentation": "on",
+        "tcp-segmentation-offload/tx-tcp-mangleid-segmentation": "off",
+        "tcp-segmentation-offload/tx-tcp6-segmentation": "on",
+        "generic-segmentation-offload": "on",
+        "generic-receive-offload": "on",
+        "large-receive-offload": "off [fixed]",
+        "rx-vlan-offload": "on",
+        "tx-vlan-offload": "on",
+        "ntuple-filters": "on",
+        "receive-hashing": "on",
+        "highdma": "on",
+        "rx-vlan-filter": "on [fixed]",
+        "vlan-challenged": "off [fixed]",
+        "tx-lockless": "off [fixed]",
+        "netns-local": "off [fixed]",
+        "tx-gso-robust": "off [fixed]",
+        "tx-fcoe-segmentation": "off [fixed]",
+        "tx-gre-segmentation": "on",
+        "tx-gre-csum-segmentation": "on",
+        "tx-ipxip4-segmentation": "on",
+        "tx-ipxip6-segmentation": "on",
+        "tx-udp_tnl-segmentation": "on",
+        "tx-udp_tnl-csum-segmentation": "on",
+        "tx-gso-partial": "on",
+        "tx-tunnel-remcsum-segmentation": "off [fixed]",
+        "tx-sctp-segmentation": "off [fixed]",
+        "tx-esp-segmentation": "off [fixed]",
+        "tx-udp-segmentation": "on",
+        "tx-gso-list": "off [fixed]",
+        "fcoe-mtu": "off [fixed]",
+        "tx-nocache-copy": "off",
+        "loopback": "off [fixed]",
+        "rx-fcs": "off [fixed]",
+        "rx-all": "off [fixed]",
+        "tx-vlan-stag-hw-insert": "off [fixed]",
+        "rx-vlan-stag-hw-parse": "off [fixed]",
+        "rx-vlan-stag-filter": "off [fixed]",
+        "l2-fwd-offload": "off",
+        "hw-tc-offload": "off",
+        "esp-hw-offload": "off [fixed]",
+        "esp-tx-csum-hw-offload": "off [fixed]",
+        "rx-udp_tunnel-port-offload": "on",
+        "tls-hw-tx-offload": "off [fixed]",
+        "tls-hw-rx-offload": "off [fixed]",
+        "rx-gro-hw": "off [fixed]",
+        "tls-hw-record": "off [fixed]",
+        "rx-gro-list": "off",
+        "macsec-hw-offload": "off [fixed]",
+        "rx-udp-gro-forwarding": "off",
+        "hsr-tag-ins-offload": "off [fixed]",
+        "hsr-tag-rm-offload": "off [fixed]",
+        "hsr-fwd-offload": "off [fixed]",
+        "hsr-dup-offload": "off [fixed]"
+      }
+    },
+    "cpu": {
+      "physical": {
+        "number": 2,
+        "smt": "on"
+      },
+      "physical_0": {
+        "vendor": "GenuineIntel",
+        "product": "Intel(R) Xeon(R) Gold 6126 CPU @ 2.60GHz",
+        "cores": 12,
+        "threads": 24,
+        "family": 6,
+        "model": 85,
+        "stepping": 4,
+        "architecture": "x86_64",
+        "l1d cache": "768 KiB (24 instances)",
+        "l1i cache": "768 KiB (24 instances)",
+        "l2 cache": "24 MiB (24 instances)",
+        "l3 cache": "38.5 MiB (2 instances)",
+        "min_Mhz": 1000,
+        "max_Mhz": 3700,
+        "flags": "fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single pti intel_ppin ssbd mba ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke md_clear flush_l1d arch_capabilities",
+        "threads_per_core": 2
+      },
+      "physical_1": {
+        "vendor": "GenuineIntel",
+        "product": "Intel(R) Xeon(R) Gold 6126 CPU @ 2.60GHz",
+        "cores": 12,
+        "threads": 24,
+        "family": 6,
+        "model": 85,
+        "stepping": 4,
+        "architecture": "x86_64",
+        "l1d cache": "768 KiB (24 instances)",
+        "l1i cache": "768 KiB (24 instances)",
+        "l2 cache": "24 MiB (24 instances)",
+        "l3 cache": "38.5 MiB (2 instances)",
+        "min_Mhz": 1000,
+        "max_Mhz": 3700,
+        "flags": "fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single pti intel_ppin ssbd mba ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req pku ospke md_clear flush_l1d arch_capabilities",
+        "threads_per_core": 2
+      },
+      "logical": {
+        "number": 48
+      },
+      "logical_0": {
+        "governor": "powersave"
+      },
+      "logical_1": {
+        "governor": "powersave"
+      },
+      "logical_2": {
+        "governor": "powersave"
+      },
+      "logical_3": {
+        "governor": "powersave"
+      },
+      "logical_4": {
+        "governor": "powersave"
+      },
+      "logical_5": {
+        "governor": "powersave"
+      },
+      "logical_6": {
+        "governor": "powersave"
+      },
+      "logical_7": {
+        "governor": "powersave"
+      },
+      "logical_8": {
+        "governor": "powersave"
+      },
+      "logical_9": {
+        "governor": "powersave"
+      },
+      "logical_10": {
+        "governor": "powersave"
+      },
+      "logical_11": {
+        "governor": "powersave"
+      },
+      "logical_12": {
+        "governor": "powersave"
+      },
+      "logical_13": {
+        "governor": "powersave"
+      },
+      "logical_14": {
+        "governor": "powersave"
+      },
+      "logical_15": {
+        "governor": "powersave"
+      },
+      "logical_16": {
+        "governor": "powersave"
+      },
+      "logical_17": {
+        "governor": "powersave"
+      },
+      "logical_18": {
+        "governor": "powersave"
+      },
+      "logical_19": {
+        "governor": "powersave"
+      },
+      "logical_20": {
+        "governor": "powersave"
+      },
+      "logical_21": {
+        "governor": "powersave"
+      },
+      "logical_22": {
+        "governor": "powersave"
+      },
+      "logical_23": {
+        "governor": "powersave"
+      },
+      "logical_24": {
+        "governor": "powersave"
+      },
+      "logical_25": {
+        "governor": "powersave"
+      },
+      "logical_26": {
+        "governor": "powersave"
+      },
+      "logical_27": {
+        "governor": "powersave"
+      },
+      "logical_28": {
+        "governor": "powersave"
+      },
+      "logical_29": {
+        "governor": "powersave"
+      },
+      "logical_30": {
+        "governor": "powersave"
+      },
+      "logical_31": {
+        "governor": "powersave"
+      },
+      "logical_32": {
+        "governor": "powersave"
+      },
+      "logical_33": {
+        "governor": "powersave"
+      },
+      "logical_34": {
+        "governor": "powersave"
+      },
+      "logical_35": {
+        "governor": "powersave"
+      },
+      "logical_36": {
+        "governor": "powersave"
+      },
+      "logical_37": {
+        "governor": "powersave"
+      },
+      "logical_38": {
+        "governor": "powersave"
+      },
+      "logical_39": {
+        "governor": "powersave"
+      },
+      "logical_40": {
+        "governor": "powersave"
+      },
+      "logical_41": {
+        "governor": "powersave"
+      },
+      "logical_42": {
+        "governor": "powersave"
+      },
+      "logical_43": {
+        "governor": "powersave"
+      },
+      "logical_44": {
+        "governor": "powersave"
+      },
+      "logical_45": {
+        "governor": "powersave"
+      },
+      "logical_46": {
+        "governor": "powersave"
+      },
+      "logical_47": {
+        "governor": "powersave"
+      }
+    },
+    "numa": {
+      "nodes": {
+        "count": 2
+      },
+      "node_0": {
+        "cpu_count": 24,
+        "cpu_mask": 555555555555
+      },
+      "node_1": {
+        "cpu_count": 24,
+        "cpu_mask": "aaaaaaaaaaaa"
+      }
+    },
+    "ipmi": {
+      "Temp": {
+        "value": 25,
+        "unit": "degrees C"
+      },
+      "Inlet Temp": {
+        "value": 22,
+        "unit": "degrees C"
+      },
+      "DIMM PG": {
+        "value": "0x01"
+      },
+      "NDC PG": {
+        "value": "0x01"
+      },
+      "PS1 PG FAIL": {
+        "value": "0x01"
+      },
+      "PS2 PG FAIL": {
+        "value": "0x01"
+      },
+      "BP0 PG": {
+        "value": "0x01"
+      },
+      "BP1 PG": {
+        "value": "0x01"
+      },
+      "BP2 PG": {
+        "value": "0x01"
+      },
+      "1.8V SW PG": {
+        "value": "0x01"
+      },
+      "2.5V SW PG": {
+        "value": "0x01"
+      },
+      "5V SW PG": {
+        "value": "0x01"
+      },
+      "PVNN SW PG": {
+        "value": "0x01"
+      },
+      "VSB11 SW PG": {
+        "value": "0x01"
+      },
+      "VSBM SW PG": {
+        "value": "0x01"
+      },
+      "3.3V B PG": {
+        "value": "0x01"
+      },
+      "MEM012 VDDQ PG": {
+        "value": "0x01"
+      },
+      "MEM012 VPP PG": {
+        "value": "0x01"
+      },
+      "MEM012 VTT PG": {
+        "value": "0x01"
+      },
+      "MEM345 VDDQ PG": {
+        "value": "0x01"
+      },
+      "MEM345 VPP PG": {
+        "value": "0x01"
+      },
+      "MEM345 VTT PG": {
+        "value": "0x01"
+      },
+      "VCCIO PG": {
+        "value": "0x01"
+      },
+      "VCORE PG": {
+        "value": "0x01"
+      },
+      "FIVR PG": {
+        "value": "0x01"
+      },
+      "Fan1": {
+        "value": 8640,
+        "unit": "RPM"
+      },
+      "Fan2": {
+        "value": 8640,
+        "unit": "RPM"
+      },
+      "Fan3": {
+        "value": 8520,
+        "unit": "RPM"
+      },
+      "Fan4": {
+        "value": 8520,
+        "unit": "RPM"
+      },
+      "Fan5": {
+        "value": 8520,
+        "unit": "RPM"
+      },
+      "Fan6": {
+        "value": 8520,
+        "unit": "RPM"
+      },
+      "Presence": {
+        "value": "0x02"
+      },
+      "Intrusion Cable": {
+        "value": "0x01"
+      },
+      "VGA Cable Pres": {
+        "value": "0x01"
+      },
+      "BP0 Presence": {
+        "value": "0x02"
+      },
+      "BP1 Presence": {
+        "value": "0x01"
+      },
+      "BP2 Presence": {
+        "value": "0x02"
+      },
+      "Power Cable": {
+        "value": "Not Readable"
+      },
+      "Signal Cable": {
+        "value": "Not Readable"
+      },
+      "Current 1": {
+        "value": "0.60",
+        "unit": "Amps"
+      },
+      "Current 2": {
+        "value": "0.60",
+        "unit": "Amps"
+      },
+      "Voltage 1": {
+        "value": 204,
+        "unit": "Volts"
+      },
+      "Voltage 2": {
+        "value": 212,
+        "unit": "Volts"
+      },
+      "Riser Config Err": {
+        "value": "0x01"
+      },
+      "OS Watchdog": {
+        "value": "0x00"
+      },
+      "SEL": {
+        "value": "Not Readable"
+      },
+      "Intrusion": {
+        "value": "0x00"
+      },
+      "Power Optimized": {
+        "value": "0x01"
+      },
+      "Pwr Consumption": {
+        "value": 216,
+        "unit": "Watts"
+      },
+      "PS Redundancy": {
+        "value": "Not Readable"
+      },
+      "Fan Redundancy": {
+        "value": "0x01"
+      },
+      "Redundancy": {
+        "value": "Not Readable"
+      },
+      "SD1": {
+        "value": "Not Readable"
+      },
+      "SD2": {
+        "value": "Not Readable"
+      },
+      "SD": {
+        "value": "Not Readable"
+      },
+      "IO Usage": {
+        "value": 0,
+        "unit": "percent"
+      },
+      "MEM Usage": {
+        "value": 0,
+        "unit": "percent"
+      },
+      "SYS Usage": {
+        "value": 0,
+        "unit": "percent"
+      },
+      "CPU Usage": {
+        "value": 0,
+        "unit": "percent"
+      },
+      "Status": {
+        "value": "0x01"
+      },
+      "ROMB Battery": {
+        "value": "Not Readable"
+      },
+      "PCIe Slot1": {
+        "value": "0x00"
+      },
+      "PCIe Slot2": {
+        "value": "Not Readable"
+      },
+      "PCIe Slot3": {
+        "value": "Not Readable"
+      },
+      "PCIe Slot4": {
+        "value": "Not Readable"
+      },
+      "PCIe Slot5": {
+        "value": "0x00"
+      },
+      "PCIe Slot6": {
+        "value": "Not Readable"
+      },
+      "PCIe Slot7": {
+        "value": "Not Readable"
+      },
+      "PCIe Slot8": {
+        "value": "Not Readable"
+      },
+      "Drive 0": {
+        "value": "0x01"
+      },
+      "Drive 15": {
+        "value": "Not Readable"
+      },
+      "Drive 30": {
+        "value": "Not Readable"
+      },
+      "Cable PCIe A0": {
+        "value": "Not Readable"
+      },
+      "Cable PCIe B0": {
+        "value": "Not Readable"
+      },
+      "Cable PCIe A1": {
+        "value": "Not Readable"
+      },
+      "Cable PCIe B1": {
+        "value": "Not Readable"
+      },
+      "Cable PCIe A2": {
+        "value": "Not Readable"
+      },
+      "Cable PCIe B2": {
+        "value": "Not Readable"
+      },
+      "Cable SAS A0": {
+        "value": "Not Readable"
+      },
+      "Cable SAS B0": {
+        "value": "0x01"
+      },
+      "Cable SAS A1": {
+        "value": "Not Readable"
+      },
+      "Cable SAS B1": {
+        "value": "Not Readable"
+      },
+      "Cable SAS A2": {
+        "value": "Not Readable"
+      },
+      "Cable SAS B2": {
+        "value": "Not Readable"
+      },
+      "ECC Corr Err": {
+        "value": "Not Readable"
+      },
+      "ECC Uncorr Err": {
+        "value": "Not Readable"
+      },
+      "PCI Parity Err": {
+        "value": "Not Readable"
+      },
+      "PCI System Err": {
+        "value": "Not Readable"
+      },
+      "SBE Log Disabled": {
+        "value": "Not Readable"
+      },
+      "Unknown": {
+        "value": "Not Readable"
+      },
+      "CPU Machine Chk": {
+        "value": "Not Readable"
+      },
+      "Memory Spared": {
+        "value": "Not Readable"
+      },
+      "Memory Mirrored": {
+        "value": "Not Readable"
+      },
+      "PCIE Fatal Err": {
+        "value": "Not Readable"
+      },
+      "Chipset Err": {
+        "value": "Not Readable"
+      },
+      "Err Reg Pointer": {
+        "value": "Not Readable"
+      },
+      "Mem ECC Warning": {
+        "value": "Not Readable"
+      },
+      "POST Err": {
+        "value": "Not Readable"
+      },
+      "Hdwr version err": {
+        "value": "Not Readable"
+      },
+      "Non Fatal PCI Er": {
+        "value": "Not Readable"
+      },
+      "Fatal IO Error": {
+        "value": "Not Readable"
+      },
+      "MSR Info Log": {
+        "value": "Not Readable"
+      },
+      "TXT Status": {
+        "value": "Not Readable"
+      },
+      "iDPT Mem Fail": {
+        "value": "Not Readable"
+      },
+      "Additional Info": {
+        "value": "Not Readable"
+      },
+      "CPU TDP": {
+        "value": "Not Readable"
+      },
+      "QPIRC Warning": {
+        "value": "Not Readable"
+      },
+      "Link Warning": {
+        "value": "Not Readable"
+      },
+      "Link Error": {
+        "value": "Not Readable"
+      },
+      "MRC Warning": {
+        "value": "Not Readable"
+      },
+      "Chassis Mismatch": {
+        "value": "Not Readable"
+      },
+      "FatalPCIErrOnBus": {
+        "value": "Not Readable"
+      },
+      "NonFatalPCIErBus": {
+        "value": "Not Readable"
+      },
+      "Fatal PCI SSD Er": {
+        "value": "Not Readable"
+      },
+      "NonFatalSSDEr": {
+        "value": "Not Readable"
+      },
+      "CPUMachineCheck": {
+        "value": "Not Readable"
+      },
+      "FatalPCIErARI": {
+        "value": "Not Readable"
+      },
+      "NonFatalPCIErARI": {
+        "value": "Not Readable"
+      },
+      "FatalPCIExpEr": {
+        "value": "Not Readable"
+      },
+      "NonFatalPCIExpEr": {
+        "value": "Not Readable"
+      },
+      "CP Left Pres": {
+        "value": "0x01"
+      },
+      "CP Right Pres": {
+        "value": "0x01"
+      },
+      "CPU Link Info": {
+        "value": "Not Readable"
+      },
+      "Chipset Info": {
+        "value": "Not Readable"
+      },
+      "Memory Config": {
+        "value": "Not Readable"
+      },
+      "QPI Link Err": {
+        "value": "Not Readable"
+      },
+      "LT/Flex Addr": {
+        "value": "Not Readable"
+      },
+      "OS Watchdog Time": {
+        "value": "Not Readable"
+      },
+      "TPM Presence": {
+        "value": "0x02"
+      },
+      "VSA PG": {
+        "value": "0x01"
+      },
+      "Dedicated NIC": {
+        "value": "0x01"
+      },
+      "Pfault Fail Safe": {
+        "value": "Not Readable"
+      },
+      "Unresp sensor": {
+        "value": "0x00"
+      },
+      "GPU1 Temp": {
+        "value": 31,
+        "unit": "degrees C"
+      },
+      "GPU2 Temp": {
+        "value": "disabled"
+      },
+      "Riser 3 Presence": {
+        "value": "0x01"
+      },
+      "Riser 2 Presence": {
+        "value": "0x01"
+      },
+      "Riser 1 Presence": {
+        "value": "0x01"
+      },
+      "GPU3 Temp": {
+        "value": "disabled"
+      },
+      "GPU4 Temp": {
+        "value": "disabled"
+      },
+      "GPU5 Temp": {
+        "value": "disabled"
+      },
+      "GPU6 Temp": {
+        "value": "disabled"
+      },
+      "GPU7 Temp": {
+        "value": "disabled"
+      },
+      "GPU8 Temp": {
+        "value": "disabled"
+      },
+      "Front LED Panel": {
+        "value": "0x00"
+      },
+      "NVDIMM Battery": {
+        "value": "Not Readable"
+      },
+      "NVDIMM Warning": {
+        "value": "Not Readable"
+      },
+      "NVDIMM Error": {
+        "value": "Not Readable"
+      },
+      "NVDIMM Info": {
+        "value": "Not Readable"
+      },
+      "POST Pkg Repair": {
+        "value": "Not Readable"
+      },
+      "Fan1 Status": {
+        "value": "0x09"
+      },
+      "Fan2 Status": {
+        "value": "0x09"
+      },
+      "Fan3 Status": {
+        "value": "0x09"
+      },
+      "Fan4 Status": {
+        "value": "0x09"
+      },
+      "Fan5 Status": {
+        "value": "0x09"
+      },
+      "Fan6 Status": {
+        "value": "0x09"
+      },
+      "Exhaust Temp": {
+        "value": 25,
+        "unit": "degrees C"
+      },
+      "MMIOChipset Info": {
+        "value": "Not Readable"
+      },
+      "DIMM Media Info": {
+        "value": "Not Readable"
+      },
+      "DIMMThermal Info": {
+        "value": "Not Readable"
+      },
+      "CPU Internal Err": {
+        "value": "Not Readable"
+      },
+      "A1": {
+        "value": "0x40"
+      },
+      "A2": {
+        "value": "0x40"
+      },
+      "A3": {
+        "value": "0x40"
+      },
+      "A4": {
+        "value": "0x40"
+      },
+      "A5": {
+        "value": "0x40"
+      },
+      "A6": {
+        "value": "0x40"
+      },
+      "A7": {
+        "value": "0x00"
+      },
+      "A8": {
+        "value": "0x00"
+      },
+      "A9": {
+        "value": "0x00"
+      },
+      "A10": {
+        "value": "0x00"
+      },
+      "A11": {
+        "value": "0x00"
+      },
+      "A12": {
+        "value": "0x00"
+      },
+      "B1": {
+        "value": "0x40"
+      },
+      "B2": {
+        "value": "0x40"
+      },
+      "B3": {
+        "value": "0x40"
+      },
+      "B4": {
+        "value": "0x40"
+      },
+      "B5": {
+        "value": "0x40"
+      },
+      "B6": {
+        "value": "0x40"
+      },
+      "B7": {
+        "value": "0x00"
+      },
+      "B8": {
+        "value": "0x00"
+      },
+      "B9": {
+        "value": "0x00"
+      },
+      "B10": {
+        "value": "0x00"
+      },
+      "B11": {
+        "value": "0x00"
+      },
+      "B12": {
+        "value": "0x00"
+      },
+      "Therm Config Err": {
+        "value": "0x00"
+      },
+      "VCORE VR": {
+        "value": "1.79",
+        "unit": "Volts"
+      },
+      "MEM012 VR": {
+        "value": "1.22",
+        "unit": "Volts"
+      },
+      "MEM345 VR": {
+        "value": "1.22",
+        "unit": "Volts"
+      }
+    },
+    "hw": {
+      "auxv": {
+        "hwcap": "bfebfbff",
+        "pagesz": 4096,
+        "flags": "0x0",
+        "hwcap2": "0x2",
+        "platform": "x86_64"
+      }
+    }
+  }
+}

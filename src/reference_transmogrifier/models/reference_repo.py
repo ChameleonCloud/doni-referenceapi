@@ -56,6 +56,7 @@ class ManufacturerEnum(str, Enum):
     intel = "Intel"
     micron = "Micron"
     mellanox = "Mellanox"
+    nvidia = "NVIDIA"
     phison = "Phison"
     samsung = "Samsung"
     seagate = "Seagate"
@@ -78,6 +79,7 @@ def normalize_manufacturer(name: str) -> ManufacturerEnum:
         "genuineintel": ManufacturerEnum.intel,
         "micron": ManufacturerEnum.micron,
         "mellanox": ManufacturerEnum.mellanox,
+        "nvidia": ManufacturerEnum.nvidia,
         "phison": ManufacturerEnum.phison,
         "samsung": ManufacturerEnum.samsung,
         "seagate": ManufacturerEnum.seagate,
@@ -315,10 +317,17 @@ class SupportedJobTypes(BaseModel):
     virtual: str = "ivt"
 
 
+class GPU(BaseModel):
+    gpu_count: int
+    gpu_model: str
+    gpu_vendor: str
+
+
 class Node(BaseModel):
     architecture: Architecture
     bios: Bios
     chassis: Chassis
+    gpu: Optional[GPU] = None
     infiniband: bool = False
     main_memory: MainMemory
     monitoring: Monitoring

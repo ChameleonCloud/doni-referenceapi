@@ -93,11 +93,11 @@ class ReferenceRepoNode(base.TestCase):
             self.reference_node_json = json.load(f)
 
         # with open("tests/unit/json_samples/blazar_p3-ssd-010.json") as f:
-        with open("tests/unit/json_samples/blazar_gigaio01.json") as f:
+        with open("tests/unit/json_samples/blazar_nc35.json") as f:
             self.blazar_host_json = json.load(f)
 
         # with open("tests/unit/json_samples/ironic_inspector_p3-ssd-010.json") as f:
-        with open("tests/unit/json_samples/ironic_inspector_gigaio01.json") as f:
+        with open("tests/unit/json_samples/ironic_inspector_nc35.json") as f:
             self.ironic_inspector_node_json = json.load(f)
 
     def test_validate_node(self):
