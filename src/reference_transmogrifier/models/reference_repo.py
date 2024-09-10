@@ -1,10 +1,10 @@
 import datetime
 from enum import Enum
-from typing import List, Optional, Self
+from typing import List, Optional
 
 from pydantic import UUID4, BaseModel, field_validator
 from pydantic.functional_validators import BeforeValidator
-from typing_extensions import Annotated
+from typing_extensions import Annotated, Self
 
 
 class NodeTypeEnum(str, Enum):

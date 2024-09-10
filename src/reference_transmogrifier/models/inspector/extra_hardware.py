@@ -1,4 +1,4 @@
-from typing import Optional, Self
+from typing import Optional
 
 from pydantic import (
     BaseModel,
@@ -8,6 +8,7 @@ from pydantic import (
     field_validator,
     model_validator,
 )
+from typing_extensions import Self
 
 from reference_transmogrifier.models import reference_repo
 

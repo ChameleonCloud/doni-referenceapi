@@ -1,4 +1,4 @@
-from typing import List, Optional, Self
+from typing import List, Optional
 
 from pydantic import BaseModel, ByteSize, Field, computed_field, field_validator
 
