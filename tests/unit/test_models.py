@@ -1,44 +1,12 @@
 import json
 
+from oslotest import base
+
 import reference_transmogrifier.reference_api
 from reference_transmogrifier.models import inspector, reference_repo
-from reference_transmogrifier.models.inspector import extra_hardware
-from tests.unit import base
 
 
-class TestIronicInspectorExtraData(base.TestCase):
-    def setUp(self):
-        super().setUp()
-
-        with open("tests/unit/json_samples/ironic_inspector_gigaio01.json") as f:
-            self.ironic_inspector_node_json = json.load(f)
-
-        self.extra_data = self.ironic_inspector_node_json.get("extra")
-
-    def test_inspector_extra_hardware(self):
-        extra_hardware.InspectorExtraHardware.model_validate(self.extra_data)
-
-    def test_extra_data_physical_cpu(self):
-        extra_cpu_json = self.extra_data.get("cpu").get("physical_0")
-
-        proc_model = extra_hardware.PhysicalCPU(**extra_cpu_json)
-        # TODO make sure we're reporting per-core cache info here
-        # assert proc_model.l1i_cache == "32kb in int"
-        # assert proc_model.l1d_cache == "48kb in int"
-        # assert proc_model.l2_cache == "48kb in int"
-        # assert proc_model.l3_cache == "48kb in int"
-
-    def test_extra_data_cpu(self):
-        extra_cpu_json = self.extra_data.get("cpu")
-        proc_model = extra_hardware.CPU(**extra_cpu_json)
-
-    def test_extra_data_disk(self):
-        extra_json = self.extra_data.get("disk").get("sda")
-        model = extra_hardware.Disk(**extra_json)
-        print(model.model_dump_json(indent=2))
-
-
-class TestIronicInspectorModel(base.TestCase):
+class TestIronicInspectorModel(base.BaseTestCase):
     """Test methods for generating referenceapi info."""
 
     def setUp(self):
@@ -55,6 +23,10 @@ class TestIronicInspectorModel(base.TestCase):
     #     ifaces = self.model.get_referenceapi_network_adapters()
     #     for iface in ifaces:
     #         reference_repo.NetworkAdapter.model_validate(iface)
+
+    def test_get_gpu_info(self):
+        result = self.model.get_referenceapi_gpu_info()
+        reference_repo.GPU.model_validate(result)
 
     def test_get_cpu_info(self):
         result = self.model.get_referenceapi_cpu_info()
@@ -85,7 +57,7 @@ class TestIronicInspectorModelExtra(TestIronicInspectorModel):
         assert result[0].rev == "J004"
 
 
-class ReferenceRepoNode(base.TestCase):
+class ReferenceRepoNode(base.BaseTestCase):
     def setUp(self):
         super().setUp()
 
@@ -100,16 +72,16 @@ class ReferenceRepoNode(base.TestCase):
         with open("tests/unit/json_samples/ironic_inspector_nc35.json") as f:
             self.ironic_inspector_node_json = json.load(f)
 
-    def test_validate_node(self):
+    def test_validate_current_data(self):
         """Validate that existing referenceapi data passes the validator."""
         reference_repo.Node.model_validate(self.reference_node_json)
 
     def test_generate_data(self):
+        current_data_rep = reference_repo.Node(**self.reference_node_json)
+
         output_data = reference_transmogrifier.reference_api.generate_rapi_json(
             blazar_host=self.blazar_host_json,
             inspection_item=self.ironic_inspector_node_json,
         )
-
-        reference_repo.Node.model_validate(output_data)
-        output_node = reference_repo.Node(**output_data)
-        print(output_node.model_dump_json(indent=2))
+        output_data_rep = reference_repo.Node(**output_data)
+        print(output_data_rep.model_dump_json(indent=2))

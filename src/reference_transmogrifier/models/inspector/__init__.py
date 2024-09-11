@@ -41,6 +41,9 @@ class InspectorResult(BaseModel):
         ifaces.sort()
         return ifaces
 
+    def get_referenceapi_gpu_info(self) -> reference_repo.GPU:
+        pass
+
     def get_referenceapi_cpu_info(self) -> reference_repo.Processor:
         inv_cpu = self.inventory.cpu
         dmi_cpu = self.dmi.cpu[0]

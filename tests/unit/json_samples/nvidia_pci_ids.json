@@ -1,0 +1,30 @@
+[
+    {
+        "vendor_id": "10de",
+        "product_id": "1e30",
+        "class": "030000",
+        "revision": "a1",
+        "bus": "0000:3b:00.0"
+    },
+    {
+        "vendor_id": "10de",
+        "product_id": "1ad7",
+        "class": "0c8000",
+        "revision": "a1",
+        "bus": "0000:3b:00.3"
+    },
+    {
+        "vendor_id": "10de",
+        "product_id": "10f7",
+        "class": "040300",
+        "revision": "a1",
+        "bus": "0000:3b:00.1"
+    },
+    {
+        "vendor_id": "10de",
+        "product_id": "1ad6",
+        "class": "0c0330",
+        "revision": "a1",
+        "bus": "0000:3b:00.2"
+    }
+]

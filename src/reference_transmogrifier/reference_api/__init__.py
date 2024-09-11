@@ -69,6 +69,7 @@ def generate_rapi_json(blazar_host: dict, inspection_item: dict):
     if placement:
         data["placement"] = placement
 
+    data["gpu"] = inspector_data.get_referenceapi_gpu_info()
     data["processor"] = inspector_data.get_referenceapi_cpu_info()
     data["network_adapters"] = inspector_data.get_referenceapi_network_adapters()
     data["storage_devices"] = inspector_data.get_referenceapi_disks()
