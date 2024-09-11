@@ -19,15 +19,21 @@ class NetworkAdapter(BaseModel):
     vendor: str
     product: str
     firmware: str
-    capacity: int
+    capacity: Optional[int] = None
     link: bool
     driver: str
     serial: str
     ipv4: Optional[str] = None
 
-    def as_reference_iface(self, name):
+    @computed_field
+    def interface(self) -> bool:
+        if "ipoib" in self.driver:
+            return "InfiniBand"
+        else:
+            return "Ethernet"
+
+    def as_reference_iface(self, name: str):
         output = reference_repo.NetworkAdapter(
-            name=name,
             device=name,
             driver=self.driver,
             enabled=self.link,
@@ -35,6 +41,7 @@ class NetworkAdapter(BaseModel):
             model=self.product,
             vendor=self.vendor,
             rate=self.capacity,
+            interface=self.interface,
         )
 
         return output

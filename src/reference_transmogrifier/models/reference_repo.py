@@ -229,12 +229,12 @@ class NetworkAdapter(BaseModel):
     device: str
     driver: str
     enabled: bool = False
-    interface: str = "Ethernet"
+    interface: str
     mac: str
     management: bool = False
     model: Optional[str] = None
     mounted: bool = False
-    rate: int
+    rate: Optional[int] = None
     vendor: Optional[NormalizedManufacturer] = None
 
     def __lt__(self: Self, other: Self):
