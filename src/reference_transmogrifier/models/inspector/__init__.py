@@ -31,13 +31,16 @@ class InspectorResult(BaseModel):
     @field_validator("pci_devices", mode="before")
     @classmethod
     def filter_known_pci_devices(cls, v: List[pci.PciDevice]) -> List[pci.PciDevice]:
-        """Filter out devices that failed lookup."""
+        """For speed, only grabbing display adapters for now."""
 
-        KNOWN_GPU_VENDORS = [
-            "10de",
+        display_adapter_device_class = "03"
+
+        return [
+            d
+            for d in v
+            if d.get("class").startswith(display_adapter_device_class)
+            and d.get("vendor_id") != "102b"
         ]
-        return [d for d in v if d.get("vendor_id") in KNOWN_GPU_VENDORS]
-        # return [d for d in v if d.product_name and d.vendor_name]
 
     def get_referenceapi_network_adapters(self) -> List[reference_repo.NetworkAdapter]:
         if self.extra:
@@ -53,20 +56,9 @@ class InspectorResult(BaseModel):
         return ifaces
 
     def get_referenceapi_gpu_info(self) -> reference_repo.GPU:
-        PCI_ID_TO_GPU_MAP = {
-            ("10de", "1db5"): "GV100GL [Tesla V100 SXM2 32GB]",
-            ("10de", "1e30"): "TU102GL [Quadro RTX 6000/8000]",
-            ("10de", "20b5"): "GA100 [A100 PCIe 80GB]",
-            ("10de", "20b7"): "GA100GL [A30 PCIe]",
-        }
-
         gpu_list = []
-
         for d in self.pci_devices:
-            if (d.vendor_id, d.product_id) in PCI_ID_TO_GPU_MAP:
-                gpu_list.append(d)
-            elif "Controller" not in d.product_name:
-                print(f"found {d}")
+            gpu_list.append(d)
 
         if len(gpu_list) > 0:
             return reference_repo.GPU(
