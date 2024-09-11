@@ -103,11 +103,13 @@ class TestPciDevices(base.BaseTestCase):
 
     def test_lookup_vendor_product(self):
         vendor_info = pci.PCI_MAP.lookup_vendor("10de")
+        assert isinstance(vendor_info, pci.PciVendorInfo)
         assert vendor_info.vendor_name == "NVIDIA Corporation"
 
     def test_lookup_product(self):
         device_info = pci.PCI_MAP.lookup_product(vendor_id="10de", product_id="1e30")
-        assert device_info.product_name == "TU102GL [Quadro RTX 6000/8000]"
+        assert isinstance(device_info, pci.PciDeviceInfo)
+        assert device_info.device_name == "TU102GL [Quadro RTX 6000/8000]"
 
     def test_parse_pci_devices(self):
         nvidia_rtx_6000_data = {
