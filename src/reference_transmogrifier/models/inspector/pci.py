@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, Optional
 
 from pydantic import BaseModel, Field, computed_field
 
@@ -77,13 +77,19 @@ class PciIdsMap(object):
     @classmethod
     def lookup_vendor(cls, vendor_id: str) -> PciVendorInfo:
         result = cls.data.get(vendor_id)
-        return PciVendorInfo.model_validate(result)
+        if result:
+            return PciVendorInfo.model_validate(result)
+        else:
+            raise KeyError(f"vendor_id: {vendor_id} not found in pci ids db")
 
     @classmethod
     def lookup_product(cls, vendor_id: str, product_id: str) -> PciDeviceInfo:
         vendor = cls.lookup_vendor(vendor_id)
         product = vendor.devices.get(product_id)
-        return PciDeviceInfo.model_validate(product)
+        if vendor and product:
+            return PciDeviceInfo.model_validate(product)
+        else:
+            raise KeyError(f"({vendor_id},{product_id}) not found in pci ids db")
 
 
 PCI_MAP = PciIdsMap()
@@ -98,8 +104,14 @@ class PciDevice(BaseModel):
 
     @computed_field
     def vendor_name(self) -> str:
-        return PCI_MAP.lookup_vendor(self.vendor_id).vendor_name
+        try:
+            return PCI_MAP.lookup_vendor(self.vendor_id).vendor_name
+        except KeyError:
+            return None
 
     @computed_field
     def product_name(self) -> str:
-        return PCI_MAP.lookup_product(self.vendor_id, self.product_id).device_name
+        try:
+            return PCI_MAP.lookup_product(self.vendor_id, self.product_id).device_name
+        except KeyError:
+            return None

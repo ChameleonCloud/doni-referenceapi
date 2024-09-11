@@ -320,7 +320,7 @@ class SupportedJobTypes(BaseModel):
 class GPU(BaseModel):
     gpu_count: int
     gpu_model: str
-    gpu_vendor: str
+    gpu_vendor: NormalizedManufacturer
 
 
 class Node(BaseModel):

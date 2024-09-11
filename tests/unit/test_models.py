@@ -27,6 +27,7 @@ class TestIronicInspectorModel(base.BaseTestCase):
     def test_get_gpu_info(self):
         result = self.model.get_referenceapi_gpu_info()
         reference_repo.GPU.model_validate(result)
+        print(result)
 
     def test_get_cpu_info(self):
         result = self.model.get_referenceapi_cpu_info()

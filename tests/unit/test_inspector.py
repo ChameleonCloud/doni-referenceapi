@@ -101,15 +101,26 @@ class TestPciDevices(base.BaseTestCase):
     def setUp(self):
         super().setUp()
 
-    def test_lookup_vendor_product(self):
+    def test_lookup_vendor(self):
         vendor_info = pci.PCI_MAP.lookup_vendor("10de")
         assert isinstance(vendor_info, pci.PciVendorInfo)
         assert vendor_info.vendor_name == "NVIDIA Corporation"
+
+        self.assertRaises(KeyError, pci.PCI_MAP.lookup_vendor, "gggg")
 
     def test_lookup_product(self):
         device_info = pci.PCI_MAP.lookup_product(vendor_id="10de", product_id="1e30")
         assert isinstance(device_info, pci.PciDeviceInfo)
         assert device_info.device_name == "TU102GL [Quadro RTX 6000/8000]"
+
+        # vendor isn't found
+        self.assertRaises(KeyError, pci.PCI_MAP.lookup_product, "gggg", "1e30")
+
+        # product isn't found
+        self.assertRaises(KeyError, pci.PCI_MAP.lookup_product, "10de", "gggg")
+
+        # neither are found
+        self.assertRaises(KeyError, pci.PCI_MAP.lookup_product, "gggg", "gggg")
 
     def test_parse_pci_devices(self):
         nvidia_rtx_6000_data = {

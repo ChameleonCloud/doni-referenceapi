@@ -1,6 +1,6 @@
 from typing import List, Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 
 from reference_transmogrifier.models import reference_repo
 from reference_transmogrifier.models.inspector import (
@@ -28,6 +28,12 @@ class InspectorResult(BaseModel):
     memory_mb: int
     extra: Optional[extra_hardware.InspectorExtraHardware] = None
 
+    @field_validator("pci_devices", mode="after")
+    @classmethod
+    def filter_known_pci_devices(cls, v: List[pci.PciDevice]) -> List[pci.PciDevice]:
+        """Filter out devices that failed lookup."""
+        return [d for d in v if d.product_name and d.vendor_name]
+
     def get_referenceapi_network_adapters(self) -> List[reference_repo.NetworkAdapter]:
         if self.extra:
             ifaces = [
@@ -42,7 +48,23 @@ class InspectorResult(BaseModel):
         return ifaces
 
     def get_referenceapi_gpu_info(self) -> reference_repo.GPU:
-        pass
+        PCI_ID_TO_GPU_MAP = {
+            ("10de", "1e30"): "TU102GL [Quadro RTX 6000/8000]",
+            ("10de", "20b7"): "GA100GL [A30 PCIe]",
+        }
+
+        gpu_list = []
+
+        for d in self.pci_devices:
+            if (d.vendor_id, d.product_id) in PCI_ID_TO_GPU_MAP:
+                gpu_list.append(d)
+
+        if len(gpu_list) > 0:
+            return reference_repo.GPU(
+                gpu_count=len(gpu_list),
+                gpu_model=gpu_list[0].product_name,
+                gpu_vendor=gpu_list[0].vendor_name,
+            )
 
     def get_referenceapi_cpu_info(self) -> reference_repo.Processor:
         inv_cpu = self.inventory.cpu
