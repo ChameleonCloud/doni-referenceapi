@@ -80,7 +80,7 @@ class InspectorResult(BaseModel):
             args["cache_l3"] = ecpu.physical_0.l3_cache
 
         return reference_repo.Processor(
-            clock_speed=dmi_cpu.current_speed_hz(),
+            clock_speed=dmi_cpu.current_speed_hz,
             instruction_set=inv_cpu.architecture,
             model=inv_cpu.name,
             vendor=dmi_cpu.manufacturer,

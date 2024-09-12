@@ -1,6 +1,6 @@
 from typing import List, Optional
 
-from pydantic import BaseModel, ByteSize, Field
+from pydantic import BaseModel, ByteSize, Field, computed_field
 
 
 class Bios(BaseModel):
@@ -22,12 +22,13 @@ class CPU(BaseModel):
     status: str = Field(alias="Status")
     serial: str = Field(alias="Serial Number")
 
+    @computed_field
     def current_speed_hz(self) -> int:
         """Return current speed in unit of hz"""
         speed, unit = self.current_speed.split(" ")
         speed = int(speed)
         if unit == "MHz":
-            return speed * 1024 * 1024
+            return speed * 1000 * 1000
 
 
 class Memory(BaseModel):
