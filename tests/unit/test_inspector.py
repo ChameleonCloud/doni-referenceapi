@@ -14,9 +14,8 @@ class TestInventory(base.BaseTestCase):
     def setUp(self):
         super().setUp()
 
-        with open("tests/unit/json_samples/ironic_inspector_gigaio01.json") as f:
-            json_data = json.load(f)
-            self.data = json_data.get("inventory")
+        with open("tests/unit/json_samples/inspector/inventory_gigaio01.json") as f:
+            self.data = json.load(f)
 
     def test_interfaces(self):
         iface_data = self.data.get("interfaces")
@@ -40,7 +39,7 @@ class TestDmi(base.BaseTestCase):
     def setUp(self):
         super().setUp()
         # TODO load specific snippet of DMI info for different cases
-        with open("tests/unit/json_samples/ironic_inspector_gigaio01.json") as f:
+        with open("tests/unit/json_samples/inspector/dmi_gigaio01.json") as f:
             json_data = json.load(f)
             self.data = json_data.get("dmi")
 
@@ -58,9 +57,10 @@ class TestExtraHardware(base.BaseTestCase):
     def setUp(self):
         super().setUp()
         # TODO load specific snippet of DMI info for different cases
-        with open("tests/unit/json_samples/ironic_inspector_gigaio01.json") as f:
-            json_data = json.load(f)
-            self.data = json_data.get("extra")
+        with open(
+            "tests/unit/json_samples/inspector/extra_hardware_gigaio01.json"
+        ) as f:
+            self.data = json.load(f)
 
     def test_interfaces(self):
         for name, values in self.data.get("network").items():

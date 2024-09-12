@@ -11,18 +11,15 @@ class TestIronicInspectorModel(base.BaseTestCase):
 
     def setUp(self):
         super().setUp()
-        with open(
-            "tests/unit/json_samples/ironic_inspector_gigaio01_noextra.json"
-        ) as f:
+        with open("tests/unit/json_samples/inspector/gigaio01.json") as f:
             self.ironic_inspector_node_json = json.load(f)
 
         self.model = inspector.InspectorResult(**self.ironic_inspector_node_json)
 
-    # we currently expect this to fail if `extra` data isn't available
-    # def test_get_nic_info(self):
-    #     ifaces = self.model.get_referenceapi_network_adapters()
-    #     for iface in ifaces:
-    #         reference_repo.NetworkAdapter.model_validate(iface)
+    def test_get_nic_info(self):
+        ifaces = self.model.get_referenceapi_network_adapters()
+        for iface in ifaces:
+            reference_repo.NetworkAdapter.model_validate(iface)
 
     def test_get_gpu_info(self):
         result = self.model.get_referenceapi_gpu_info()
@@ -32,26 +29,6 @@ class TestIronicInspectorModel(base.BaseTestCase):
     def test_get_cpu_info(self):
         result = self.model.get_referenceapi_cpu_info()
         reference_repo.Processor.model_validate(result)
-
-    def test_get_disks(self):
-        result = self.model.get_referenceapi_disks()
-        assert result[0].rev is None
-
-
-class TestIronicInspectorModelExtra(TestIronicInspectorModel):
-    """Test methods for generating referenceapi info, with extra_data dict present."""
-
-    def setUp(self):
-        super().setUp()
-        with open("tests/unit/json_samples/ironic_inspector_gigaio01.json") as f:
-            self.ironic_inspector_node_json = json.load(f)
-
-        self.model = inspector.InspectorResult(**self.ironic_inspector_node_json)
-
-    def test_get_nic_info(self):
-        ifaces = self.model.get_referenceapi_network_adapters()
-        for iface in ifaces:
-            reference_repo.NetworkAdapter.model_validate(iface)
 
     def test_get_disks(self):
         result = self.model.get_referenceapi_disks()
