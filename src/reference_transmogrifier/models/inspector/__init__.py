@@ -1,3 +1,4 @@
+from enum import Enum
 from typing import List, Optional
 
 from pydantic import BaseModel, field_validator
@@ -9,6 +10,11 @@ from reference_transmogrifier.models.inspector import (
     inventory,
     pci,
 )
+
+
+class KnownPciClassEnum(str, Enum):
+    display = "03"
+    accelerator = "12"
 
 
 class InspectorResult(BaseModel):
@@ -33,14 +39,15 @@ class InspectorResult(BaseModel):
     def filter_known_pci_devices(cls, v: List[pci.PciDevice]) -> List[pci.PciDevice]:
         """For speed, only grabbing display adapters for now."""
 
-        display_adapter_device_class = "03"
+        filtered_devices = []
 
-        return [
-            d
-            for d in v
-            if d.get("class").startswith(display_adapter_device_class)
-            and d.get("vendor_id") != "102b"
-        ]
+        for d in v:
+            pci_class_str = d.get("class")
+            pci_class_prefix = pci_class_str[0:2]
+            if pci_class_prefix in KnownPciClassEnum:
+                filtered_devices.append(d)
+
+        return filtered_devices
 
     def get_referenceapi_network_adapters(self) -> List[reference_repo.NetworkAdapter]:
         if self.extra:
@@ -56,15 +63,32 @@ class InspectorResult(BaseModel):
         return ifaces
 
     def get_referenceapi_gpu_info(self) -> reference_repo.GPU:
-        gpu_list = []
-        for d in self.pci_devices:
-            gpu_list.append(d)
+        gpu_list = [
+            d
+            for d in self.pci_devices
+            if d.pci_class.startswith(KnownPciClassEnum.display)
+            and d.vendor_id != "102b"
+        ]
 
         if len(gpu_list) > 0:
             return reference_repo.GPU(
                 gpu_count=len(gpu_list),
                 gpu_model=gpu_list[0].product_name,
                 gpu_vendor=gpu_list[0].vendor_name,
+            )
+
+    def get_referenceapi_fpga_info(self) -> reference_repo.FPGA:
+        fpga_list = [
+            d
+            for d in self.pci_devices
+            if d.pci_class.startswith(KnownPciClassEnum.accelerator)
+        ]
+
+        if len(fpga_list) == 1:
+            f = fpga_list[0]
+            return reference_repo.FPGA(
+                board_model=f.product_name,
+                board_vendor=f.vendor_name,
             )
 
     def get_referenceapi_cpu_info(self) -> reference_repo.Processor:

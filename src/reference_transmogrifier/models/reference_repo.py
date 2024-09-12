@@ -47,6 +47,7 @@ class InstructionSetEnum(str, Enum):
 class ManufacturerEnum(str, Enum):
     """Canonical representation for each manufacturer."""
 
+    altera = "Altera"
     amd = "AMD"
     broadcom = "Broadcom"
     cavium = "Cavium"
@@ -62,6 +63,7 @@ class ManufacturerEnum(str, Enum):
     seagate = "Seagate"
     toshiba = "Toshiba"
     qlogic = "QLogic"
+    xilinx = "Xilinx"
 
 
 def normalize_manufacturer(name: str) -> ManufacturerEnum:
@@ -69,6 +71,7 @@ def normalize_manufacturer(name: str) -> ManufacturerEnum:
     norm_name = name.strip().lower().split(" ")[0]
 
     name_mapping = {
+        "altera": ManufacturerEnum.altera,
         "broadcom": ManufacturerEnum.broadcom,
         "cavium": ManufacturerEnum.cavium,
         "dell": ManufacturerEnum.dell,
@@ -85,6 +88,7 @@ def normalize_manufacturer(name: str) -> ManufacturerEnum:
         "seagate": ManufacturerEnum.seagate,
         "toshiba": ManufacturerEnum.toshiba,
         "qlogic": ManufacturerEnum.qlogic,
+        "xilinx": ManufacturerEnum.xilinx,
     }
     try:
         assert norm_name in name_mapping
@@ -227,9 +231,9 @@ class Monitoring(BaseModel):
 class NetworkAdapter(BaseModel):
     bridged: bool = False
     device: str
-    driver: str
+    driver: Optional[str] = None
     enabled: bool = False
-    interface: str
+    interface: Optional[str] = None
     mac: str
     management: bool = False
     model: Optional[str] = None
@@ -317,6 +321,11 @@ class SupportedJobTypes(BaseModel):
     virtual: str = "ivt"
 
 
+class FPGA(BaseModel):
+    board_model: str
+    board_vendor: NormalizedManufacturer
+
+
 class GPU(BaseModel):
     gpu_count: int
     gpu_model: str
@@ -328,6 +337,7 @@ class Node(BaseModel):
     bios: Bios
     chassis: Chassis
     gpu: Optional[GPU] = None
+    fpga: Optional[FPGA] = None
     infiniband: bool = False
     main_memory: MainMemory
     monitoring: Monitoring

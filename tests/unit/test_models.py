@@ -34,6 +34,10 @@ class TestIronicInspectorModel(base.BaseTestCase):
         result = self.model.get_referenceapi_disks()
         self.assertEqual("D3DJ004", result[0].rev)
 
+    def test_get_pci_devices(self):
+        for d in self.model.pci_devices:
+            print(d.model_dump_json(indent=2))
+
 
 class ReferenceRepoNode(base.BaseTestCase):
     def setUp(self):
