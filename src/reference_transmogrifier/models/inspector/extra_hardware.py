@@ -8,6 +8,7 @@ from pydantic import (
     field_validator,
     model_validator,
 )
+from pydantic_extra_types import mac_address
 from typing_extensions import Self
 
 from reference_transmogrifier.models import reference_repo
@@ -22,8 +23,17 @@ class NetworkAdapter(BaseModel):
     capacity: Optional[int] = None
     link: bool
     driver: str
-    serial: str
+    serial: mac_address.MacAddress
     ipv4: Optional[str] = None
+
+    @field_validator("serial", mode="after")
+    @classmethod
+    def truncate_ib_mac(cls, v: mac_address.MacAddress) -> mac_address.MacAddress:
+        octets = v.split(":")
+        if len(octets) >= 8:
+            ib_mac = ":".join(octets[-8:])
+            return mac_address.MacAddress(ib_mac)
+        return v
 
     @computed_field
     def interface(self) -> bool:

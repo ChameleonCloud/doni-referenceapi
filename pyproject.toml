@@ -8,6 +8,7 @@ requires-python = ">=3.9"
 dependencies = [
     "openstacksdk@git+https://github.com/ChameleonCloud/openstacksdk@chameleoncloud/blazar",
     "pydantic",
+    "pydantic-extra-types",
 ]
 dynamic = ["version"]
 
