@@ -111,7 +111,10 @@ class InspectorResult(BaseModel):
 
             extra_args = {}
             if isinstance(extra_disk, extra_hardware.Disk):
-                extra_args["rev"] = extra_disk.rev
+                if extra_disk.smart_firmware_version:
+                    extra_args["rev"] = extra_disk.smart_firmware_version
+                else:
+                    extra_args["rev"] = extra_disk.rev
 
             if d.serial:
                 extra_args["serial"] = d.serial

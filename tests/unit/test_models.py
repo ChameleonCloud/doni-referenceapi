@@ -32,7 +32,7 @@ class TestIronicInspectorModel(base.BaseTestCase):
 
     def test_get_disks(self):
         result = self.model.get_referenceapi_disks()
-        assert result[0].rev == "J004"
+        self.assertEqual("D3DJ004", result[0].rev)
 
 
 class ReferenceRepoNode(base.BaseTestCase):

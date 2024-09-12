@@ -65,6 +65,7 @@ class Disk(BaseModel):
     rotational: bool
     serial: Optional[str] = Field(alias="SMART/serial_number", default=None)
     wwn_id: str = Field(alias="wwn-id")
+    smart_firmware_version: str = Field(alias="SMART/firmware_version", default=None)
 
     @computed_field
     @property
