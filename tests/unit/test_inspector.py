@@ -36,27 +36,56 @@ class TestInventory(base.BaseTestCase):
 
 
 class TestDmi(base.BaseTestCase):
+    """Exercise DMI classs with real inspector data."""
+
     def setUp(self):
         super().setUp()
         # TODO load specific snippet of DMI info for different cases
         with open("tests/unit/json_samples/inspector/dmi_gigaio01.json") as f:
-            json_data = json.load(f)
-            self.data = json_data.get("dmi")
+            self.data = json.load(f)
 
-    def test_bios(self):
-        pass
+    #     def test_bios(self):
+    #         pass
 
     def test_cpu(self):
-        pass
+        cpu_data = self.data.get("cpu")[0]
+        dmi_model = dmi.CPU.model_validate(cpu_data)
+        self.assertEqual(2300 * 10**6, dmi_model.current_speed)
+        self.assertEqual(40, dmi_model.core_count)
+        self.assertEqual(40, dmi_model.core_enabled)
+        self.assertEqual(80, dmi_model.thread_count)
 
-    def test_memory(self):
-        pass
+
+#     def test_memory(self):
+#         pass
+
+
+class TestDmiCpu(base.BaseTestCase):
+    def setUp(self):
+        super().setUp()
+
+        self.data = {
+            "Manufacturer": "Intel",
+            "Version": "Intel(R) Xeon(R) Gold 6126 CPU @ 2.60GHz",
+            "Current Speed": "2600 MHz",
+            "Core Count": "12",
+            "Core Enabled": "12",
+            "Thread Count": "24",
+        }
+
+    def test_cpu_current_speed_hz(self):
+        self.assertEqual(2600 * 10**6, dmi.CPU.current_speed_hz("2600 MHz"))
+        self.assertEqual(2600 * 10**6, dmi.CPU.current_speed_hz("2.6 GHz"))
+
+    def test_dmi_cpu(self):
+        cpu_model = dmi.CPU.model_validate(self.data)
+        print(cpu_model.model_dump_json(indent=2))
+        self.assertEqual(2600 * 10**6, cpu_model.current_speed)
 
 
 class TestExtraHardware(base.BaseTestCase):
     def setUp(self):
         super().setUp()
-        # TODO load specific snippet of DMI info for different cases
         with open(
             "tests/unit/json_samples/inspector/extra_hardware_gigaio01.json"
         ) as f:
@@ -64,6 +93,7 @@ class TestExtraHardware(base.BaseTestCase):
 
     def test_interfaces(self):
         for name, values in self.data.get("network").items():
+            values["name"] = name
             nic_model = extra_hardware.NetworkAdapter.model_validate(values)
 
     def test_cpu(self):
@@ -81,6 +111,7 @@ class TestExtraHardware(base.BaseTestCase):
 
     def test_disk(self):
         disk_data = self.data.get("disk").get("sda")
+        disk_data["name"] = "sda"
         disk_model = extra_hardware.Disk.model_validate(disk_data)
 
     def test_disks(self):
@@ -88,10 +119,14 @@ class TestExtraHardware(base.BaseTestCase):
         disk_data.pop("logical")
 
         for name, values in disk_data.items():
+            values["name"] = name
             disk_model = extra_hardware.Disk.model_validate(values)
 
     def test_memory(self):
-        pass
+        mem_model = extra_hardware.Memory.model_validate(
+            {"total": {"size": 274877906944}}
+        )
+        print(mem_model.model_dump_json(indent=2))
 
     def test_top_level(self):
         extra_hw_model = extra_hardware.InspectorExtraHardware.model_validate(self.data)
@@ -110,7 +145,7 @@ class TestPciDevices(base.BaseTestCase):
 
     def test_lookup_product(self):
         device_info = pci.PCI_MAP.lookup_product(vendor_id="10de", product_id="1e30")
-        assert isinstance(device_info, pci.PciDeviceInfo)
+        assert isinstance(device_info, pci.PciProductInfo)
         assert device_info.device_name == "TU102GL [Quadro RTX 6000/8000]"
 
         # vendor isn't found

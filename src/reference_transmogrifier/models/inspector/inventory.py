@@ -2,8 +2,6 @@ from typing import List, Optional
 
 from pydantic import BaseModel, ByteSize, Field, computed_field, field_validator
 
-from reference_transmogrifier.models import reference_repo
-
 
 class NetworkInterface(BaseModel):
     name: str
@@ -11,11 +9,6 @@ class NetworkInterface(BaseModel):
     has_carrier: bool
     vendor: str
     product: str
-
-    def as_reference_iface(self) -> reference_repo.NetworkAdapter:
-        return reference_repo.NetworkAdapter(
-            device=self.name, mac=self.mac_address, enabled=self.has_carrier
-        )
 
 
 class Disk(BaseModel):
@@ -83,12 +76,18 @@ class CPU(BaseModel):
     flags: List[str]
 
 
+class SystemVendor(BaseModel):
+    product_name: str
+    serial_number: str
+    manufacturer: str
+
+
 class Inventory(BaseModel):
     interfaces: List[NetworkInterface]
     cpu: CPU
     disks: List[Disk]
     memory: dict
-    system_vendor: dict
+    system_vendor: SystemVendor
     boot: dict
     hostname: str
     bmc_mac: str

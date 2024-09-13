@@ -11,12 +11,11 @@ from pydantic import (
 from pydantic_extra_types import mac_address
 from typing_extensions import Self
 
-from reference_transmogrifier.models import reference_repo
-
 
 class NetworkAdapter(BaseModel):
     """Subset of NIC info that we care about."""
 
+    name: str
     vendor: str
     product: str
     firmware: str
@@ -42,22 +41,9 @@ class NetworkAdapter(BaseModel):
         else:
             return "Ethernet"
 
-    def as_reference_iface(self, name: str):
-        output = reference_repo.NetworkAdapter(
-            device=name,
-            driver=self.driver,
-            enabled=self.link,
-            mac=self.serial,
-            model=self.product,
-            vendor=self.vendor,
-            rate=self.capacity,
-            interface=self.interface,
-        )
-
-        return output
-
 
 class Disk(BaseModel):
+    name: str
     size_gb: int = Field(alias="size")
     vendor: str
     model: str
@@ -66,6 +52,11 @@ class Disk(BaseModel):
     serial: Optional[str] = Field(alias="SMART/serial_number", default=None)
     wwn_id: str = Field(alias="wwn-id")
     smart_firmware_version: str = Field(alias="SMART/firmware_version", default=None)
+
+    @computed_field
+    @property
+    def wwn(self) -> str:
+        return self.wwn_id.removeprefix("wwn-")
 
     @computed_field
     @property
@@ -126,17 +117,41 @@ class CPU(BaseModel):
     physical_3: Optional[PhysicalCPU] = None
 
 
+class MemoryTotal(BaseModel):
+    size: ByteSize
+
+
+class Memory(BaseModel):
+    total: MemoryTotal
+
+    @computed_field
+    @property
+    def total_size_bytes(self) -> int:
+        return self.total.size
+
+    @computed_field
+    @property
+    def total_size_gib(self) -> int:
+        return int(self.total.size.to("GiB"))
+
+
 class InspectorExtraHardware(BaseModel):
-    disk: dict[str, Disk]
+    disk: list[Disk]
     system: dict
     firmware: dict
-    memory: dict
-    network: dict[str, NetworkAdapter]
+    memory: Memory
+    network: list[NetworkAdapter]
     lldp: Optional[dict] = None
     cpu: CPU
     numa: dict
     ipmi: dict
     hw: dict
+
+    @field_validator("network", mode="before")
+    @classmethod
+    def nic_dict_to_list(cls, v: dict) -> list[NetworkAdapter]:
+        """Data is presented as dict with interface name as keys. Convert to list for easier processing."""
+        return [NetworkAdapter(name=name, **values) for name, values in v.items()]
 
     @model_validator(mode="before")
     def pop_logical_disk(self) -> None:
@@ -145,3 +160,9 @@ class InspectorExtraHardware(BaseModel):
         disk_data.pop("logical")
         self["disk"] = disk_data
         return self
+
+    @field_validator("disk", mode="before")
+    @classmethod
+    def disk_dict_to_list(cls, v: dict) -> list[Disk]:
+        """Data is presented as dict with interface name as keys. Convert to list for easier processing."""
+        return [Disk(name=name, **values) for name, values in v.items()]

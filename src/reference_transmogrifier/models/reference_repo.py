@@ -1,10 +1,12 @@
 import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from pydantic import UUID4, BaseModel, field_validator
 from pydantic.functional_validators import BeforeValidator
 from typing_extensions import Annotated, Self
+
+from reference_transmogrifier.models import blazar, inspector
 
 
 class NodeTypeEnum(str, Enum):
@@ -55,6 +57,7 @@ class ManufacturerEnum(str, Enum):
     fujitsu = "Fujitsu"
     gigabyte = "Gigabyte"
     intel = "Intel"
+    matrox = "Matrox"
     micron = "Micron"
     mellanox = "Mellanox"
     nvidia = "NVIDIA"
@@ -80,6 +83,7 @@ def normalize_manufacturer(name: str) -> ManufacturerEnum:
         "amd": ManufacturerEnum.amd,
         "intel": ManufacturerEnum.intel,
         "genuineintel": ManufacturerEnum.intel,
+        "matrox": ManufacturerEnum.matrox,
         "micron": ManufacturerEnum.micron,
         "mellanox": ManufacturerEnum.mellanox,
         "nvidia": ManufacturerEnum.nvidia,
@@ -261,6 +265,9 @@ class Placement(BaseModel):
     @field_validator("node", "rack", mode="before")
     @classmethod
     def _ensure_str(cls, v) -> str:
+        if not v:
+            return
+
         if isinstance(v, int):
             return str(v)
 
@@ -341,12 +348,188 @@ class Node(BaseModel):
     infiniband: bool = False
     main_memory: MainMemory
     monitoring: Monitoring
-    network_adapters: List[NetworkAdapter]
+    network_adapters: list[NetworkAdapter]
     node_name: str
     node_type: NodeTypeEnum
     placement: Optional[Placement] = None
     processor: Processor
-    storage_devices: List[StorageDevice]
+    storage_devices: list[StorageDevice]
     supported_job_types: SupportedJobTypes
     type: str = "node"
     uid: UUID4
+
+    @classmethod
+    def find_gpu_from_pci(cls, data: list[inspector.pci.PciDevice]) -> GPU:
+        """Find all PCIe devices of the "display" class type, and exclude matrox integrated GPU."""
+        pci_class = inspector.pci.KnownPciClassEnum.display_controller
+        matrox_vendor_id = "102b"
+        gpus = [
+            d
+            for d in data
+            if d.pci_class_enum == pci_class and d.vendor_id != matrox_vendor_id
+        ]
+        if not gpus:
+            return
+
+        return GPU(
+            gpu_count=len(gpus),
+            gpu_model=gpus[0].product_name,
+            gpu_vendor=gpus[0].vendor_name,
+        )
+
+    @classmethod
+    def find_fpga_from_pci(cls, data: list[inspector.pci.PciDevice]) -> FPGA:
+        pci_class = inspector.pci.KnownPciClassEnum.processing_accelerator
+        fpgas = [d for d in data if d.pci_class_enum == pci_class]
+        if fpgas:
+            return FPGA(
+                board_model=fpgas[0].product_name,
+                board_vendor=fpgas[0].vendor_name,
+            )
+
+    @classmethod
+    def find_processor_info(
+        cls, dmi_cpus: inspector.dmi.CPU, extra_cpus: inspector.extra_hardware.CPU
+    ) -> Processor:
+        dmi = dmi_cpus[0]
+        extra = extra_cpus.physical_0
+        return Processor(
+            cache_l1d=extra.l1d_cache,
+            cache_l1i=extra.l1i_cache,
+            cache_l2=extra.l2_cache,
+            cache_l3=extra.l3_cache,
+            instruction_set=extra.architecture,
+            clock_speed=dmi.current_speed,
+            model=dmi.version,
+            vendor=dmi.manufacturer,
+            version=None,
+        )
+
+    @classmethod
+    def find_network_adapters(
+        cls, extra_nics: list[inspector.extra_hardware.NetworkAdapter]
+    ) -> list[NetworkAdapter]:
+        output_list = []
+        for nic in extra_nics:
+            nic_model = NetworkAdapter(
+                device=nic.name,
+                driver=nic.driver,
+                enabled=nic.link,
+                interface=nic.interface,
+                mac=nic.serial,
+                model=nic.product,
+                rate=nic.capacity,
+                vendor=nic.vendor,
+            )
+            output_list.append(nic_model)
+        output_list.sort()
+        return output_list
+
+    @classmethod
+    def find_storage_devices(
+        cls,
+        inventory_disks: list[inspector.inventory.Disk],
+        extra_disks: list[inspector.extra_hardware.Disk],
+    ) -> list[inspector.extra_hardware.Disk]:
+        if len(inventory_disks) != len(extra_disks):
+            raise ValueError("different # of disks in inventory and extra data.")
+
+        input_values = {}
+        for d in inventory_disks:
+            input_values.setdefault(d.wwn, {})
+            input_values[d.wwn]["inv"] = d
+        for d in extra_disks:
+            input_values[d.wwn]["extra"] = d
+
+        output_list = []
+
+        for wwn, d in input_values.items():
+            inv = d["inv"]
+            assert isinstance(inv, inspector.inventory.Disk)
+            extra = d["extra"]
+            assert isinstance(extra, inspector.extra_hardware.Disk)
+
+            rev = extra.smart_firmware_version
+            if not rev:
+                rev = extra.rev
+
+            size_bytes = extra.size_gb * 10**6
+
+            disk_model = StorageDevice(
+                device=extra.name,
+                humanized_size=inv.humanized_size,
+                interface=inv.interface,
+                media_type=extra.media_type,
+                model=extra.model,
+                rev=rev,
+                serial=extra.serial,
+                size=size_bytes,
+                vendor=inv.vendor,
+            )
+            output_list.append(disk_model)
+        return output_list
+
+    @classmethod
+    def from_inspector_result(
+        cls, blazar_data: blazar.Host, idata: inspector.InspectorResult
+    ) -> Self:
+        """Generate Node object from ironic inspector data and known external data."""
+
+        socket_count = len(idata.dmi.cpu)
+        core_count = sum([c.core_count for c in idata.dmi.cpu])
+        thread_count = sum([c.thread_count for c in idata.dmi.cpu])
+        arch = Architecture(
+            platform_type=idata.cpu_arch,
+            smp_size=socket_count,
+            smt_size=thread_count,
+        )
+        bios = Bios(
+            vendor=idata.dmi.bios.vendor,
+            version=idata.dmi.bios.version,
+            release_date=idata.dmi.bios.release_date,
+        )
+        chassis = Chassis(
+            name=idata.inventory.system_vendor.product_name,
+            manufacturer=idata.inventory.system_vendor.manufacturer,
+            serial=idata.inventory.system_vendor.serial_number,
+        )
+        fpga = cls.find_fpga_from_pci(idata.pci_devices)
+        gpu = cls.find_gpu_from_pci(idata.pci_devices)
+        main_memory = MainMemory(
+            ram_size=idata.extra.memory.total_size_bytes,
+            humanized_ram_size=f"{idata.extra.memory.total_size_gib} GiB",
+        )
+        monitoring = Monitoring(wattmeter=False)
+
+        network_adapters = cls.find_network_adapters(idata.extra.network)
+        processor = cls.find_processor_info(idata.dmi.cpu, idata.extra.cpu)
+        storage_devices = cls.find_storage_devices(
+            idata.inventory.disks, idata.extra.disk
+        )
+        placement = Placement(
+            node=blazar_data.placement_node,
+            rack=blazar_data.placement_rack,
+        )
+
+        supported_job_types = SupportedJobTypes(
+            besteffort=False, deploy=True, virtual="ivt"
+        )
+
+        return cls(
+            architecture=arch,
+            bios=bios,
+            chassis=chassis,
+            fpga=fpga,
+            gpu=gpu,
+            main_memory=main_memory,
+            monitoring=monitoring,
+            network_adapters=network_adapters,
+            node_name=blazar_data.node_name,
+            node_type=blazar_data.node_type,
+            placement=placement,
+            processor=processor,
+            supported_job_types=supported_job_types,
+            storage_devices=storage_devices,
+            uid=blazar_data.hypervisor_hostname,
+            type="node",
+        )

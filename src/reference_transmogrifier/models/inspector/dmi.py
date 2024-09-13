@@ -1,41 +1,49 @@
-from typing import List, Optional
+import re
+from typing import List
 
-from pydantic import BaseModel, ByteSize, Field, computed_field
+from pydantic import BaseModel, Field, field_validator
 
 
 class Bios(BaseModel):
-    pass
+    vendor: str = Field(alias="Vendor")
+    version: str = Field(alias="Version")
+    release_date: str = Field(alias="Release Date")
 
 
 class CPU(BaseModel):
-    handle: str = Field(alias="Handle")
-    socket: str = Field(alias="Socket Designation")
-    type: str = Field(alias="Type")
-    family: str = Field(alias="Family")
     manufacturer: str = Field(alias="Manufacturer")
-    id: str = Field(alias="ID")
-    signature: str = Field(alias="Signature")
-    flags: List[str] = Field(alias="Flags")
     version: str = Field(alias="Version")
-    voltage: str = Field(alias="Voltage")
-    current_speed: str = Field(alias="Current Speed")
-    status: str = Field(alias="Status")
-    serial: str = Field(alias="Serial Number")
+    current_speed: int = Field(alias="Current Speed")
+    core_count: int = Field(alias="Core Count")
+    core_enabled: int = Field(alias="Core Enabled")
+    thread_count: int = Field(alias="Thread Count")
 
-    @computed_field
-    def current_speed_hz(self) -> int:
+    @field_validator("current_speed", mode="before")
+    @classmethod
+    def current_speed_hz(cls, v: str) -> int:
         """Return current speed in unit of hz"""
-        speed, unit = self.current_speed.split(" ")
-        speed = int(speed)
-        if unit == "MHz":
-            return speed * 1000 * 1000
 
+        hz_sizes = {
+            "hz": 1,
+            "khz": 10**3,
+            "mhz": 10**6,
+            "ghz": 10**9,
+        }
 
-class Memory(BaseModel):
-    pass
+        speed, unit = v.split(" ")
+        multiplier = hz_sizes.get(unit.strip().lower())
+        if not multiplier:
+            raise ValueError("unit %s not recognized", unit)
+
+        try:
+            speed_int = int(speed)
+            return speed_int * multiplier
+        except ValueError:
+            speed_float = float(speed)
+            return int(speed_float * multiplier)
 
 
 class DMI(BaseModel):
     bios: Bios
     cpu: List[CPU]
-    memory: Memory
+    memory: dict

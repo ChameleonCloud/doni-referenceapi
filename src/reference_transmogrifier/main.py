@@ -2,8 +2,10 @@ import argparse
 
 import openstack
 from openstack.exceptions import BadRequestException, NotFoundException
+from pydantic import ValidationError
 
 from reference_transmogrifier import reference_api
+from reference_transmogrifier.models import blazar, inspector, reference_repo
 
 
 def parse_args():
@@ -40,25 +42,21 @@ def main():
                 introspection=node.id, processed=True
             )
         except (BadRequestException, NotFoundException):
-            print(f"failed to get inspection data for node {node.id}")
+            print(f"{node.id}:{node.name}: missing inspection data - skipping")
             continue
 
         try:
-            generated_data = reference_api.generate_rapi_json(
-                blazar_host_dict, inspection_dict
-            )
-        except Exception as ex:
-            print(node.name)
-            print(ex)
-            continue
-
-        validated_node = reference_api.reference_repo.Node(**generated_data)
+            i_data = inspector.InspectorResult(**inspection_dict)
+            b_data = blazar.Host(**blazar_host_dict)
+            validated_node = reference_repo.Node.from_inspector_result(b_data, i_data)
+        except ValidationError as ex:
+            print(f"{node.id}:{node.name}: failed to validate with error {repr(ex)}")
 
         if args.reference_repo_dir:
             reference_api.write_reference_repo(
                 args.reference_repo_dir, cloud_name, validated_node
             )
-            print(f"wrote reference data for {validated_node.uid}")
+            print(f"{node.id}:{node.name}: wrote reference data")
 
 
 if __name__ == "__main__":

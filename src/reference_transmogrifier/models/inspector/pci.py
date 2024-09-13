@@ -1,23 +1,42 @@
-from typing import Dict, Optional
+from enum import Enum
+from typing import Dict
 
 from pydantic import BaseModel, Field, computed_field
 
 
-class PciDeviceInfo(BaseModel):
+class PciProductInfo(BaseModel):
     device_name: str
     subsystems: dict
 
 
 class PciVendorInfo(BaseModel):
     vendor_name: str
-    devices: Dict[str, PciDeviceInfo]
+
+    # [str, dict] instead of [str, PciProductInfo] to avoid eagerly parsing every entry
+    devices: Dict[str, dict]
+
+
+class KnownPciClassEnum(str, Enum):
+    mass_storage_controller = "01"
+    network_controller = "02"
+    display_controller = "03"
+    multimedia_controller = "04"
+    memory_controller = "05"
+    bridge = "06"
+    communication_controller = "07"
+    generic_system_peripheral = "08"
+    serial_bus_controller = "0c"
+    encryption_controller = "10"
+    signal_processing_controller = "11"
+    processing_accelerator = "12"
+    non_essential_instrumentation = "13"
+    unassigned_class = "ff"
 
 
 class PciIdsMap(object):
     file_path = "src/reference_transmogrifier/models/inspector/pci.ids"
 
-    @staticmethod
-    def _load_pciids_file(file_path: str) -> Dict:
+    def _load_pciids_file(self, file_path: str) -> Dict:
         data = {}
 
         current_vendor_id = None
@@ -72,26 +91,24 @@ class PciIdsMap(object):
 
         return data
 
-    data = _load_pciids_file(file_path)
+    def __init__(self) -> None:
+        self.data = self._load_pciids_file(self.file_path)
 
-    @classmethod
-    def lookup_vendor(cls, vendor_id: str) -> PciVendorInfo:
-        result = cls.data.get(vendor_id)
-        if result:
-            return PciVendorInfo.model_validate(result)
-        else:
+    def lookup_vendor(self, vendor_id: str) -> dict:
+        result = self.data.get(vendor_id)
+        if not result:
             raise KeyError(f"vendor_id: {vendor_id} not found in pci ids db")
+        return PciVendorInfo(**result)
 
-    @classmethod
-    def lookup_product(cls, vendor_id: str, product_id: str) -> PciDeviceInfo:
-        vendor = cls.lookup_vendor(vendor_id)
+    def lookup_product(self, vendor_id: str, product_id: str) -> dict:
+        vendor = self.lookup_vendor(vendor_id)
         product = vendor.devices.get(product_id)
-        if vendor and product:
-            return PciDeviceInfo.model_validate(product)
-        else:
+        if not (vendor and product):
             raise KeyError(f"({vendor_id},{product_id}) not found in pci ids db")
+        return PciProductInfo(**product)
 
 
+# initialize on import so we don't reload it constantly
 PCI_MAP = PciIdsMap()
 
 
@@ -115,3 +132,8 @@ class PciDevice(BaseModel):
             return PCI_MAP.lookup_product(self.vendor_id, self.product_id).device_name
         except KeyError:
             return None
+
+    @computed_field
+    def pci_class_enum(self) -> KnownPciClassEnum:
+        """Use first two characters of PCI class hex to look up"""
+        return KnownPciClassEnum(self.pci_class[0:2])
