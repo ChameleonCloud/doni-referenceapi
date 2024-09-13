@@ -18,10 +18,10 @@ class Disk(BaseModel):
     rotational: bool
     wwn: str
     serial: str
-    vendor: str
-    wwn_with_extension: str
+    vendor: Optional[str] = None
+    wwn_with_extension: Optional[str] = None
     wwn_vendor_extension: Optional[str] = None
-    hctl: str
+    hctl: Optional[str] = None
     by_path: str
 
     @field_validator("name", mode="after")

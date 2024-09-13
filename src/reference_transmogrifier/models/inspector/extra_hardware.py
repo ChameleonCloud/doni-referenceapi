@@ -1,3 +1,4 @@
+import re
 from typing import Optional
 
 from pydantic import (
@@ -10,6 +11,9 @@ from pydantic import (
 )
 from pydantic_extra_types import mac_address
 from typing_extensions import Self
+
+disk_name_regex_str = "^(nvme\d+n\d+|sd[a-z]+)$"
+disk_name_regex = re.compile(disk_name_regex_str)
 
 
 class NetworkAdapter(BaseModel):
@@ -45,17 +49,19 @@ class NetworkAdapter(BaseModel):
 class Disk(BaseModel):
     name: str
     size_gb: int = Field(alias="size")
-    vendor: str
+    vendor: Optional[str] = None
     model: str
-    rev: str
+    rev: Optional[str] = None
     rotational: bool
     serial: Optional[str] = Field(alias="SMART/serial_number", default=None)
-    wwn_id: str = Field(alias="wwn-id")
+    wwn_id: Optional[str] = Field(alias="wwn-id", default=None)
     smart_firmware_version: str = Field(alias="SMART/firmware_version", default=None)
 
     @computed_field
     @property
     def wwn(self) -> str:
+        if not self.wwn_id:
+            return
         return self.wwn_id.removeprefix("wwn-")
 
     @computed_field
@@ -165,4 +171,8 @@ class InspectorExtraHardware(BaseModel):
     @classmethod
     def disk_dict_to_list(cls, v: dict) -> list[Disk]:
         """Data is presented as dict with interface name as keys. Convert to list for easier processing."""
-        return [Disk(name=name, **values) for name, values in v.items()]
+        return [
+            Disk(name=name, **values)
+            for name, values in v.items()
+            if disk_name_regex.match(name)
+        ]

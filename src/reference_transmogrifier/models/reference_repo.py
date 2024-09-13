@@ -439,7 +439,15 @@ class Node(BaseModel):
             input_values.setdefault(d.wwn, {})
             input_values[d.wwn]["inv"] = d
         for d in extra_disks:
-            input_values[d.wwn]["extra"] = d
+            if d.wwn:
+                input_values[d.wwn]["extra"] = d
+            elif d.serial:
+                matching_inv_wwn = [
+                    input_wwn
+                    for input_wwn, input_values in input_values.items()
+                    if input_values["inv"].serial == d.serial
+                ][0]
+                input_values[matching_inv_wwn]["extra"] = d
 
         output_list = []
 
@@ -453,7 +461,7 @@ class Node(BaseModel):
             if not rev:
                 rev = extra.rev
 
-            size_bytes = extra.size_gb * 10**6
+            size_bytes = extra.size_gb * 10**9
 
             disk_model = StorageDevice(
                 device=extra.name,
