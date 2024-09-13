@@ -329,6 +329,18 @@ class StorageDevice(BaseModel):
         assert v in mediatype_map
         return mediatype_map[v]
 
+    def __lt__(self: Self, other: Self):
+        return self.device < other.device
+
+    def __le__(self: Self, other: Self):
+        return self.device <= other.device
+
+    def __gt__(self: Self, other: Self):
+        return self.device > other.device
+
+    def __ge__(self: Self, other: Self):
+        return self.device >= other.device
+
 
 class SupportedJobTypes(BaseModel):
     besteffort: bool = False
@@ -472,8 +484,10 @@ class Node(BaseModel):
             size_bytes = extra.size_gb * 10**9
 
             try:
-                extra_vendor = inspector.pci.PCI_MAP.lookup_vendor(extra.vendor)
-            except KeyError:
+                extra_vendor = inspector.pci.PCI_MAP.lookup_vendor(
+                    extra.vendor.removeprefix("0x")
+                ).vendor_name
+            except (AttributeError, KeyError):
                 extra_vendor = None
 
             if extra_vendor:
@@ -497,6 +511,7 @@ class Node(BaseModel):
                 vendor=vendor,
             )
             output_list.append(disk_model)
+            output_list.sort()
         return output_list
 
     @classmethod

@@ -70,7 +70,7 @@ class Disk(BaseModel):
 
 class CPU(BaseModel):
     name: str = Field(alias="model_name")
-    frequency: str
+    frequency: Optional[str] = None
     count: int
     architecture: str
     flags: List[str]

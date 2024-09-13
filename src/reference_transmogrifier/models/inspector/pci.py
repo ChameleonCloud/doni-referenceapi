@@ -94,13 +94,13 @@ class PciIdsMap(object):
     def __init__(self) -> None:
         self.data = self._load_pciids_file(self.file_path)
 
-    def lookup_vendor(self, vendor_id: str) -> dict:
+    def lookup_vendor(self, vendor_id: str) -> PciVendorInfo:
         result = self.data.get(vendor_id)
         if not result:
             raise KeyError(f"vendor_id: {vendor_id} not found in pci ids db")
         return PciVendorInfo(**result)
 
-    def lookup_product(self, vendor_id: str, product_id: str) -> dict:
+    def lookup_product(self, vendor_id: str, product_id: str) -> PciProductInfo:
         vendor = self.lookup_vendor(vendor_id)
         product = vendor.devices.get(product_id)
         if not (vendor and product):

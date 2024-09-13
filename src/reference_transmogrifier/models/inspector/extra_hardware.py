@@ -76,7 +76,6 @@ class Disk(BaseModel):
 
 class CPUSummary(BaseModel):
     number: int
-    smt: bool
 
 
 class PhysicalCPU(BaseModel):
@@ -92,8 +91,6 @@ class PhysicalCPU(BaseModel):
     l1i_cache: ByteSize = Field(alias="l1i cache", exclude=True)
     l2_cache: ByteSize = Field(alias="l2 cache", exclude=True)
     l3_cache: ByteSize = Field(alias="l3 cache", exclude=True)
-    min_Mhz: int
-    max_Mhz: int
     flags: str
     threads_per_core: int
 
