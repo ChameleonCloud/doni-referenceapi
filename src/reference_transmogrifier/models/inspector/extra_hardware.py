@@ -56,6 +56,7 @@ class Disk(BaseModel):
     serial: Optional[str] = Field(alias="SMART/serial_number", default=None)
     wwn_id: Optional[str] = Field(alias="wwn-id", default=None)
     smart_firmware_version: str = Field(alias="SMART/firmware_version", default=None)
+    vendor: str
 
     @computed_field
     @property

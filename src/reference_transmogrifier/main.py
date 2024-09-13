@@ -48,9 +48,10 @@ def main():
         try:
             i_data = inspector.InspectorResult(**inspection_dict)
             b_data = blazar.Host(**blazar_host_dict)
-            validated_node = reference_repo.Node.from_inspector_result(b_data, i_data)
         except ValidationError as ex:
             print(f"{node.id}:{node.name}: failed to validate with error {repr(ex)}")
+        else:
+            validated_node = reference_repo.Node.from_inspector_result(b_data, i_data)
 
         if args.reference_repo_dir:
             reference_api.write_reference_repo(

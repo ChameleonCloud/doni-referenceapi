@@ -309,6 +309,14 @@ class StorageDevice(BaseModel):
     size: int
     vendor: Optional[NormalizedManufacturer] = None
 
+    @field_validator("vendor", mode="before")
+    @classmethod
+    def _no_ata_vendor(cls, v: str) -> Optional[NormalizedManufacturer]:
+        if (not v) or (v == "ATA"):
+            return None
+        else:
+            return v
+
     @field_validator("media_type", mode="before")
     @classmethod
     def _coerce_mediatype(cls, v) -> StorageMediaTypeEnum:
@@ -463,6 +471,20 @@ class Node(BaseModel):
 
             size_bytes = extra.size_gb * 10**9
 
+            try:
+                extra_vendor = inspector.pci.PCI_MAP.lookup_vendor(extra.vendor)
+            except KeyError:
+                extra_vendor = None
+
+            if extra_vendor:
+                vendor = extra_vendor
+            elif inv.vendor:
+                vendor = inv.vendor
+            elif extra.vendor:
+                vendor = extra.vendor
+            else:
+                vendor = None
+
             disk_model = StorageDevice(
                 device=extra.name,
                 humanized_size=inv.humanized_size,
@@ -472,7 +494,7 @@ class Node(BaseModel):
                 rev=rev,
                 serial=extra.serial,
                 size=size_bytes,
-                vendor=inv.vendor,
+                vendor=vendor,
             )
             output_list.append(disk_model)
         return output_list
