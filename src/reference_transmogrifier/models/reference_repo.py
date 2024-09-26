@@ -1,4 +1,5 @@
 import datetime
+from collections import namedtuple
 from enum import Enum
 from typing import Optional
 
@@ -359,6 +360,13 @@ class GPU(BaseModel):
     gpu_vendor: NormalizedManufacturer
 
 
+PCI_Tuple = namedtuple("PCI_Tuple", ["vendor_id", "product_id", "pci_class"])
+
+FPGA_lookup = {
+    PCI_Tuple(vendor_id="10ee", product_id="903f", pci_class="028000"): "xilinx_u280",
+}
+
+
 class Node(BaseModel):
     architecture: Architecture
     bios: Bios
@@ -399,8 +407,15 @@ class Node(BaseModel):
 
     @classmethod
     def find_fpga_from_pci(cls, data: list[inspector.pci.PciDevice]) -> FPGA:
-        pci_class = inspector.pci.KnownPciClassEnum.processing_accelerator
-        fpgas = [d for d in data if d.pci_class_enum == pci_class]
+        fpgas = [
+            d
+            for d in data
+            if (
+                d.pci_class_enum
+                == inspector.pci.KnownPciClassEnum.processing_accelerator
+            )
+            or (PCI_Tuple(d.vendor_id, d.product_id, d.pci_class) in FPGA_lookup)
+        ]
         if fpgas:
             return FPGA(
                 board_model=fpgas[0].product_name,
