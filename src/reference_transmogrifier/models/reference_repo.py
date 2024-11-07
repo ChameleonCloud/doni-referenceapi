@@ -355,9 +355,10 @@ class FPGA(BaseModel):
 
 
 class GPU(BaseModel):
-    gpu_count: int
-    gpu_model: str
-    gpu_vendor: NormalizedManufacturer
+    gpu: bool = False
+    gpu_count: Optional[int] = None
+    gpu_model: Optional[str] = None
+    gpu_vendor: Optional[NormalizedManufacturer] = None
 
 
 PCI_Tuple = namedtuple("PCI_Tuple", ["vendor_id", "product_id", "pci_class"])
@@ -371,7 +372,7 @@ class Node(BaseModel):
     architecture: Architecture
     bios: Bios
     chassis: Chassis
-    gpu: Optional[GPU] = None
+    gpu: GPU
     fpga: Optional[FPGA] = None
     infiniband: bool = False
     main_memory: MainMemory
@@ -397,9 +398,10 @@ class Node(BaseModel):
             if d.pci_class_enum == pci_class and d.vendor_id != matrox_vendor_id
         ]
         if not gpus:
-            return
+            return GPU(gpu=False)
 
         return GPU(
+            gpu=True,
             gpu_count=len(gpus),
             gpu_model=gpus[0].product_name,
             gpu_vendor=gpus[0].vendor_name,
