@@ -26,8 +26,12 @@ def parse_args():
         default="master",
     )
     parser.add_argument("--ironic-data-cache-dir")
+    parser.add_argument("--node", nargs='+', help="Specify one or more nodes")
     return parser.parse_args()
 
+def get_baremetal_node_list(conn, node=None):
+    for this_node in node:
+        yield conn.baremetal.get_node(this_node)
 
 def main():
     args = parse_args()
@@ -51,7 +55,12 @@ def main():
         h.hypervisor_hostname: h for h in conn.reservation.hosts()
     }
 
-    for node in conn.baremetal.nodes():
+    if args.node:
+        node_list = get_baremetal_node_list(conn,args.node)
+    else:
+        node_list = conn.baremetal.nodes()
+
+    for node in node_list:
         blazar_host = ironic_uuid_to_blazar_hosts.get(node.id)
 
         # HACK: convert back to the form the API returns, instead of using properties field
