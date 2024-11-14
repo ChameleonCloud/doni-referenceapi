@@ -103,8 +103,11 @@ class PhysicalCPU(BaseModel):
             if not value:
                 raise ValueError(f"{k} not found in input")
 
-            size_str = value.split("(")[0].strip()
-            instances_str = value.split("(")[1].strip().split(" ")[0]
+            try:
+                size_str = value.split("(")[0].strip()
+                instances_str = value.split("(")[1].strip().split(" ")[0]
+            except (IndexError, ValueError):
+                raise ValueError(f"{k} has malformed input")
 
             num_instances = int(instances_str)
             total_size_bytes = ByteSize._validate(size_str, None)
