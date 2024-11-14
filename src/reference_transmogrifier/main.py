@@ -13,6 +13,16 @@ def parse_args():
     parser.add_argument("--cloud")
     parser.add_argument("--reference-repo-dir")
     parser.add_argument("--ironic-data-cache-dir")
+    parser.add_argument(
+        "--only-nodes",
+        nargs="+",
+        help="Name or ID of one or more nodes to target. Mutually exclusive with --except-node. Example: `--only-nodes nc01 nc60`",
+    )
+    parser.add_argument(
+        "--except-nodes",
+        nargs="+",
+        help="Name or ID of one or more nodes to exclude from the list. Mutually exclusive with --only-node. Example: `--except-nodes nc01 nc60`",
+    )
     return parser.parse_args()
 
 
@@ -28,7 +38,20 @@ def main():
         h.hypervisor_hostname: h for h in conn.reservation.hosts()
     }
 
-    for node in conn.baremetal.nodes():
+    if args.only_nodes:
+        # assume we have a short list to target, get them individually
+        nodes_to_process = [conn.baremetal.get_node(n) for n in args.only_nodes]
+    elif args.except_nodes:
+        # get list of all nodes, filter out a subset
+        nodes_to_process = [
+            n
+            for n in conn.baremetal.nodes()
+            if (n.name not in args.except_nodes) and (n.id not in args.except_nodes)
+        ]
+    else:
+        nodes_to_process = conn.baremetal.nodes()
+
+    for node in nodes_to_process:
         blazar_host = ironic_uuid_to_blazar_hosts.get(node.id)
 
         # HACK: convert back to the form the API returns, instead of using properties field
