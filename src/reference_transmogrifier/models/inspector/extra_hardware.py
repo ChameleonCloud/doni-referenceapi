@@ -103,7 +103,7 @@ class PhysicalCPU(BaseModel):
             if not value:
                 raise ValueError(f"{k} not found in input")
 
-	    try:
+            try:
               size_str = value.split("(")[0].strip()
               instances_str = value.split("(")[1].strip().split(" ")[0]
             except (IndexError,ValueError):
