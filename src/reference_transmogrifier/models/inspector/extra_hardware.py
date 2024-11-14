@@ -104,9 +104,9 @@ class PhysicalCPU(BaseModel):
                 raise ValueError(f"{k} not found in input")
 
             try:
-              size_str = value.split("(")[0].strip()
-              instances_str = value.split("(")[1].strip().split(" ")[0]
-            except (IndexError,ValueError):
+                size_str = value.split("(")[0].strip()
+                instances_str = value.split("(")[1].strip().split(" ")[0]
+            except (IndexError, ValueError):
                 raise ValueError(f"{k} has malformed input")
 
             num_instances = int(instances_str)
