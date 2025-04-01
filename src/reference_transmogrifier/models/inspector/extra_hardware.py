@@ -12,7 +12,7 @@ from pydantic import (
 from pydantic_extra_types import mac_address
 from typing_extensions import Self
 
-disk_name_regex_str = "^(nvme\d+n\d+|sd[a-z]+)$"
+disk_name_regex_str = "^(nvme\\d+n\\d+|sd[a-z]+)$"
 disk_name_regex = re.compile(disk_name_regex_str)
 
 
