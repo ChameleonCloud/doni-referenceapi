@@ -35,29 +35,21 @@ class TestInventory(base.BaseTestCase):
         pass
 
 
-class TestInventoryStorage(base.BaseTestCase):
+class TestInventoryTop(base.BaseTestCase):
     def setUp(self):
         super().setUp()
 
+    def test_gigaio(self):
+        with open("tests/unit/json_samples/inspector/inventory_gigaio01.json") as f:
+            data = json.load(f)
+
+        inventory.Inventory.model_validate(data)
+
+    def test_storagenode(self):
         with open("tests/unit/json_samples/inspector/c06-43-inventory.json") as f:
-            self.data = json.load(f)
+            data = json.load(f)
 
-    def test_interfaces(self):
-        iface_data = self.data.get("interfaces")
-        for iface in iface_data:
-            inventory.NetworkInterface(**iface)
-
-    def test_cpu(self):
-        cpu_data = self.data.get("cpu")
-        inventory.CPU(**cpu_data)
-
-    def test_disks(self):
-        disk_data = self.data.get("disks")
-        for disk in disk_data:
-            inventory.Disk(**disk)
-
-    def test_memory(self):
-        pass
+        inventory.Inventory.model_validate(data)
 
 
 class TestDmi(base.BaseTestCase):

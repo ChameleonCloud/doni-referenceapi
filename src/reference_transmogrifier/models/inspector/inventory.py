@@ -1,6 +1,14 @@
-from typing import List, Optional
+from typing import Any, List, Optional
 
-from pydantic import BaseModel, ByteSize, Field, computed_field, field_validator
+from pydantic import (
+    BaseModel,
+    ByteSize,
+    Field,
+    OnErrorOmit,
+    computed_field,
+    field_validator,
+)
+from typing_extensions import Self
 
 
 class NetworkInterface(BaseModel):
@@ -85,7 +93,7 @@ class SystemVendor(BaseModel):
 class Inventory(BaseModel):
     interfaces: List[NetworkInterface]
     cpu: CPU
-    disks: List[Disk]
+    disks: List[OnErrorOmit[Disk]]
     memory: dict
     system_vendor: SystemVendor
     boot: dict
