@@ -103,16 +103,23 @@ class PhysicalCPU(BaseModel):
             if not value:
                 raise ValueError(f"{k} not found in input")
 
-            try:
-                size_str = value.split("(")[0].strip()
-                instances_str = value.split("(")[1].strip().split(" ")[0]
-            except (IndexError, ValueError):
-                raise ValueError(f"{k} has malformed input")
+            # really hacky, attempt to work around values reported
+            # as "l1d cache": "3.8 MiB (80 instances)"
+            if "instances" in value:
+                try:
+                    size_str = value.split("(")[0].strip()
+                    instances_str = value.split("(")[1].strip().split(" ")[0]
+                except (IndexError, ValueError):
+                    raise ValueError(f"{k} has malformed input")
 
-            num_instances = int(instances_str)
-            total_size_bytes = ByteSize._validate(size_str, None)
-            per_core_bytes = total_size_bytes // num_instances
-            self[k] = per_core_bytes
+                num_instances = int(instances_str)
+                total_size_bytes = ByteSize._validate(size_str, None)
+                per_core_bytes = total_size_bytes // num_instances
+                self[k] = per_core_bytes
+            else:
+                # we have something like "l1d cache": "640 KiB",
+                # just give up and report the value
+                self[k] = value
         return self
 
 
