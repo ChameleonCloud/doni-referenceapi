@@ -73,8 +73,8 @@ class ReferenceRepoNode(base.BaseTestCase):
         nic_list = reference_repo.Node.find_network_adapters(
             inspection_model.extra.network
         )
-        for n in nic_list:
-            print(n.model_dump_json(indent=2))
+        # for n in nic_list:
+        # print(n.model_dump_json(indent=2))
 
     def test_find_storage_devices(self):
         inspection_model = inspector.InspectorResult.model_validate(
@@ -101,4 +101,4 @@ class ReferenceRepoNode(base.BaseTestCase):
             blazar_info, inspection_model
         )
 
-        print(output_node_model.model_dump_json(indent=2))
+        # print(output_node_model.model_dump_json(indent=2))

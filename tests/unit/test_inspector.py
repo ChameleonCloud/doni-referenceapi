@@ -79,7 +79,7 @@ class TestDmiCpu(base.BaseTestCase):
 
     def test_dmi_cpu(self):
         cpu_model = dmi.CPU.model_validate(self.data)
-        print(cpu_model.model_dump_json(indent=2))
+        # print(cpu_model.model_dump_json(indent=2))
         self.assertEqual(2600 * 10**6, cpu_model.current_speed)
 
 
@@ -126,7 +126,7 @@ class TestExtraHardware(base.BaseTestCase):
         mem_model = extra_hardware.Memory.model_validate(
             {"total": {"size": 274877906944}}
         )
-        print(mem_model.model_dump_json(indent=2))
+        # print(mem_model.model_dump_json(indent=2))
 
     def test_top_level(self):
         extra_hw_model = extra_hardware.InspectorExtraHardware.model_validate(self.data)
@@ -169,4 +169,4 @@ class TestPciDevices(base.BaseTestCase):
         device_model = pci.PciDevice.model_validate(nvidia_rtx_6000_data)
         assert device_model.vendor_name == "NVIDIA Corporation"
         assert device_model.product_name == "TU102GL [Quadro RTX 6000/8000]"
-        print(device_model.model_dump_json(indent=2))
+        # print(device_model.model_dump_json(indent=2))
