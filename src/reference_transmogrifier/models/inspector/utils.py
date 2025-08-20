@@ -1,13 +1,24 @@
-def filter_excluded_disks(disks):
-    """Filter out disks that are not physical disks."""
-    exclude_prefixes = ("/dev/md", "/dev/pmem")
+import re
+
+
+disk_exclusion_regex = re.compile(r'^/dev/(?:md|pmem)')
+disk_name_regex = re.compile("^(nvme\d+n\d+|sd[a-z]+)$")
+
+
+def filter_disks(disks, match_disk_name=False):
+    """
+    Filter out disks that are not physical disks.
+
+    Any device name that begins with /dev/md* or /dev/pmem* is excluded.
+    """
     filtered = []
     for disk in disks:
-        if isinstance(disk, dict):
-            name = disk.get("name")
-        else:
-            name = disk.name
-        if name and any(name.startswith(prefix) for prefix in exclude_prefixes):
+        name = disk.get("name") if isinstance(disk, dict) else getattr(disk, "name", None)
+
+        if name and disk_exclusion_regex.match(name):
             continue
-        filtered.append(disk)
+
+        if not match_disk_name or disk_name_regex.match(name):
+            filtered.append(disk)
+
     return filtered

@@ -2,7 +2,7 @@ from typing import List, Optional
 
 from pydantic import BaseModel, ByteSize, Field, computed_field, field_validator
 
-from reference_transmogrifier.models.inspector.utils import filter_excluded_disks
+from reference_transmogrifier.models.inspector.utils import filter_disks
 
 
 class NetworkInterface(BaseModel):
@@ -97,4 +97,4 @@ class Inventory(BaseModel):
     @field_validator("disks", mode="before")
     @classmethod
     def filter_disks(cls, v: dict) -> List[Disk]:
-        return filter_excluded_disks(v)
+        return filter_disks(v)

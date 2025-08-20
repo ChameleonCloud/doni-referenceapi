@@ -1,4 +1,3 @@
-import re
 from typing import Optional
 
 from pydantic import (
@@ -12,11 +11,7 @@ from pydantic import (
 from pydantic_extra_types import mac_address
 from typing_extensions import Self
 
-from reference_transmogrifier.models.inspector.utils import filter_excluded_disks
-
-
-disk_name_regex_str = "^(nvme\d+n\d+|sd[a-z]+)$"
-disk_name_regex = re.compile(disk_name_regex_str)
+from reference_transmogrifier.models.inspector.utils import filter_disks
 
 
 class NetworkAdapter(BaseModel):
@@ -175,7 +170,10 @@ class InspectorExtraHardware(BaseModel):
     @classmethod
     def disk_dict_to_list(cls, v: dict) -> list[Disk]:
         """Data is presented as dict with interface name as keys. Convert to list for easier processing."""
-        filtered_v = filter_excluded_disks([
-            {"name": name, **values} for name, values in v.items()
-        ])
-        return [Disk(**disk) for disk in filtered_v if disk_name_regex.match(disk["name"])]
+        filtered_v = filter_disks(
+            [
+                {"name": name, **values} for name, values in v.items()
+            ],
+            match_disk_name=True
+        )
+        return [Disk(**disk) for disk in filtered_v]
