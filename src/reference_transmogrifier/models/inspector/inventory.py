@@ -2,6 +2,8 @@ from typing import List, Optional
 
 from pydantic import BaseModel, ByteSize, Field, computed_field, field_validator
 
+from reference_transmogrifier.models.inspector.utils import filter_disks
+
 
 class NetworkInterface(BaseModel):
     name: str
@@ -91,3 +93,8 @@ class Inventory(BaseModel):
     boot: dict
     hostname: str
     bmc_mac: str
+
+    @field_validator("disks", mode="before")
+    @classmethod
+    def filter_disks(cls, v: dict) -> List[Disk]:
+        return filter_disks(v)
