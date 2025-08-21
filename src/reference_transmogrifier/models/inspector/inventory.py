@@ -92,7 +92,7 @@ class Inventory(BaseModel):
     system_vendor: SystemVendor
     boot: dict
     hostname: str
-    bmc_mac: str
+    bmc_mac: Optional[str] = None
 
     @field_validator("disks", mode="before")
     @classmethod
