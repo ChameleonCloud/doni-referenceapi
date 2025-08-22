@@ -267,7 +267,7 @@ class NetworkAdapter(BaseModel):
     driver: Optional[str] = None
     enabled: Optional[bool] = None
     interface: Optional[str] = None
-    mac: Optional[str] = None
+    mac: str
     management: Optional[bool] = Field(default=False)
     model: Optional[str] = None
     mounted: Optional[bool] = Field(default=False)
@@ -275,16 +275,16 @@ class NetworkAdapter(BaseModel):
     vendor: Optional[NormalizedManufacturer] = None
 
     def __lt__(self: Self, other: Self):
-        return (self.mac or "") < (other.mac or "")
+        return self.mac < other.mac
 
     def __le__(self: Self, other: Self):
-        return (self.mac or "") <= (other.mac or "")
+        return self.mac <= other.mac
 
     def __gt__(self: Self, other: Self):
-        return (self.mac or "") > (other.mac or "")
+        return self.mac > other.mac
 
     def __ge__(self: Self, other: Self):
-        return (self.mac or "") >= (other.mac or "")
+        return self.mac >= other.mac
 
 
 class Placement(BaseModel):
@@ -309,7 +309,7 @@ class Processor(BaseModel):
     cache_l1i: Optional[int] = None
     cache_l2: Optional[int] = None
     cache_l3: Optional[int] = None
-    clock_speed: Optional[int] = None
+    clock_speed: int
     instruction_set: str
     model: str
     vendor: NormalizedManufacturer
@@ -336,7 +336,7 @@ class StorageMediaTypeEnum(str, Enum):
 
 class StorageDevice(BaseModel):
     device: str
-    interface: Optional[StorageInterfaceEnum] = None
+    interface: StorageInterfaceEnum
     media_type: Optional[StorageMediaTypeEnum] = None
     model: str
     serial: Optional[str] = None
@@ -411,7 +411,7 @@ class Node(BaseModel):
     architecture: Architecture
     bios: Bios
     chassis: Chassis
-    gpu: Optional[GPU] = None
+    gpu: GPU = Field(default_factory=lambda: GPU(gpu=False))
     fpga: Optional[FPGA] = None
     infiniband: bool = False
     main_memory: MainMemory
@@ -487,6 +487,9 @@ class Node(BaseModel):
     ) -> list[NetworkAdapter]:
         output_list = []
         for nic in extra_nics:
+            if not nic.serial or not nic.link:
+                continue
+
             nic_model = NetworkAdapter(
                 device=nic.name,
                 driver=nic.driver,
