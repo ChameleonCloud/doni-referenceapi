@@ -139,7 +139,7 @@ class PhysicalCPU(BaseModel):
 
 class CPU(BaseModel):
     physical: CPUSummary
-    physical_0: Optional[PhysicalCPU] = None
+    physical_0: PhysicalCPU
     physical_1: Optional[PhysicalCPU] = None
     physical_2: Optional[PhysicalCPU] = None
     physical_3: Optional[PhysicalCPU] = None
