@@ -327,6 +327,8 @@ class StorageInterfaceEnum(str, Enum):
     sata = "SATA"
     sas = "SAS"
     pcie = "PCIe"
+    # Nodes with this need to be fixed
+    unknown = "UNKNOWN"
 
 
 class StorageMediaTypeEnum(str, Enum):
@@ -336,7 +338,7 @@ class StorageMediaTypeEnum(str, Enum):
 
 class StorageDevice(BaseModel):
     device: str
-    interface: StorageInterfaceEnum
+    interface: Optional[StorageInterfaceEnum] = None
     media_type: Optional[StorageMediaTypeEnum] = None
     model: str
     serial: Optional[str] = None
