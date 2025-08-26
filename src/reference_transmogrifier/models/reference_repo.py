@@ -3,7 +3,7 @@ from collections import namedtuple
 from enum import Enum
 from typing import Optional
 
-from pydantic import UUID4, BaseModel, field_validator
+from pydantic import UUID4, BaseModel, field_validator, computed_field, Field
 from pydantic.functional_validators import BeforeValidator
 from typing_extensions import Annotated, Self
 
@@ -68,13 +68,26 @@ class ManufacturerEnum(str, Enum):
     toshiba = "Toshiba"
     qlogic = "QLogic"
     xilinx = "Xilinx"
+    sandisk = "Sandisk"
 
 
 def normalize_manufacturer(name: str) -> ManufacturerEnum:
     """Coerce inputs to canonical representation."""
-    norm_name = name.strip().lower().split(" ")[0]
+    name = name.strip().lower()
+    norm_name = name.split(" ")[0]
 
-    name_mapping = {
+    # I'm being conservative here and mapping *slightly* more
+    # complex cases and otherwise falling back to the previous
+    # behavior to minimize risk of breakage. But it seems a bit
+    # risky to map everything based on the first word, especially
+    # something like "advanced" to AMD.
+    full_name_mapping = {
+        "advanced micro devices, inc. [amd/ati]": ManufacturerEnum.amd,
+    }
+    if name in full_name_mapping:
+        return full_name_mapping[name]
+
+    norm_name_mapping = {
         "altera": ManufacturerEnum.altera,
         "broadcom": ManufacturerEnum.broadcom,
         "cavium": ManufacturerEnum.cavium,
@@ -94,14 +107,15 @@ def normalize_manufacturer(name: str) -> ManufacturerEnum:
         "toshiba": ManufacturerEnum.toshiba,
         "qlogic": ManufacturerEnum.qlogic,
         "xilinx": ManufacturerEnum.xilinx,
+        "sandisk": ManufacturerEnum.sandisk,
     }
     try:
-        assert norm_name in name_mapping
+        assert norm_name in norm_name_mapping
     except Exception as exc:
         print(f"got {norm_name} from {name}")
         raise (exc)
 
-    return name_mapping[norm_name]
+    return norm_name_mapping[norm_name]
 
 
 # type alias to make calling it easy
@@ -117,7 +131,7 @@ class Architecture(BaseModel):
 
 
 class Bios(BaseModel):
-    release_date: datetime.date
+    release_date: Optional[datetime.date] = None
     vendor: NormalizedManufacturer
     version: str
 
@@ -125,7 +139,7 @@ class Bios(BaseModel):
     @classmethod
     def _convert_datestring(cls, v) -> datetime.date:
         if not v:
-            return v
+            return None
 
         try:
             # 2023-12-12
@@ -147,7 +161,7 @@ class Bios(BaseModel):
         except ValueError:
             pass
 
-        raise ValueError
+        return None
 
     @field_validator("version", mode="before")
     @classmethod
@@ -181,14 +195,24 @@ class ChassisModelEnum(str, Enum):
 
 
 class Chassis(BaseModel):
-    manufacturer: NormalizedManufacturer
-    name: ChassisModelEnum
-    serial: str
+    manufacturer: Optional[NormalizedManufacturer] = None
+    name: Optional[ChassisModelEnum] = None
+    serial: Optional[str] = None
+
+    @field_validator("manufacturer", mode="before")
+    @classmethod
+    def _get_manufacturer(cls, v):
+        if not v or not isinstance(v, str) or v.strip() == "":
+            return None
+        try:
+            return normalize_manufacturer(v)
+        except Exception:
+            return None
 
     @field_validator("name", mode="before")
     @classmethod
     def _get_model_name(cls, v) -> ChassisModelEnum:
-        if not v:
+        if not v or not isinstance(v, str):
             return None
 
         model_map = {
@@ -225,8 +249,12 @@ class Chassis(BaseModel):
 
 #
 class MainMemory(BaseModel):
-    humanized_ram_size: str
     ram_size: int
+
+    @computed_field
+    @property
+    def humanized_ram_size(self) -> str:
+        return f"{self.ram_size // 2**30} GiB"
 
 
 class Monitoring(BaseModel):
@@ -235,14 +263,14 @@ class Monitoring(BaseModel):
 
 class NetworkAdapter(BaseModel):
     bridged: bool = False
-    device: str
+    device: Optional[str] = None
     driver: Optional[str] = None
-    enabled: bool = False
+    enabled: Optional[bool] = None
     interface: Optional[str] = None
     mac: str
-    management: bool = False
+    management: Optional[bool] = Field(default=False)
     model: Optional[str] = None
-    mounted: bool = False
+    mounted: Optional[bool] = Field(default=False)
     rate: Optional[int] = None
     vendor: Optional[NormalizedManufacturer] = None
 
@@ -287,11 +315,20 @@ class Processor(BaseModel):
     vendor: NormalizedManufacturer
     version: Optional[str] = None
 
+    @field_validator("clock_speed", mode="before")
+    @classmethod
+    def _convert_clockspeed(cls, v):
+        if not v:
+            return None
+        return v
+
 
 class StorageInterfaceEnum(str, Enum):
     sata = "SATA"
     sas = "SAS"
     pcie = "PCIe"
+    # Nodes with this need to be fixed
+    unknown = "UNKNOWN"
 
 
 class StorageMediaTypeEnum(str, Enum):
@@ -301,14 +338,18 @@ class StorageMediaTypeEnum(str, Enum):
 
 class StorageDevice(BaseModel):
     device: str
-    humanized_size: str
-    interface: StorageInterfaceEnum
+    interface: Optional[StorageInterfaceEnum] = None
     media_type: Optional[StorageMediaTypeEnum] = None
     model: str
     serial: Optional[str] = None
     rev: Optional[str] = None
     size: int
     vendor: Optional[NormalizedManufacturer] = None
+
+    @computed_field
+    @property
+    def humanized_size(self) -> str:
+        return f"{self.size // 10**9} GB"
 
     @field_validator("vendor", mode="before")
     @classmethod
@@ -372,7 +413,7 @@ class Node(BaseModel):
     architecture: Architecture
     bios: Bios
     chassis: Chassis
-    gpu: GPU
+    gpu: GPU = Field(default_factory=lambda: GPU(gpu=False))
     fpga: Optional[FPGA] = None
     infiniband: bool = False
     main_memory: MainMemory
@@ -404,7 +445,7 @@ class Node(BaseModel):
             gpu=True,
             gpu_count=len(gpus),
             gpu_model=gpus[0].product_name,
-            gpu_vendor=gpus[0].vendor_name,
+            gpu_vendor=normalize_manufacturer(gpus[0].vendor_name),
         )
 
     @classmethod
@@ -448,6 +489,9 @@ class Node(BaseModel):
     ) -> list[NetworkAdapter]:
         output_list = []
         for nic in extra_nics:
+            if not nic.serial or not nic.link:
+                continue
+
             nic_model = NetworkAdapter(
                 device=nic.name,
                 driver=nic.driver,

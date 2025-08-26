@@ -12,7 +12,7 @@ from reference_transmogrifier.models.inspector import (
 
 class InspectorResult(BaseModel):
     inventory: inventory.Inventory
-    root_disk: dict
+    root_disk: Optional[dict] = None
     boot_interface: str
     configuration: dict
     pci_devices: List[pci.PciDevice]
@@ -24,5 +24,5 @@ class InspectorResult(BaseModel):
     local_gb: int
     cpus: int
     cpu_arch: str
-    memory_mb: int
+    memory_mb: Optional[int] = None
     extra: extra_hardware.InspectorExtraHardware

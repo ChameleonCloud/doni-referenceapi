@@ -20,11 +20,11 @@ class NetworkAdapter(BaseModel):
     name: str
     vendor: str
     product: str
-    firmware: str
+    firmware: Optional[str] = None
     capacity: Optional[int] = None
-    link: bool
+    link: Optional[bool] = None
     driver: str
-    serial: mac_address.MacAddress
+    serial: Optional[mac_address.MacAddress] = None
     ipv4: Optional[str] = None
 
     @field_validator("serial", mode="after")
@@ -53,7 +53,7 @@ class Disk(BaseModel):
     rotational: bool
     serial: Optional[str] = Field(alias="SMART/serial_number", default=None)
     wwn_id: Optional[str] = Field(alias="wwn-id", default=None)
-    smart_firmware_version: str = Field(alias="SMART/firmware_version", default=None)
+    smart_firmware_version: Optional[str] = Field(alias="SMART/firmware_version", default=None)
     vendor: str
 
     @computed_field
@@ -71,6 +71,28 @@ class Disk(BaseModel):
         else:
             return "SSD"
 
+    @field_validator("serial", mode="before")
+    @classmethod
+    def convert_serial_to_str(cls, v):
+        """
+        Normalize serial number as strings. E.g. an integer
+        should be converted to a string for a serial number.
+        """
+        if v is None:
+            return v
+        return str(v)
+
+    @field_validator("smart_firmware_version", mode="before")
+    @classmethod
+    def convert_smart_firmware_version_to_str(cls, v):
+        """
+        Normalize SMART firmware version as strings. E.g. an integer
+        should be converted to a string for a firmware version.
+        """
+        if v is None:
+            return v
+        return str(v)
+
 
 class CPUSummary(BaseModel):
     number: int
@@ -79,16 +101,16 @@ class CPUSummary(BaseModel):
 class PhysicalCPU(BaseModel):
     vendor: str
     product: str
-    cores: int
+    cores: Optional[int] = None
     threads: int
-    family: int
+    family: Optional[int] = None
     model: int
     stepping: int
     architecture: str
-    l1d_cache: ByteSize = Field(alias="l1d cache", exclude=True)
-    l1i_cache: ByteSize = Field(alias="l1i cache", exclude=True)
-    l2_cache: ByteSize = Field(alias="l2 cache", exclude=True)
-    l3_cache: ByteSize = Field(alias="l3 cache", exclude=True)
+    l1d_cache: Optional[ByteSize] = Field(alias="l1d cache", exclude=True)
+    l1i_cache: Optional[ByteSize] = Field(alias="l1i cache", exclude=True)
+    l2_cache: Optional[ByteSize] = Field(alias="l2 cache", exclude=True)
+    l3_cache: Optional[ByteSize] = Field(alias="l3 cache", exclude=True)
     flags: str
     threads_per_core: int
 
@@ -98,19 +120,20 @@ class PhysicalCPU(BaseModel):
         keys = ["l1d cache", "l1i cache", "l2 cache", "l3 cache"]
         for k in keys:
             value = self.get(k)
-            if not value:
-                raise ValueError(f"{k} not found in input")
+            if not value or not isinstance(value, str):
+                self[k] = None
+                continue
 
             try:
                 size_str = value.split("(")[0].strip()
                 instances_str = value.split("(")[1].strip().split(" ")[0]
-            except (IndexError, ValueError):
-                raise ValueError(f"{k} has malformed input")
+                num_instances = int(instances_str)
+                total_size_bytes = ByteSize._validate(size_str, None)
+                per_core_bytes = total_size_bytes // num_instances
+                self[k] = per_core_bytes
+            except Exception:
+                self[k] = None
 
-            num_instances = int(instances_str)
-            total_size_bytes = ByteSize._validate(size_str, None)
-            per_core_bytes = total_size_bytes // num_instances
-            self[k] = per_core_bytes
         return self
 
 
@@ -149,7 +172,7 @@ class InspectorExtraHardware(BaseModel):
     lldp: Optional[dict] = None
     cpu: CPU
     numa: dict
-    ipmi: dict
+    ipmi: Optional[dict] = None
     hw: dict
 
     @field_validator("network", mode="before")
