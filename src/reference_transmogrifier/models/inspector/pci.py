@@ -1,6 +1,7 @@
 from enum import Enum
 from typing import Dict
 
+from importlib.resources import files
 from pydantic import BaseModel, Field, computed_field
 
 
@@ -34,15 +35,13 @@ class KnownPciClassEnum(str, Enum):
 
 
 class PciIdsMap(object):
-    file_path = "src/reference_transmogrifier/models/inspector/pci.ids"
-
-    def _load_pciids_file(self, file_path: str) -> Dict:
+    def _load_pciids_file(self, pci_ids_file) -> Dict:
         data = {}
 
         current_vendor_id = None
         current_device_id = None
 
-        with open(file_path, "r") as file:
+        with pci_ids_file.open("r") as file:
             for line in file:
                 line = line.rstrip()
 
@@ -92,7 +91,8 @@ class PciIdsMap(object):
         return data
 
     def __init__(self) -> None:
-        self.data = self._load_pciids_file(self.file_path)
+        pci_ids_file = files("reference_transmogrifier.models.inspector").joinpath("pci.ids")
+        self.data = self._load_pciids_file(pci_ids_file)
 
     def lookup_vendor(self, vendor_id: str) -> PciVendorInfo:
         result = self.data.get(vendor_id)
