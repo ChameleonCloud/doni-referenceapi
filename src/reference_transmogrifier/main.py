@@ -1,11 +1,17 @@
 import argparse
 import json
+import os
 import pathlib
+import re
 import shutil
+import uuid
+from datetime import datetime
 from tempfile import TemporaryDirectory
+from urllib.parse import urlparse
 
 import openstack
 from git import Repo
+from github import Github
 from openstack.exceptions import BadRequestException, NotFoundException
 from pydantic import ValidationError
 
@@ -13,10 +19,56 @@ from reference_transmogrifier import reference_api
 from reference_transmogrifier.models import blazar, inspector, reference_repo
 
 
+def commit_and_pr_changes(
+        reference_repo_url,
+        reference_repo_ref,
+        output_dir
+    ):
+    github_token = os.environ.get("GITHUB_TOKEN")
+    if not github_token:
+        raise Exception("GITHUB_TOKEN env var not set, cannot push changes")
+
+    repo_url = re.sub(
+        r"https://",
+        f"https://{github_token}@",
+        reference_repo_url
+    )
+    parts = urlparse(reference_repo_url)
+    github_repo_name = parts.path.lstrip("/").removesuffix(".git")
+
+    now = datetime.now().strftime("%Y%m%d-%H%M%S")
+    branch_name = f"auto-update-{now}"
+    pr_title = f"Automated update of reference data ({now})"
+    pr_body = f"This is an automated update of the reference data on {now}"
+
+    repo = Repo(str(output_dir))
+    repo.git.remote('set-url', 'origin', repo_url)
+    repo.git.checkout('HEAD', b=branch_name)
+    repo.git.add(all=True)
+    repo.index.commit(pr_title)
+    origin = repo.remote(name="origin")
+    origin.push(branch_name)
+
+    gh = Github(github_token)
+    gh_repo = gh.get_repo(github_repo_name)
+    pr = gh_repo.create_pull(
+        title=pr_title,
+        body=pr_body,
+        head=branch_name,
+        base=reference_repo_ref
+    )
+    print(f"created PR: {pr.html_url}")
+
+
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--verbose", action="store_true")
     parser.add_argument("--cloud")
+    parser.add_argument(
+        "--push-changes",
+        action="store_true",
+        help="Commit and push changes to a branch and open a PR",
+    )
     parser.add_argument(
         "--reference-repo-url",
         help="URL for git repo",
@@ -50,7 +102,15 @@ def main():
     cloud_name = reference_api.REGION_NAME_MAP[region_name]
 
     base_dir = pathlib.Path("./output")
+    base_dir.mkdir(exist_ok=True)
+
     final_output_dir = base_dir.joinpath("reference-repository")
+    print(f"final output dir will be {final_output_dir}")
+    if final_output_dir.exists():
+        unique_id = uuid.uuid4().hex[0:8]
+        archive_dir = base_dir.joinpath(f"reference-repository-{unique_id}")
+        print(f"moving existing output dir to {archive_dir}")
+        shutil.move(str(final_output_dir), str(archive_dir))
 
     local_dir = TemporaryDirectory(dir=base_dir)
     reference_repo_checkout = Repo.clone_from(
@@ -114,6 +174,13 @@ def main():
 
     print(f"finished conversion, moving data from tmpdir to {final_output_dir}")
     shutil.move(reference_repo_checkout.working_dir, final_output_dir)
+
+    if args.push_changes:
+        commit_and_pr_changes(
+            args.reference_repo_url,
+            args.reference_repo_ref,
+            final_output_dir
+        )
 
 
 if __name__ == "__main__":
