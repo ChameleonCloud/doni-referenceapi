@@ -1,3 +1,6 @@
+# Ignore our output directory the reference repo is cloned into
+output/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

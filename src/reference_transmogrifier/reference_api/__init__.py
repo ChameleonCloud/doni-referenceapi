@@ -9,7 +9,9 @@ REGION_NAME_MAP = {
 }
 
 
-def write_reference_repo(repo_dir, cloud_name, node: reference_repo.Node) -> None:
+def write_reference_repo(
+    repo_dir, cloud_name, node: reference_repo.Node
+) -> pathlib.Path:
     repo_path = pathlib.Path(repo_dir)
     node_data_path = repo_path.joinpath(
         "data/chameleoncloud/sites",
@@ -25,3 +27,4 @@ def write_reference_repo(repo_dir, cloud_name, node: reference_repo.Node) -> Non
                 indent=2,
             )
         )
+    return node_data_path
