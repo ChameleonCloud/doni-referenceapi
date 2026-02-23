@@ -93,6 +93,31 @@ def parse_args():
     return parser.parse_args()
 
 
+def _preserve_admin_note(repo_working_dir, cloud_name, validated_node, node=None):
+    """If an existing node JSON contains an `admin_note`, copy it onto the
+    provided `validated_node` before it is written out.
+    """
+    try:
+        repo_working_dir = pathlib.Path(repo_working_dir)
+        node_path = repo_working_dir.joinpath(
+            "data/chameleoncloud/sites",
+            cloud_name,
+            "clusters/chameleon/nodes",
+            f"{validated_node.uid}.json",
+        )
+        if node_path.exists():
+            with open(node_path, "r") as oldf:
+                old_data = json.load(oldf)
+                old_note = old_data.get("admin_note")
+                if old_note:
+                    validated_node.admin_note = old_note
+    except Exception as e:
+        if node is not None:
+            print(f"{node.id}:{node.name}: warning reading existing node json: {e}")
+        else:
+            print(f"warning reading existing node json: {e}")
+
+
 def main():
     args = parse_args()
 
@@ -164,22 +189,7 @@ def main():
             continue
 
         # Preserve any existing admin_note before overwriting
-        repo_working_dir = reference_repo_checkout.working_dir
-        node_path = pathlib.Path(repo_working_dir).joinpath(
-            "data/chameleoncloud/sites",
-            cloud_name,
-            "clusters/chameleon/nodes",
-            f"{validated_node.uid}.json",
-        )
-        try:
-            if node_path.exists():
-                with open(node_path, "r") as oldf:
-                    old_data = json.load(oldf)
-                    old_note = old_data.get("admin_note")
-                    if old_note:
-                        validated_node.admin_note = old_note
-        except Exception as e:
-            print(f"{node.id}:{node.name}: warning reading existing node json: {e}")
+        _preserve_admin_note(reference_repo_checkout.working_dir, cloud_name, validated_node, node)
 
         node_json = reference_api.write_reference_repo(
             reference_repo_checkout.working_dir, cloud_name, validated_node
