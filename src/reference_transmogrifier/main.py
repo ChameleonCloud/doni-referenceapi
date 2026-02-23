@@ -163,6 +163,24 @@ def main():
                 print(json.dumps(inspection_dict, indent=2))
             continue
 
+        # Preserve any existing admin_note before overwriting
+        repo_working_dir = reference_repo_checkout.working_dir
+        node_path = pathlib.Path(repo_working_dir).joinpath(
+            "data/chameleoncloud/sites",
+            cloud_name,
+            "clusters/chameleon/nodes",
+            f"{validated_node.uid}.json",
+        )
+        try:
+            if node_path.exists():
+                with open(node_path, "r") as oldf:
+                    old_data = json.load(oldf)
+                    old_note = old_data.get("admin_note")
+                    if old_note:
+                        validated_node.admin_note = old_note
+        except Exception as e:
+            print(f"{node.id}:{node.name}: warning reading existing node json: {e}")
+
         node_json = reference_api.write_reference_repo(
             reference_repo_checkout.working_dir, cloud_name, validated_node
         )

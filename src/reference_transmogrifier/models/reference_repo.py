@@ -420,6 +420,7 @@ class Node(BaseModel):
     monitoring: Monitoring
     network_adapters: list[NetworkAdapter]
     node_name: str
+    admin_note: Optional[str] = None
     node_type: NodeTypeEnum
     placement: Optional[Placement] = None
     processor: Processor
