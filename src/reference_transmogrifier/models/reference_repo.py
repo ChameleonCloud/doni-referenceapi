@@ -611,6 +611,7 @@ class Node(BaseModel):
         monitoring = Monitoring(wattmeter=False)
 
         network_adapters = cls.find_network_adapters(idata.extra.network)
+        infiniband = any(nic.interface == "InfiniBand" for nic in network_adapters)
         processor = cls.find_processor_info(idata.dmi.cpu, idata.extra.cpu)
         storage_devices = cls.find_storage_devices(
             idata.inventory.disks, idata.extra.disk
@@ -630,6 +631,7 @@ class Node(BaseModel):
             chassis=chassis,
             fpga=fpga,
             gpu=gpu,
+            infiniband=infiniband,
             main_memory=main_memory,
             monitoring=monitoring,
             network_adapters=network_adapters,

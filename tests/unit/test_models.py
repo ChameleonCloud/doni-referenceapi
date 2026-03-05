@@ -76,6 +76,31 @@ class ReferenceRepoNode(base.BaseTestCase):
         for n in nic_list:
             print(n.model_dump_json(indent=2))
 
+    def _make_extra_nic(self, driver, name="eth0", link=True):
+        return inspector.extra_hardware.NetworkAdapter(
+            name=name,
+            vendor="Mellanox",
+            product="Some Product",
+            driver=driver,
+            serial="aa:bb:cc:dd:ee:ff",
+            link=link,
+        )
+
+    def test_infiniband_false_when_no_ib_nics(self):
+        nics = [self._make_extra_nic("mlx5_core", name="eth0")]
+        nic_list = reference_repo.Node.find_network_adapters(nics)
+        infiniband = any(nic.interface == "InfiniBand" for nic in nic_list)
+        self.assertFalse(infiniband)
+
+    def test_infiniband_true_when_ib_nic_present(self):
+        nics = [
+            self._make_extra_nic("mlx5_core", name="eth0"),
+            self._make_extra_nic("ipoib", name="ib0"),
+        ]
+        nic_list = reference_repo.Node.find_network_adapters(nics)
+        infiniband = any(nic.interface == "InfiniBand" for nic in nic_list)
+        self.assertTrue(infiniband)
+
     def test_find_storage_devices(self):
         inspection_model = inspector.InspectorResult.model_validate(
             self.ironic_inspector_node_json
