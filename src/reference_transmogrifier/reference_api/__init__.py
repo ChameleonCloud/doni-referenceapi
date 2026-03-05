@@ -1,4 +1,5 @@
 import pathlib
+import json
 
 from reference_transmogrifier.models import reference_repo
 
@@ -19,12 +20,14 @@ def write_reference_repo(
         "clusters/chameleon/nodes",
         f"{node.uid}.json",
     )
+
+    output_json = json.dumps(
+        node.model_dump(mode="json", exclude_none=True, exclude_unset=True),
+        indent=2,
+        sort_keys=True,
+    )
+
     with open(node_data_path, "w") as f:
-        f.write(
-            node.model_dump_json(
-                exclude_none=True,
-                exclude_unset=True,
-                indent=2,
-            )
-        )
+        f.write(output_json)
+
     return node_data_path
