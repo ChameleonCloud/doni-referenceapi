@@ -109,7 +109,8 @@
       "model": "MZ7KM240HMHQ0D3",
       "rev": "GD53",
       "size": 240057409536,
-      "vendor": "Samsung"
+      "vendor": "Samsung",
+      "wwn": "0x5002538c40778230"
     }
   ],
   "supported_job_types": {
