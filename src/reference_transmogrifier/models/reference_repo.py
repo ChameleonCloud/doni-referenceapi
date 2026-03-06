@@ -345,6 +345,7 @@ class StorageDevice(BaseModel):
     rev: Optional[str] = None
     size: int
     vendor: Optional[NormalizedManufacturer] = None
+    wwn: str
 
     @computed_field
     @property
@@ -372,16 +373,16 @@ class StorageDevice(BaseModel):
         return mediatype_map[v]
 
     def __lt__(self: Self, other: Self):
-        return self.device < other.device
+        return self.wwn < other.wwn
 
     def __le__(self: Self, other: Self):
-        return self.device <= other.device
+        return self.wwn <= other.wwn
 
     def __gt__(self: Self, other: Self):
-        return self.device > other.device
+        return self.wwn > other.wwn
 
     def __ge__(self: Self, other: Self):
-        return self.device >= other.device
+        return self.wwn >= other.wwn
 
 
 class SupportedJobTypes(BaseModel):
@@ -571,6 +572,7 @@ class Node(BaseModel):
                 serial=extra.serial,
                 size=size_bytes,
                 vendor=vendor,
+                wwn=wwn,
             )
             output_list.append(disk_model)
             output_list.sort()
