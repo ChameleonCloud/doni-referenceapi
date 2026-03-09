@@ -190,7 +190,7 @@ class ChassisModelEnum(str, Enum):
     dell_r7525 = "PowerEdge R7525"
     dell_r840 = "PowerEdge R840"
     dell_xe8545 = "PowerEdge XE8545"
-
+    dell_xe9640 = "PowerEdge XE9640"
     gigabyte_r181_t92 = "R181-T92-00"
 
 
@@ -233,6 +233,7 @@ class Chassis(BaseModel):
             "PowerEdge R7525": ChassisModelEnum.dell_r7525,
             "PowerEdge R840": ChassisModelEnum.dell_r840,
             "PowerEdge XE8545": ChassisModelEnum.dell_xe8545,
+            "PowerEdge XE9640": ChassisModelEnum.dell_xe9640,
             "R181-T92-00": ChassisModelEnum.gigabyte_r181_t92,
         }
 
