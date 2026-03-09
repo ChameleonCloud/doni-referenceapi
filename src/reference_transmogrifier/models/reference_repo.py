@@ -28,6 +28,7 @@ class NodeTypeEnum(str, Enum):
     fpga = "fpga"
     gpu_a100_nvlink = "gpu_a100_nvlink"
     gpu_a100_pcie = "gpu_a100_pcie"
+    gpu_h100 = "gpu_h100"
     gpu_k80 = "gpu_k80"
     gpu_mi100 = "gpu_mi100"
     gpu_m40 = "gpu_m40"
