@@ -420,6 +420,7 @@ FPGA_lookup = {
 class Node(BaseModel):
     architecture: Architecture
     bios: Bios
+    boot_mode: Optional[str] = None
     chassis: Chassis
     gpu: GPU = Field(default_factory=lambda: GPU(gpu=False))
     fpga: Optional[FPGA] = None
@@ -616,6 +617,8 @@ class Node(BaseModel):
             humanized_ram_size=f"{idata.extra.memory.total_size_gib} GiB",
         )
         monitoring = Monitoring(wattmeter=False)
+        
+        boot_mode = idata.inventory.boot.current_boot_mode if idata.inventory.boot else None
 
         network_adapters = cls.find_network_adapters(idata.extra.network)
         infiniband = any(nic.interface == "InfiniBand" for nic in network_adapters)
@@ -635,6 +638,7 @@ class Node(BaseModel):
         return cls(
             architecture=arch,
             bios=bios,
+            boot_mode=boot_mode,
             chassis=chassis,
             fpga=fpga,
             gpu=gpu,
