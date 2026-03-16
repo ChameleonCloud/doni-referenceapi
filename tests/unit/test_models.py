@@ -126,4 +126,5 @@ class ReferenceRepoNode(base.BaseTestCase):
             blazar_info, inspection_model
         )
 
-        print(output_node_model.model_dump_json(indent=2))
+        self.assertEqual("uefi", output_node_model.boot_mode)
+

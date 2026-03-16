@@ -5,6 +5,10 @@ from pydantic import BaseModel, ByteSize, Field, computed_field, field_validator
 from reference_transmogrifier.models.inspector.utils import filter_disks
 
 
+class Boot(BaseModel):
+    current_boot_mode: Optional[str] = None
+
+
 class NetworkInterface(BaseModel):
     name: str
     mac_address: str
@@ -90,7 +94,7 @@ class Inventory(BaseModel):
     disks: List[Disk]
     memory: dict
     system_vendor: SystemVendor
-    boot: dict
+    boot: Boot
     hostname: str
     bmc_mac: Optional[str] = None
 
