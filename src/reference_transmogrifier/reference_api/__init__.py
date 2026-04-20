@@ -8,6 +8,7 @@ REGION_NAME_MAP = {
     "CHI@TACC": "tacc",
     "CHI@NRP": "nrp",
     "KVM@TACC": "kvm",
+    "CHI@NCAR": "ncar",
 }
 
 
