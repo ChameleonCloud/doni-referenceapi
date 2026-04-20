@@ -12,6 +12,7 @@ from reference_transmogrifier.models import blazar, inspector
 
 class NodeTypeEnum(str, Enum):
     arm_thunder = "arm_thunder"
+    compute_zen5_grado = "compute_zen5_grado"
     compute_arm64 = "compute_arm64"
     compute_cascadelake = "compute_cascadelake"
     compute_cascadelake_r = "compute_cascadelake_r"
@@ -53,6 +54,7 @@ class ManufacturerEnum(str, Enum):
 
     altera = "Altera"
     amd = "AMD"
+    ami = "AMI"
     broadcom = "Broadcom"
     cavium = "Cavium"
     dell = "Dell"
@@ -86,6 +88,8 @@ def normalize_manufacturer(name: str) -> ManufacturerEnum:
     full_name_mapping = {
         "advanced micro devices, inc. [amd/ati]": ManufacturerEnum.amd,
         "sk hynix": ManufacturerEnum.skhynix,
+        "american megatrends international, llc.": ManufacturerEnum.ami,
+        "advanced micro devices, inc.": ManufacturerEnum.amd,
     }
     if name in full_name_mapping:
         return full_name_mapping[name]
@@ -198,6 +202,7 @@ class ChassisModelEnum(str, Enum):
     dell_xe8545 = "PowerEdge XE8545"
     dell_xe9640 = "PowerEdge XE9640"
     gigabyte_r181_t92 = "R181-T92-00"
+    supermicro_3015mr_h10tnr = "AS-3015MR-H10TNR"
 
 
 class Chassis(BaseModel):
@@ -241,7 +246,8 @@ class Chassis(BaseModel):
             "PowerEdge XE8545": ChassisModelEnum.dell_xe8545,
             "PowerEdge XE9640": ChassisModelEnum.dell_xe9640,
             "R181-T92-00": ChassisModelEnum.gigabyte_r181_t92,
-        }
+            "AS -3015MR-H10TNR": ChassisModelEnum.supermicro_3015mr_h10tnr, 
+            }
 
         model = v.split("(")[0].strip()
         # PowerEdge R630 (SKU=NotP...delName=PowerEdge R630)
@@ -501,6 +507,9 @@ class Node(BaseModel):
         for nic in extra_nics:
             if not nic.serial or not nic.link:
                 continue
+            #print(nic.name)
+            #if (nic.name.startswith("enxbe")):
+            #        continue
 
             nic_model = NetworkAdapter(
                 device=nic.name,
@@ -611,7 +620,7 @@ class Node(BaseModel):
             serial=idata.inventory.system_vendor.serial_number,
         )
         fpga = cls.find_fpga_from_pci(idata.pci_devices)
-        gpu = cls.find_gpu_from_pci(idata.pci_devices)
+        #gpu = cls.find_gpu_from_pci(idata.pci_devices)
         main_memory = MainMemory(
             ram_size=idata.extra.memory.total_size_bytes,
             humanized_ram_size=f"{idata.extra.memory.total_size_gib} GiB",
@@ -641,7 +650,7 @@ class Node(BaseModel):
             boot_mode=boot_mode,
             chassis=chassis,
             fpga=fpga,
-            gpu=gpu,
+            #gpu=gpu,
             infiniband=infiniband,
             main_memory=main_memory,
             monitoring=monitoring,
