@@ -38,6 +38,7 @@ class NodeTypeEnum(str, Enum):
     gpu_rtx_6000 = "gpu_rtx_6000"
     gpu_v100 = "gpu_v100"
     gpu_v100_nvlink = "gpu_v100_nvlink"
+    gpu_pontevecchio = "gpu_pontevecchio"
     storage = "storage"
     storage_hierarchy = "storage_hierarchy"
     storage_nvme = "storage_nvme"
