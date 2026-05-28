@@ -71,6 +71,7 @@ class ManufacturerEnum(str, Enum):
     skhynix = "SK Hynix"
     xilinx = "Xilinx"
     sandisk = "Sandisk"
+    kioxia = "kioxia"
 
 
 def normalize_manufacturer(name: str) -> ManufacturerEnum:
@@ -86,6 +87,7 @@ def normalize_manufacturer(name: str) -> ManufacturerEnum:
     full_name_mapping = {
         "advanced micro devices, inc. [amd/ati]": ManufacturerEnum.amd,
         "sk hynix": ManufacturerEnum.skhynix,
+        "kioxia corporation": ManufacturerEnum.kioxia,
     }
     if name in full_name_mapping:
         return full_name_mapping[name]
