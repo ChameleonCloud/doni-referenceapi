@@ -18,6 +18,12 @@ def find_node_json(reference_repo_dir):
         with open(fname, 'r') as f:
             yield json.load(f)
 
+def find_flavor_json(reference_repo_dir):
+    fnames = glob(f"{reference_repo_dir}/**/flavors/*.json", recursive=True)
+    for fname in fnames:
+        with open(fname, 'r') as f:
+            yield json.load(f)
+
 def main():
     args = parse_args()
 
@@ -26,11 +32,21 @@ def main():
         node_uuid = node.get('uid')
         node_name = node.get('node_name')
         # site = xxx
-        
+
         try:
             validated_node = reference_repo_model.Node.model_validate(node)
         except ValidationError as e:
             print(f"Validation error for node {node_uuid}:{node_name} {e}")
+            continue
+
+    flavor_jsons = find_flavor_json(args.reference_repo_dir)
+    for flavor in flavor_jsons:
+        flavor_uid = flavor.get('uid')
+
+        try:
+            validated_flavor = reference_repo_model.VmFlavor.model_validate(flavor)
+        except ValidationError as e:
+            print(f"Validation error for flavor {flavor_uid}: {e}")
             continue
 
 if __name__ == "__main__":

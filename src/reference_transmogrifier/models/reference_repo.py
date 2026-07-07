@@ -49,6 +49,18 @@ class InstructionSetEnum(str, Enum):
     aarch64 = "aarch64"
 
 
+class NodeModeEnum(str, Enum):
+    bare_metal_only = "bare_metal_only"
+    vm_only = "vm_only"
+    configurable = "configurable"
+
+
+class GpuAllocationEnum(str, Enum):
+    pcie_passthrough = "pcie_passthrough"
+    mig_slice = "mig_slice"
+    full_node = "full_node"
+
+
 class ManufacturerEnum(str, Enum):
     """Canonical representation for each manufacturer."""
 
@@ -413,6 +425,25 @@ class GPU(BaseModel):
     gpu_vendor: Optional[NormalizedManufacturer] = None
 
 
+class VmFlavorGpu(BaseModel):
+    gpu: bool = False
+    gpu_count: Optional[int] = None
+    gpu_allocation: Optional[GpuAllocationEnum] = None
+    gpu_mig_profile: Optional[str] = None
+
+
+class VmFlavor(BaseModel):
+    type: str = "vm_flavor"
+    uid: str
+    vcpus: Optional[int] = None
+    ram_size: Optional[int] = None
+    humanized_ram_size: Optional[str] = None
+    disk_size: Optional[int] = None
+    humanized_disk_size: Optional[str] = None
+    gpu: VmFlavorGpu = Field(default_factory=lambda: VmFlavorGpu(gpu=False))
+    openstack_properties: Optional[dict] = None
+
+
 PCI_Tuple = namedtuple("PCI_Tuple", ["vendor_id", "product_id", "pci_class"])
 
 FPGA_lookup = {
@@ -433,6 +464,7 @@ class Node(BaseModel):
     network_adapters: list[NetworkAdapter]
     node_name: str
     admin_note: Optional[str] = None
+    node_mode: Optional[NodeModeEnum] = None
     node_type: NodeTypeEnum
     placement: Optional[Placement] = None
     processor: Processor
