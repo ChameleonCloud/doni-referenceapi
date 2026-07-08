@@ -90,12 +90,45 @@ def parse_args():
         nargs="+",
         help="Name or ID of one or more nodes to exclude from the list. Mutually exclusive with --only-node. Example: `--except-nodes nc01 nc60`",
     )
+    parser.add_argument(
+        "--node-mode",
+        choices=["bare_metal_only", "vm_only", "configurable"],
+        default=None,
+        help=(
+            "Set node_mode on every processed node for this run (e.g. `vm_only` for "
+            "KVM). `bare_metal_only` explicitly clears node_mode back to "
+            "absent. If omitted, any node_mode already committed in the reference "
+            "repository is preserved."
+        ),
+    )
     return parser.parse_args()
 
 
-def _preserve_admin_note(repo_working_dir, cloud_name, validated_node, node=None):
-    """If an existing node JSON contains an `admin_note`, copy it onto the
-    provided `validated_node` before it is written out.
+def _apply_node_mode_arg(validated_node, node_mode_arg):
+    """Apply an explicit `--node-mode` value to `validated_node`.
+
+    `bare_metal_only` clears node_mode back to absent, matching a plain
+    bare-metal node's JSON shape.
+    """
+    if node_mode_arg is None:
+        return
+
+    validated_node.node_mode = (
+        None
+        if node_mode_arg == "bare_metal_only"
+        else reference_repo.NodeModeEnum(node_mode_arg)
+    )
+
+
+def _preserve_existing_fields(
+    repo_working_dir, cloud_name, validated_node, node_mode_arg=None, node=None
+):
+    """Copy forward fields from an existing node JSON that this run should not
+    clobber:
+
+    - `admin_note` is always preserved if present.
+    - `node_mode` is preserved only when `node_mode_arg` was not passed on this
+      invocation (i.e. this run isn't explicitly setting it for every node).
     """
     try:
         repo_working_dir = pathlib.Path(repo_working_dir)
@@ -111,6 +144,13 @@ def _preserve_admin_note(repo_working_dir, cloud_name, validated_node, node=None
                 old_note = old_data.get("admin_note")
                 if old_note:
                     validated_node.admin_note = old_note
+
+                if node_mode_arg is None:
+                    old_node_mode = old_data.get("node_mode")
+                    if old_node_mode:
+                        validated_node.node_mode = reference_repo.NodeModeEnum(
+                            old_node_mode
+                        )
     except Exception as e:
         if node is not None:
             print(f"{node.id}:{node.name}: warning reading existing node json: {e}")
@@ -188,8 +228,16 @@ def main():
                 print(json.dumps(inspection_dict, indent=2))
             continue
 
-        # Preserve any existing admin_note before overwriting
-        _preserve_admin_note(reference_repo_checkout.working_dir, cloud_name, validated_node, node)
+        _apply_node_mode_arg(validated_node, args.node_mode)
+
+        # Preserve any existing admin_note (and node_mode, if not set above) before overwriting
+        _preserve_existing_fields(
+            reference_repo_checkout.working_dir,
+            cloud_name,
+            validated_node,
+            node_mode_arg=args.node_mode,
+            node=node,
+        )
 
         node_json = reference_api.write_reference_repo(
             reference_repo_checkout.working_dir, cloud_name, validated_node
