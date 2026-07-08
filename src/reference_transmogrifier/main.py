@@ -101,6 +101,16 @@ def parse_args():
             "repository is preserved."
         ),
     )
+    parser.add_argument(
+        "--prune-missing-nodes",
+        action="store_true",
+        help=(
+            "Remove node JSON files from the reference repository that no longer "
+            "correspond to a node in Ironic for this cloud. This is based on the "
+            "cloud's full current node list, independent of --only-nodes/"
+            "--except-nodes. Off by default."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -247,6 +257,17 @@ def main():
         repo_diff = reference_repo_checkout.index.diff(None, paths=node_json)
         if repo_diff:
             print(f"{node.id}:{node.name}: updated reference data")
+
+    if args.prune_missing_nodes:
+        # Always compare against the cloud's full current node list, not
+        # nodes_to_process, so --only-nodes/--except-nodes runs don't prune
+        # nodes that were simply excluded from this particular run.
+        live_node_uids = {n.id for n in conn.baremetal.nodes()}
+        removed_paths = reference_api.prune_missing_nodes(
+            reference_repo_checkout.working_dir, cloud_name, live_node_uids
+        )
+        for removed_path in removed_paths:
+            print(f"{removed_path.stem}: removed, no longer present in ironic")
 
     print(f"finished conversion, moving data from tmpdir to {final_output_dir}")
     shutil.move(reference_repo_checkout.working_dir, final_output_dir)
