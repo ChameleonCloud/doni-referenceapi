@@ -442,6 +442,7 @@ class VmFlavor(BaseModel):
     humanized_disk_size: Optional[str] = None
     gpu: VmFlavorGpu = Field(default_factory=lambda: VmFlavorGpu(gpu=False))
     openstack_properties: Optional[dict] = None
+    su_cost_per_hour: Optional[float] = None
 
 
 PCI_Tuple = namedtuple("PCI_Tuple", ["vendor_id", "product_id", "pci_class"])

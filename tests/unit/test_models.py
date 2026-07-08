@@ -155,10 +155,12 @@ class VmFlavorModel(base.BaseTestCase):
             "disk_size": 40000000000,
             "humanized_disk_size": "40 GB",
             "gpu": {"gpu": False},
+            "su_cost_per_hour": 0.95,
         }
         flavor = reference_repo.VmFlavor.model_validate(flavor_json)
         self.assertEqual("m1.large", flavor.uid)
         self.assertFalse(flavor.gpu.gpu)
+        self.assertEqual(0.95, flavor.su_cost_per_hour)
 
     def test_validates_gpu_mig_slice_flavor(self):
         flavor_json = {
@@ -174,6 +176,7 @@ class VmFlavorModel(base.BaseTestCase):
                 "gpu_mig_profile": "1g.12gb",
             },
             "openstack_properties": {"resources:VGPU": "1"},
+            "su_cost_per_hour": 16.0,
         }
         flavor = reference_repo.VmFlavor.model_validate(flavor_json)
         self.assertTrue(flavor.gpu.gpu)
@@ -181,4 +184,27 @@ class VmFlavorModel(base.BaseTestCase):
             reference_repo.GpuAllocationEnum.mig_slice, flavor.gpu.gpu_allocation
         )
         self.assertEqual("1g.12gb", flavor.gpu.gpu_mig_profile)
+        self.assertEqual(16.0, flavor.su_cost_per_hour)
+
+    def test_su_cost_per_hour_defaults_to_none_when_absent(self):
+        flavor_json = {
+            "type": "vm_flavor",
+            "uid": "m1.tiny",
+            "gpu": {"gpu": False},
+        }
+        flavor = reference_repo.VmFlavor.model_validate(flavor_json)
+        self.assertIsNone(flavor.su_cost_per_hour)
+
+        dumped = flavor.model_dump(mode="json", exclude_none=True, exclude_unset=True)
+        self.assertNotIn("su_cost_per_hour", dumped)
+
+    def test_su_cost_per_hour_accepts_explicit_null(self):
+        flavor_json = {
+            "type": "vm_flavor",
+            "uid": "m1.tiny",
+            "gpu": {"gpu": False},
+            "su_cost_per_hour": None,
+        }
+        flavor = reference_repo.VmFlavor.model_validate(flavor_json)
+        self.assertIsNone(flavor.su_cost_per_hour)
 
