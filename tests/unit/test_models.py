@@ -84,6 +84,27 @@ class ReferenceRepoNode(base.BaseTestCase):
 
         self.assertFalse(gpus_model.gpu)
 
+    def test_storage_device_nvme_vendor(self):
+        """sda on gh01 (ncar): an NVMe drive behind a SCSI HBA.
+
+        Values from its inventory and extra hardware entries, and the wwn from
+        /sys/block/sda/device/wwid on the node.
+        """
+        disk_model = reference_repo.StorageDevice.model_validate(
+            {
+                "device": "sda",
+                "interface": "SAS",
+                "media_type": "SSD",
+                "model": "SAMSUNG MZTL21T9",
+                "rev": "602Q",
+                "serial": "S6RCNG0Y600203",
+                "size": 1920000000000,
+                "vendor": "NVMe",
+                "wwn": "eui.36524330596002030025384700000001",
+            }
+        )
+        self.assertIsNone(disk_model.vendor)
+
     def test_find_fpga(self):
         pci_device_json = [
             {

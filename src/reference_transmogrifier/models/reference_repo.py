@@ -388,8 +388,9 @@ class StorageDevice(BaseModel):
 
     @field_validator("vendor", mode="before")
     @classmethod
-    def _no_ata_vendor(cls, v: str) -> Optional[NormalizedManufacturer]:
-        if (not v) or (v == "ATA"):
+    def _no_protocol_vendor(cls, v: str) -> Optional[NormalizedManufacturer]:
+        """Some disks report their protocol ("ATA", "NVMe") as the vendor instead of their manufacturer."""
+        if (not v) or (v in ("ATA", "NVMe")):
             return None
         else:
             return v
