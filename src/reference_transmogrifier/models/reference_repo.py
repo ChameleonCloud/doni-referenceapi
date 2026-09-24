@@ -448,6 +448,12 @@ class VmFlavor(BaseModel):
 
 PCI_Tuple = namedtuple("PCI_Tuple", ["vendor_id", "product_id", "pci_class"])
 
+# Display-class PCI devices that are not GPUs, as (vendor_id, device_id).
+NON_GPU_DISPLAY_PCI_IDS = {
+    ("102b", "0534"),  # Matrox G200eR2 (BMC)
+    ("102b", "0536"),  # Matrox G200eW3 (BMC)
+}
+
 FPGA_lookup = {
     PCI_Tuple(vendor_id="10ee", product_id="903f", pci_class="028000"): "xilinx_u280",
 }
@@ -477,13 +483,13 @@ class Node(BaseModel):
 
     @classmethod
     def find_gpu_from_pci(cls, data: list[inspector.pci.PciDevice]) -> GPU:
-        """Find all PCIe devices of the "display" class type, and exclude matrox integrated GPU."""
+        """Find all PCIe devices of the "display" class type, excluding ones that aren't GPUs."""
         pci_class = inspector.pci.KnownPciClassEnum.display_controller
-        matrox_vendor_id = "102b"
         gpus = [
             d
             for d in data
-            if d.pci_class_enum == pci_class and d.vendor_id != matrox_vendor_id
+            if d.pci_class_enum == pci_class
+            and (d.vendor_id, d.product_id) not in NON_GPU_DISPLAY_PCI_IDS
         ]
         if not gpus:
             return GPU(gpu=False)

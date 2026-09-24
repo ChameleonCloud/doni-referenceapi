@@ -31,6 +31,31 @@ class ReferenceRepoNode(base.BaseTestCase):
         self.assertEqual("TU102GL [Quadro RTX 6000/8000]", gpus_model.gpu_model)
         self.assertEqual("NVIDIA", gpus_model.gpu_vendor)
 
+    def test_find_gpus_excludes_matrox_bmc(self):
+        """Matrox BMC display devices copied verbatim from c01-22 and c02-01 (tacc)."""
+        pci_list = [
+            inspector.pci.PciDevice.model_validate(p)
+            for p in [
+                {
+                    "bus": "0000:0a:00.0",
+                    "class": "030000",
+                    "product_id": "0534",
+                    "revision": "01",
+                    "vendor_id": "102b",
+                },
+                {
+                    "bus": "0000:62:00.0",
+                    "class": "030000",
+                    "product_id": "0536",
+                    "revision": "04",
+                    "vendor_id": "102b",
+                },
+            ]
+        ]
+        gpus_model = reference_repo.Node.find_gpu_from_pci(pci_list)
+
+        self.assertFalse(gpus_model.gpu)
+
     def test_find_fpga(self):
         pci_device_json = [
             {
