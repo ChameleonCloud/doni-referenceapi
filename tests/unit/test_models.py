@@ -212,6 +212,52 @@ class ReferenceRepoNode(base.BaseTestCase):
             inspection_model.inventory.disks, inspection_model.extra.disk
         )
 
+    def test_storage_serial_from_inventory(self):
+        """Serial comes from inventory, even when SMART doesn't report one.
+
+        Disk entries copied verbatim from P3-NVDIMM-001 (uc) introspection
+        data. The extra hardware entry has no SMART/serial_number.
+        """
+        inv_disk = inspector.inventory.Disk.model_validate(
+            {
+                "by_path": "/dev/disk/by-path/pci-0000:48:00.0-sas-phy6-lun-0",
+                "hctl": "0:0:0:0",
+                "model": "KPM5XVUG960G",
+                "name": "/dev/sdb",
+                "rotational": False,
+                "serial": "11G0A02GTP5F",
+                "size": 960197124096,
+                "vendor": "TOSHIBA",
+                "wwn": "0x58ce38ee21498f29",
+                "wwn_vendor_extension": None,
+                "wwn_with_extension": "0x58ce38ee21498f29",
+            }
+        )
+        extra_disk = inspector.extra_hardware.Disk.model_validate(
+            {
+                "name": "sdb",
+                "Read Cache Disable": 0,
+                "Write Cache Enable": 0,
+                "model": "KPM5XVUG960G",
+                "nr_requests": 256,
+                "optimal_io_size": 0,
+                "physical_block_size": 4096,
+                "rev": "B02A",
+                "rotational": 0,
+                "scheduler": "mq-deadline",
+                "scsi-id": "scsi-358ce38ee21498f29",
+                "size": 960,
+                "vendor": "TOSHIBA",
+                "wwn-id": "wwn-0x58ce38ee21498f29",
+            }
+        )
+        self.assertIsNone(extra_disk.serial)
+
+        disk_list = reference_repo.Node.find_storage_devices([inv_disk], [extra_disk])
+
+        self.assertEqual(1, len(disk_list))
+        self.assertEqual("11G0A02GTP5F", disk_list[0].serial)
+
     def test_generate_data(self):
         blazar_info = blazar.Host(
             hypervisor_hostname="03129bbe-330c-4591-bc17-96d7e15d3e74",
