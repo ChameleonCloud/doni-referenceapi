@@ -128,6 +128,32 @@ class ReferenceRepoNode(base.BaseTestCase):
 
         self.assertEqual("uefi", output_node_model.boot_mode)
 
+    def test_manufacturer_values_normalize_to_themselves(self):
+        """Every stored manufacturer value must be accepted, since validate.py checks the generated files."""
+        for manufacturer in reference_repo.ManufacturerEnum:
+            self.assertEqual(
+                manufacturer, reference_repo.normalize_manufacturer(manufacturer.value)
+            )
+
+    def test_validate_kioxia_storage_device(self):
+        """storage_devices entry copied verbatim from c552-pvc02 (tacc) in the reference repo."""
+        disk_model = reference_repo.StorageDevice.model_validate(
+            {
+                "device": "nvme1n1",
+                "humanized_size": "3840 GB",
+                "interface": "PCIe",
+                "media_type": "SSD",
+                "model": "Dell DC NVMe CD8 U.2 3.84TB",
+                "rev": "2.0.0",
+                "serial": "Z3W0A0PATSRJ",
+                "size": 3840000000000,
+                "vendor": "kioxia",
+                "wwn": "eui.01000000000000088ce38ee3009e8265",
+            }
+        )
+        self.assertEqual(reference_repo.ManufacturerEnum.kioxia, disk_model.vendor)
+        self.assertEqual("Kioxia", disk_model.vendor.value)
+
     def test_node_mode_absent_by_default(self):
         node = reference_repo.Node.model_validate(self.reference_node_json)
         self.assertIsNone(node.node_mode)

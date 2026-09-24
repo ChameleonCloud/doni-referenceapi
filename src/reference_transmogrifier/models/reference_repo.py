@@ -84,7 +84,7 @@ class ManufacturerEnum(str, Enum):
     skhynix = "SK Hynix"
     xilinx = "Xilinx"
     sandisk = "Sandisk"
-    kioxia = "kioxia"
+    kioxia = "Kioxia"
 
 
 def normalize_manufacturer(name: str) -> ManufacturerEnum:
@@ -115,6 +115,7 @@ def normalize_manufacturer(name: str) -> ManufacturerEnum:
         "amd": ManufacturerEnum.amd,
         "intel": ManufacturerEnum.intel,
         "genuineintel": ManufacturerEnum.intel,
+        "kioxia": ManufacturerEnum.kioxia,
         "matrox": ManufacturerEnum.matrox,
         "micron": ManufacturerEnum.micron,
         "mellanox": ManufacturerEnum.mellanox,
