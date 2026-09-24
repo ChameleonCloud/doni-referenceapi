@@ -463,6 +463,8 @@ PCI_Tuple = namedtuple("PCI_Tuple", ["vendor_id", "product_id", "pci_class"])
 NON_GPU_DISPLAY_PCI_IDS = {
     ("102b", "0534"),  # Matrox G200eR2 (BMC)
     ("102b", "0536"),  # Matrox G200eW3 (BMC)
+    ("1a03", "2000"),  # ASPEED Graphics Family (BMC)
+    ("1002", "13c0"),  # AMD Zen 5 integrated graphics
 }
 
 FPGA_lookup = {
