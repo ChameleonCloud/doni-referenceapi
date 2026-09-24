@@ -119,6 +119,54 @@ class TestExtraHardware(base.BaseTestCase):
         phys0_cpu_data = cpu_data.get("physical_0")
         phys_cpu_model = extra_hardware.PhysicalCPU.model_validate(phys0_cpu_data)
 
+    def test_physical_cpu_stepping_arm(self):
+        """physical_0 copied verbatim from gh01 (ncar, NVIDIA GH200)."""
+        phys_cpu_model = extra_hardware.PhysicalCPU.model_validate(
+            {
+                "architecture": "aarch64",
+                "boost": "disabled",
+                "cores": 72,
+                "flags": "fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 sm3 sm4 asimddp sha512 sve asimdfhm dit uscat ilrcpc flagm sb paca pacg dcpodp sve2 sveaes svepmull svebitperm svesha3 svesm4 flagm2 frint svei8mm svebf16 i8mm bf16 dgh bti",
+                "l1d cache": "4.5 MiB (72 instances)",
+                "l1i cache": "4.5 MiB (72 instances)",
+                "l2 cache": "72 MiB (72 instances)",
+                "l3 cache": "114 MiB (1 instance)",
+                "max_Mhz": 3429,
+                "min_Mhz": 81,
+                "model": 0,
+                "product": "Neoverse-V2",
+                "stepping": "r0p0",
+                "threads": 72,
+                "threads_per_core": 1,
+                "vendor": "ARM",
+            }
+        )
+        self.assertEqual("r0p0", phys_cpu_model.stepping)
+
+    def test_physical_cpu_stepping_x86(self):
+        """physical_0 copied verbatim from P3-NVDIMM-001 (uc)."""
+        phys_cpu_model = extra_hardware.PhysicalCPU.model_validate(
+            {
+                "architecture": "x86_64",
+                "cores": 28,
+                "family": 6,
+                "flags": "fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities",
+                "l1d cache": "3.5 MiB (112 instances)",
+                "l1i cache": "3.5 MiB (112 instances)",
+                "l2 cache": "112 MiB (112 instances)",
+                "l3 cache": "154 MiB (4 instances)",
+                "max_Mhz": 4000,
+                "min_Mhz": 1000,
+                "model": 85,
+                "product": "Intel(R) Xeon(R) Platinum 8276 CPU @ 2.20GHz",
+                "stepping": 7,
+                "threads": 28,
+                "threads_per_core": 1,
+                "vendor": "GenuineIntel",
+            }
+        )
+        self.assertEqual("7", phys_cpu_model.stepping)
+
     def test_cpu_cache_per_core(self):
         # TODO: this is brittle and needs tests
         pass

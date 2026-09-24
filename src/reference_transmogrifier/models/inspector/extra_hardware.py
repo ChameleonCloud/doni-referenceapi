@@ -105,7 +105,7 @@ class PhysicalCPU(BaseModel):
     threads: int
     family: Optional[int] = None
     model: int
-    stepping: int
+    stepping: str
     architecture: str
     l1d_cache: Optional[ByteSize] = Field(alias="l1d cache", exclude=True)
     l1i_cache: Optional[ByteSize] = Field(alias="l1i cache", exclude=True)
@@ -113,6 +113,16 @@ class PhysicalCPU(BaseModel):
     l3_cache: Optional[ByteSize] = Field(alias="l3 cache", exclude=True)
     flags: str
     threads_per_core: int
+
+    @field_validator("stepping", mode="before")
+    @classmethod
+    def convert_stepping_to_str(cls, v):
+        """
+        Normalize stepping as a string. lscpu reports an integer, except
+        for Arm Ltd CPU designs, whose stepping is a revision string such
+        as "r0p0".
+        """
+        return str(v)
 
     @model_validator(mode="before")
     def cache_per_core(self) -> Self:
