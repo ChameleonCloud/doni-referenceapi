@@ -31,6 +31,34 @@ class ReferenceRepoNode(base.BaseTestCase):
         self.assertEqual("TU102GL [Quadro RTX 6000/8000]", gpus_model.gpu_model)
         self.assertEqual("NVIDIA", gpus_model.gpu_vendor)
 
+    def test_find_gpus_excludes_onboard_vga(self):
+        """Display-class PCI devices copied verbatim from chi014 (ncar, zen5 grado).
+
+        ASPEED is the BMC's VGA, and AMD 13c0 is the Zen 5 integrated graphics.
+        """
+        pci_list = [
+            inspector.pci.PciDevice.model_validate(p)
+            for p in [
+                {
+                    "bus": "0000:03:00.0",
+                    "class": "030000",
+                    "product_id": "2000",
+                    "revision": "52",
+                    "vendor_id": "1a03",
+                },
+                {
+                    "bus": "0000:06:00.0",
+                    "class": "030000",
+                    "product_id": "13c0",
+                    "revision": "d1",
+                    "vendor_id": "1002",
+                },
+            ]
+        ]
+        gpus_model = reference_repo.Node.find_gpu_from_pci(pci_list)
+
+        self.assertFalse(gpus_model.gpu)
+
     def test_find_fpga(self):
         pci_device_json = [
             {
