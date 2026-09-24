@@ -13,8 +13,8 @@ class NetworkInterface(BaseModel):
     name: str
     mac_address: str
     has_carrier: bool
-    vendor: str
-    product: str
+    vendor: Optional[str] = None
+    product: Optional[str] = None
 
 
 class Disk(BaseModel):
