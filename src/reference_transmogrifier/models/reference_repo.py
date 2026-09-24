@@ -633,7 +633,7 @@ class Node(BaseModel):
                 media_type=extra.media_type,
                 model=extra.model,
                 rev=rev,
-                serial=extra.serial,
+                serial=inv.serial,
                 size=size_bytes,
                 vendor=vendor,
                 wwn=wwn,
