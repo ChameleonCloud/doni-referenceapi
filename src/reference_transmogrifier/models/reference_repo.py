@@ -111,6 +111,7 @@ def normalize_manufacturer(name: str) -> ManufacturerEnum:
 
     norm_name_mapping = {
         "altera": ManufacturerEnum.altera,
+        "ami": ManufacturerEnum.ami,
         "broadcom": ManufacturerEnum.broadcom,
         "cavium": ManufacturerEnum.cavium,
         "dell": ManufacturerEnum.dell,
@@ -241,6 +242,10 @@ class Chassis(BaseModel):
     def _get_model_name(cls, v) -> ChassisModelEnum:
         if not v or not isinstance(v, str):
             return None
+
+        # Values read back from the reference repo are already canonical.
+        if v in ChassisModelEnum._value2member_map_:
+            return ChassisModelEnum(v)
 
         model_map = {
             "PowerEdge C4130": ChassisModelEnum.dell_c4130,
