@@ -78,6 +78,35 @@ class ReferenceRepoNode(base.BaseTestCase):
         self.assertEqual("Alveo U280 Golden Image", fpgas_model.board_model)
         self.assertEqual("Xilinx", fpgas_model.board_vendor)
 
+    def test_ami_bios_vendor(self):
+        """BIOS vendor copied verbatim from chi001 (ncar, zen5 grado)."""
+        self.assertEqual(
+            reference_repo.ManufacturerEnum.ami,
+            reference_repo.normalize_manufacturer("American Megatrends International, LLC."),
+        )
+        # The stored value must also be accepted.
+        self.assertEqual(
+            reference_repo.ManufacturerEnum.ami,
+            reference_repo.normalize_manufacturer(reference_repo.ManufacturerEnum.ami.value),
+        )
+
+    def test_supermicro_chassis_name(self):
+        """product_name copied verbatim from chi001 (ncar, zen5 grado).
+
+        The DMI name has a space ("AS -3015MR") that the stored value doesn't.
+        """
+        supermicro = reference_repo.ChassisModelEnum.supermicro_3015mr_h10tnr
+        chassis = reference_repo.Chassis(name="AS -3015MR-H10TNR (To be filled by O.E.M.)")
+        self.assertEqual(supermicro, chassis.name)
+        # The stored value must also be accepted.
+        self.assertEqual(supermicro, reference_repo.Chassis(name=supermicro.value).name)
+
+    def test_chassis_values_normalize_to_themselves(self):
+        """Every stored chassis value must be accepted, since validate.py checks the generated files."""
+        for chassis_model in reference_repo.ChassisModelEnum:
+            chassis = reference_repo.Chassis(name=chassis_model.value)
+            self.assertEqual(chassis_model, chassis.name)
+
     def test_find_processor(self):
         inspection_model = inspector.InspectorResult.model_validate(
             self.ironic_inspector_node_json
