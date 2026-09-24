@@ -22,6 +22,20 @@ class TestInventory(base.BaseTestCase):
         for iface in iface_data:
             inventory.NetworkInterface(**iface)
 
+    def test_interface_without_vendor(self):
+        """Interface copied verbatim from chi001 (ncar), which IPA reports without a vendor."""
+        iface = inventory.NetworkInterface.model_validate(
+            {
+                "name": "enxbe3af2b6059f",
+                "mac_address": "be:3a:f2:b6:05:9f",
+                "has_carrier": True,
+                "vendor": None,
+                "product": None,
+            }
+        )
+        self.assertIsNone(iface.vendor)
+        self.assertIsNone(iface.product)
+
     def test_cpu(self):
         cpu_data = self.data.get("cpu")
         inventory.CPU(**cpu_data)
