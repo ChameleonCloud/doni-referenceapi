@@ -22,7 +22,7 @@ class Disk(BaseModel):
     model: str
     size: ByteSize
     rotational: bool
-    wwn: str
+    wwn: Optional[str] = None
     serial: str
     vendor: Optional[str] = None
     wwn_with_extension: Optional[str] = None

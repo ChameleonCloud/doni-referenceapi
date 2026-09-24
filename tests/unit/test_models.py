@@ -258,6 +258,52 @@ class ReferenceRepoNode(base.BaseTestCase):
         self.assertEqual(1, len(disk_list))
         self.assertEqual("11G0A02GTP5F", disk_list[0].serial)
 
+    def test_storage_device_without_wwn(self):
+        """sda on gh01 (ncar), copied verbatim: an NVMe drive behind a SCSI HBA.
+
+        Neither the inventory nor the extra hardware entry has a wwn, and the
+        extra hardware entry has no serial either.
+        """
+        inv_disk = inspector.inventory.Disk.model_validate(
+            {
+                "by_path": "/dev/disk/by-path/pci-0006:01:00.0-scsi-0:2:0:0",
+                "hctl": "0:2:0:0",
+                "model": "SAMSUNG MZTL21T9",
+                "name": "/dev/sda",
+                "rotational": False,
+                "serial": "S6RCNG0Y600203",
+                "size": 1920383410176,
+                "vendor": "NVMe",
+                "wwn": None,
+                "wwn_vendor_extension": None,
+                "wwn_with_extension": None,
+            }
+        )
+        extra_disk = inspector.extra_hardware.Disk.model_validate(
+            {
+                "name": "sda",
+                "Read Cache Disable": 0,
+                "Write Cache Enable": 0,
+                "model": "SAMSUNG MZTL21T9",
+                "nr_requests": 256,
+                "optimal_io_size": 131072,
+                "physical_block_size": 512,
+                "rev": "602Q",
+                "rotational": 0,
+                "scheduler": "mq-deadline",
+                "scsi-id": "scsi-236524330596002030025384700000001",
+                "size": 1920,
+                "vendor": "NVMe",
+            }
+        )
+
+        disk_list = reference_repo.Node.find_storage_devices([inv_disk], [extra_disk])
+
+        self.assertEqual(1, len(disk_list))
+        self.assertIsNone(disk_list[0].wwn)
+        self.assertEqual("S6RCNG0Y600203", disk_list[0].serial)
+        self.assertEqual("602Q", disk_list[0].rev)
+
     def test_generate_data(self):
         blazar_info = blazar.Host(
             hypervisor_hostname="03129bbe-330c-4591-bc17-96d7e15d3e74",

@@ -379,7 +379,7 @@ class StorageDevice(BaseModel):
     rev: Optional[str] = None
     size: int
     vendor: Optional[NormalizedManufacturer] = None
-    wwn: str
+    wwn: Optional[str] = None
 
     @computed_field
     @property
@@ -406,18 +406,6 @@ class StorageDevice(BaseModel):
 
         assert v in mediatype_map
         return mediatype_map[v]
-
-    def __lt__(self: Self, other: Self):
-        return self.wwn < other.wwn
-
-    def __le__(self: Self, other: Self):
-        return self.wwn <= other.wwn
-
-    def __gt__(self: Self, other: Self):
-        return self.wwn > other.wwn
-
-    def __ge__(self: Self, other: Self):
-        return self.wwn >= other.wwn
 
 
 class SupportedJobTypes(BaseModel):
@@ -582,28 +570,14 @@ class Node(BaseModel):
         if len(inventory_disks) != len(extra_disks):
             raise ValueError("different # of disks in inventory and extra data.")
 
-        input_values = {}
-        for d in inventory_disks:
-            input_values.setdefault(d.wwn, {})
-            input_values[d.wwn]["inv"] = d
-        for d in extra_disks:
-            if d.wwn:
-                input_values[d.wwn]["extra"] = d
-            elif d.serial:
-                matching_inv_wwn = [
-                    input_wwn
-                    for input_wwn, input_values in input_values.items()
-                    if input_values["inv"].serial == d.serial
-                ][0]
-                input_values[matching_inv_wwn]["extra"] = d
+        # Both lists come from the same inspection boot, so their device names
+        # match.
+        extra_by_name = {d.name: d for d in extra_disks}
 
         output_list = []
 
-        for wwn, d in input_values.items():
-            inv = d["inv"]
-            assert isinstance(inv, inspector.inventory.Disk)
-            extra = d["extra"]
-            assert isinstance(extra, inspector.extra_hardware.Disk)
+        for inv in inventory_disks:
+            extra = extra_by_name[inv.name]
 
             rev = extra.smart_firmware_version
             if not rev:
@@ -637,11 +611,18 @@ class Node(BaseModel):
                 serial=inv.serial,
                 size=size_bytes,
                 vendor=vendor,
-                wwn=wwn,
+                wwn=inv.wwn,
             )
             output_list.append(disk_model)
-            output_list.sort()
-        return output_list
+
+        # Order disks by wwn, which is globally unique. Disks without a wwn fall
+        # back to their serial, which is only unique per vendor. Both are
+        # stable, unlike device names such as sda or nvme0n1, which the kernel
+        # assigns at boot and may change.
+        def by_wwn_or_serial(disk):
+            return disk.wwn or disk.serial
+
+        return sorted(output_list, key=by_wwn_or_serial)
 
     @classmethod
     def from_inspector_result(
