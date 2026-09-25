@@ -461,6 +461,14 @@ NON_GPU_DISPLAY_PCI_IDS = {
     ("1002", "13c0"),  # AMD Zen 5 integrated graphics
 }
 
+# GPU model names that replace a misleading pci.ids name, by (vendor_id, device_id).
+GPU_MODEL_NAMES = {
+    # pci.ids: "GH100 [GH200 120GB / 480GB]". Those sizes match the Grace CPU's
+    # LPDDR5X options. The GPU has 96GB of HBM3, and the 144GB HBM3e part has
+    # its own ID, 10de:2348.
+    ("10de", "2342"): "GH200 96GB HBM3",
+}
+
 FPGA_lookup = {
     PCI_Tuple(vendor_id="10ee", product_id="903f", pci_class="028000"): "xilinx_u280",
 }
@@ -504,7 +512,9 @@ class Node(BaseModel):
         return GPU(
             gpu=True,
             gpu_count=len(gpus),
-            gpu_model=gpus[0].product_name,
+            gpu_model=GPU_MODEL_NAMES.get(
+                (gpus[0].vendor_id, gpus[0].product_id), gpus[0].product_name
+            ),
             gpu_vendor=normalize_manufacturer(gpus[0].vendor_name),
         )
 
