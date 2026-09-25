@@ -61,6 +61,9 @@ class Disk(BaseModel):
     @computed_field
     @property
     def interface(self) -> str:
+        # NVMe drives behind a SCSI HBA report "NVMe" as their SCSI vendor.
+        if self.vendor == "NVMe":
+            return "PCIe"
         # guess interface from path
         if "scsi" in self.by_path:
             return "SAS"

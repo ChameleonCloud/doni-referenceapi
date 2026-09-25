@@ -36,6 +36,25 @@ class TestInventory(base.BaseTestCase):
         self.assertIsNone(iface.vendor)
         self.assertIsNone(iface.product)
 
+    def test_nvme_behind_scsi_interface(self):
+        """sda copied verbatim from gh01 (ncar): an NVMe drive behind a SCSI HBA."""
+        disk = inventory.Disk.model_validate(
+            {
+                "by_path": "/dev/disk/by-path/pci-0006:01:00.0-scsi-0:2:0:0",
+                "hctl": "0:2:0:0",
+                "model": "SAMSUNG MZTL21T9",
+                "name": "/dev/sda",
+                "rotational": False,
+                "serial": "S6RCNG0Y600203",
+                "size": 1920383410176,
+                "vendor": "NVMe",
+                "wwn": None,
+                "wwn_vendor_extension": None,
+                "wwn_with_extension": None,
+            }
+        )
+        self.assertEqual("PCIe", disk.interface)
+
     def test_cpu(self):
         cpu_data = self.data.get("cpu")
         inventory.CPU(**cpu_data)
