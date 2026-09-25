@@ -29,6 +29,7 @@ class NodeTypeEnum(str, Enum):
     fpga = "fpga"
     gpu_a100_nvlink = "gpu_a100_nvlink"
     gpu_a100_pcie = "gpu_a100_pcie"
+    gpu_gh200_96gb = "gpu_gh200_96gb"
     gpu_h100 = "gpu_h100"
     gpu_k80 = "gpu_k80"
     gpu_mi100 = "gpu_mi100"
@@ -79,6 +80,7 @@ class ManufacturerEnum(str, Enum):
     mellanox = "Mellanox"
     nvidia = "NVIDIA"
     phison = "Phison"
+    quanta = "Quanta"
     samsung = "Samsung"
     seagate = "Seagate"
     toshiba = "Toshiba"
@@ -126,6 +128,7 @@ def normalize_manufacturer(name: str) -> ManufacturerEnum:
         "mellanox": ManufacturerEnum.mellanox,
         "nvidia": ManufacturerEnum.nvidia,
         "phison": ManufacturerEnum.phison,
+        "quanta": ManufacturerEnum.quanta,
         "samsung": ManufacturerEnum.samsung,
         "seagate": ManufacturerEnum.seagate,
         "toshiba": ManufacturerEnum.toshiba,
@@ -220,6 +223,7 @@ class ChassisModelEnum(str, Enum):
     dell_xe9640 = "PowerEdge XE9640"
     gigabyte_r181_t92 = "R181-T92-00"
     supermicro_3015mr_h10tnr = "AS-3015MR-H10TNR"
+    quanta_s74g_2u = "QuantaGrid S74G-2U 1S7G2000026"
 
 
 class Chassis(BaseModel):
@@ -268,6 +272,7 @@ class Chassis(BaseModel):
             "PowerEdge XE9640": ChassisModelEnum.dell_xe9640,
             "R181-T92-00": ChassisModelEnum.gigabyte_r181_t92,
             "AS -3015MR-H10TNR": ChassisModelEnum.supermicro_3015mr_h10tnr, 
+            "QuantaGrid S74G-2U 1S7G2000026": ChassisModelEnum.quanta_s74g_2u,
             }
 
         model = v.split("(")[0].strip()
