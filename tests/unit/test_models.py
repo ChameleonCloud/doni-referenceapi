@@ -105,6 +105,23 @@ class ReferenceRepoNode(base.BaseTestCase):
         )
         self.assertIsNone(disk_model.vendor)
 
+    def test_gh200_gpu_name(self):
+        """GPU PCI device copied verbatim from gh01 (ncar)."""
+        pci_list = [
+            inspector.pci.PciDevice.model_validate(
+                {
+                    "bus": "0009:01:00.0",
+                    "class": "030200",
+                    "product_id": "2342",
+                    "revision": "a1",
+                    "vendor_id": "10de",
+                }
+            )
+        ]
+        gpus_model = reference_repo.Node.find_gpu_from_pci(pci_list)
+
+        self.assertEqual("GH200 96GB HBM3", gpus_model.gpu_model)
+
     def test_find_fpga(self):
         pci_device_json = [
             {
