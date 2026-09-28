@@ -51,12 +51,6 @@ class InstructionSetEnum(str, Enum):
     aarch64 = "aarch64"
 
 
-class NodeModeEnum(str, Enum):
-    bare_metal_only = "bare_metal_only"
-    vm_only = "vm_only"
-    configurable = "configurable"
-
-
 class GpuAllocationEnum(str, Enum):
     pcie_passthrough = "pcie_passthrough"
     mig_slice = "mig_slice"
@@ -487,7 +481,7 @@ class Node(BaseModel):
     network_adapters: list[NetworkAdapter]
     node_name: str
     admin_note: Optional[str] = None
-    node_mode: Optional[NodeModeEnum] = None
+    lease_mode: Optional[blazar.LeaseModeEnum] = None
     node_type: NodeTypeEnum
     placement: Optional[Placement] = None
     processor: Processor
@@ -696,6 +690,7 @@ class Node(BaseModel):
             fpga=fpga,
             gpu=gpu,
             infiniband=infiniband,
+            lease_mode=blazar_data.lease_mode,
             main_memory=main_memory,
             monitoring=monitoring,
             network_adapters=network_adapters,

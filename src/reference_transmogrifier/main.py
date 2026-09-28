@@ -4,6 +4,7 @@ import os
 import pathlib
 import re
 import shutil
+import sys
 import uuid
 from datetime import datetime
 from tempfile import TemporaryDirectory
@@ -91,17 +92,6 @@ def parse_args():
         help="Name or ID of one or more nodes to exclude from the list. Mutually exclusive with --only-node. Example: `--except-nodes nc01 nc60`",
     )
     parser.add_argument(
-        "--node-mode",
-        choices=["bare_metal_only", "vm_only", "configurable"],
-        default=None,
-        help=(
-            "Set node_mode on every processed node for this run (e.g. `vm_only` for "
-            "KVM). `bare_metal_only` explicitly clears node_mode back to "
-            "absent. If omitted, any node_mode already committed in the reference "
-            "repository is preserved."
-        ),
-    )
-    parser.add_argument(
         "--prune-missing-nodes",
         action="store_true",
         help=(
@@ -111,35 +101,20 @@ def parse_args():
             "--except-nodes. Off by default."
         ),
     )
+    parser.add_argument(
+        "--allow-lease-mode-change",
+        action="store_true",
+        help=(
+            "Accept a node whose lease_mode in Blazar differs from the reference "
+            "repository, and print a warning for it. Without this flag the run fails "
+            "after listing every such node."
+        ),
+    )
     return parser.parse_args()
 
 
-def _apply_node_mode_arg(validated_node, node_mode_arg):
-    """Apply an explicit `--node-mode` value to `validated_node`.
-
-    `bare_metal_only` clears node_mode back to absent, matching a plain
-    bare-metal node's JSON shape.
-    """
-    if node_mode_arg is None:
-        return
-
-    validated_node.node_mode = (
-        None
-        if node_mode_arg == "bare_metal_only"
-        else reference_repo.NodeModeEnum(node_mode_arg)
-    )
-
-
-def _preserve_existing_fields(
-    repo_working_dir, cloud_name, validated_node, node_mode_arg=None, node=None
-):
-    """Copy forward fields from an existing node JSON that this run should not
-    clobber:
-
-    - `admin_note` is always preserved if present.
-    - `node_mode` is preserved only when `node_mode_arg` was not passed on this
-      invocation (i.e. this run isn't explicitly setting it for every node).
-    """
+def _read_existing_node_json(repo_working_dir, cloud_name, validated_node, node):
+    """Return the node's JSON from the reference repository, or None if it has none."""
     try:
         repo_working_dir = pathlib.Path(repo_working_dir)
         node_path = repo_working_dir.joinpath(
@@ -150,22 +125,28 @@ def _preserve_existing_fields(
         )
         if node_path.exists():
             with open(node_path, "r") as oldf:
-                old_data = json.load(oldf)
-                old_note = old_data.get("admin_note")
-                if old_note:
-                    validated_node.admin_note = old_note
-
-                if node_mode_arg is None:
-                    old_node_mode = old_data.get("node_mode")
-                    if old_node_mode:
-                        validated_node.node_mode = reference_repo.NodeModeEnum(
-                            old_node_mode
-                        )
+                return json.load(oldf)
     except Exception as e:
-        if node is not None:
-            print(f"{node.id}:{node.name}: warning reading existing node json: {e}")
-        else:
-            print(f"warning reading existing node json: {e}")
+        print(f"{node.id}:{node.name}: warning reading existing node json: {e}")
+    return None
+
+
+def _preserve_existing_fields(old_data, validated_node):
+    """Copy `admin_note` from `old_data` onto `validated_node`."""
+    old_note = old_data.get("admin_note")
+    if old_note:
+        validated_node.admin_note = old_note
+
+
+def _lease_mode_change(old_data, validated_node):
+    """Describe how `validated_node`'s `lease_mode` differs from `old_data`, or return None."""
+    old_lease_mode = old_data.get("lease_mode")
+    if old_lease_mode and old_lease_mode != validated_node.lease_mode:
+        return (
+            f"lease_mode changed from {old_lease_mode} "
+            f"to {validated_node.lease_mode.value}"
+        )
+    return None
 
 
 def main():
@@ -211,6 +192,7 @@ def main():
     else:
         nodes_to_process = conn.baremetal.nodes()
 
+    lease_mode_change_count = 0
     for node in nodes_to_process:
         blazar_host = ironic_uuid_to_blazar_hosts.get(node.id)
 
@@ -238,16 +220,18 @@ def main():
                 print(json.dumps(inspection_dict, indent=2))
             continue
 
-        _apply_node_mode_arg(validated_node, args.node_mode)
-
-        # Preserve any existing admin_note (and node_mode, if not set above) before overwriting
-        _preserve_existing_fields(
-            reference_repo_checkout.working_dir,
-            cloud_name,
-            validated_node,
-            node_mode_arg=args.node_mode,
-            node=node,
+        old_data = _read_existing_node_json(
+            reference_repo_checkout.working_dir, cloud_name, validated_node, node
         )
+        if old_data:
+            _preserve_existing_fields(old_data, validated_node)
+            lease_mode_change = _lease_mode_change(old_data, validated_node)
+            if lease_mode_change:
+                if args.allow_lease_mode_change:
+                    print(f"{node.id}:{node.name}: warning {lease_mode_change}")
+                else:
+                    print(f"{node.id}:{node.name}: error {lease_mode_change}")
+                    lease_mode_change_count += 1
 
         node_json = reference_api.write_reference_repo(
             reference_repo_checkout.working_dir, cloud_name, validated_node
@@ -257,6 +241,12 @@ def main():
         repo_diff = reference_repo_checkout.index.diff(None, paths=node_json)
         if repo_diff:
             print(f"{node.id}:{node.name}: updated reference data")
+
+    if lease_mode_change_count:
+        sys.exit(
+            f"{lease_mode_change_count} node(s) changed lease_mode. "
+            "Pass --allow-lease-mode-change to accept."
+        )
 
     if args.prune_missing_nodes:
         # Always compare against the cloud's full current node list, not

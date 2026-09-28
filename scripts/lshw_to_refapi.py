@@ -3,7 +3,7 @@
 
 Usage:
     lshw_to_refapi.py --node-type gpu_h100 [--input-dir tmp/] [--input a.json b.json]
-                      [--output-dir ../reference-repository] [--site kvm] [--node-mode vm_only]
+                      [--output-dir ../reference-repository] [--site kvm] [--lease-mode flavor]
 """
 
 import argparse
@@ -231,7 +231,7 @@ def extract_storage(lshw: dict) -> list:
     return devices
 
 
-def lshw_to_node(lshw: dict, node_type: str, node_mode: str) -> dict:
+def lshw_to_node(lshw: dict, node_type: str, lease_mode: str) -> dict:
     nics = extract_network_adapters(lshw)
     node = {
         "architecture": extract_architecture(lshw),
@@ -239,10 +239,10 @@ def lshw_to_node(lshw: dict, node_type: str, node_mode: str) -> dict:
         "chassis": {k: v for k, v in extract_chassis(lshw).items() if v is not None},
         "gpu": {k: v for k, v in extract_gpu(lshw).items() if v is not None},
         "infiniband": any(a.get("interface") == "InfiniBand" for a in nics),
+        "lease_mode": lease_mode,
         "main_memory": extract_memory(lshw),
         "monitoring": {"wattmeter": False},
         "network_adapters": nics,
-        "node_mode": node_mode,
         "node_name": lshw.get("id"),
         "node_type": node_type,
         "processor": {k: v for k, v in extract_processor(lshw).items() if v is not None},
@@ -289,8 +289,8 @@ def parse_args():
         help="Node type (e.g. gpu_h100, compute_haswell). Run once per node-type batch.",
     )
     parser.add_argument(
-        "--node-mode", default="vm_only", metavar="MODE",
-        help="Node mode written to every output node",
+        "--lease-mode", default="flavor", metavar="MODE",
+        help="Lease mode written to every output node",
     )
     return parser.parse_args()
 
@@ -317,7 +317,7 @@ def main():
 
     for path in input_files:
         lshw = json.loads(path.read_text())
-        node = lshw_to_node(lshw, args.node_type, args.node_mode)
+        node = lshw_to_node(lshw, args.node_type, args.lease_mode)
         if not node.get("uid"):
             print(f"warning: {path.name} has no configuration.uuid — skipping", file=sys.stderr)
             continue
