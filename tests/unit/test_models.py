@@ -366,20 +366,23 @@ class ReferenceRepoNode(base.BaseTestCase):
         self.assertEqual(reference_repo.ManufacturerEnum.kioxia, disk_model.vendor)
         self.assertEqual("Kioxia", disk_model.vendor.value)
 
-    def test_node_mode_absent_by_default(self):
-        node = reference_repo.Node.model_validate(self.reference_node_json)
-        self.assertIsNone(node.node_mode)
+    def _generate_node_json(self, blazar_host_json):
+        node = reference_repo.Node.from_inspector_result(
+            blazar.Host(**blazar_host_json),
+            inspector.InspectorResult.model_validate(self.ironic_inspector_node_json),
+        )
+        return node.model_dump(mode="json", exclude_none=True, exclude_unset=True)
 
-        dumped = node.model_dump(mode="json", exclude_none=True, exclude_unset=True)
-        self.assertNotIn("node_mode", dumped)
+    def test_lease_mode_baremetal_without_blazar_extra(self):
+        self.assertNotIn("lease_mode", self.blazar_host_json)
+        dumped = self._generate_node_json(self.blazar_host_json)
+        self.assertEqual("baremetal", dumped["lease_mode"])
 
-    def test_node_mode_vm_only_round_trips(self):
-        node_json = dict(self.reference_node_json, node_mode="vm_only")
-        node = reference_repo.Node.model_validate(node_json)
-        self.assertEqual(reference_repo.NodeModeEnum.vm_only, node.node_mode)
-
-        dumped = node.model_dump(mode="json", exclude_none=True, exclude_unset=True)
-        self.assertEqual("vm_only", dumped["node_mode"])
+    def test_lease_mode_from_blazar_extra(self):
+        dumped = self._generate_node_json(
+            dict(self.blazar_host_json, lease_mode="flavor")
+        )
+        self.assertEqual("flavor", dumped["lease_mode"])
 
 
 class VmFlavorModel(base.BaseTestCase):

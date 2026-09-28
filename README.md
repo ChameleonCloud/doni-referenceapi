@@ -34,4 +34,4 @@ lshw_to_refapi.py --node-type gpu_h100 --input tmp/lshw-kvmgpu01.json
 lshw_to_refapi.py --node-type compute_haswell --input tmp/lshw-c08-02.json
 ```
 
-`--node-type` is required and applies to all files in the batch; run once per type. Defaults: `--input-dir tmp/`, `--output-dir ../reference-repository`, `--site kvm`, `--node-mode vm_only`.
+`--node-type` is required and applies to all files in the batch; run once per type. Defaults: `--input-dir tmp/`, `--output-dir ../reference-repository`, `--site kvm`, `--lease-mode flavor`.
