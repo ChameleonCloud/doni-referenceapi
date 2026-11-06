@@ -43,6 +43,10 @@ def commit_and_pr_changes(
     pr_body = f"This is an automated update of the reference data on {now}"
 
     repo = Repo(str(output_dir))
+    if not repo.is_dirty(untracked_files=True):
+        print("no changes to the reference data, not opening a PR")
+        return
+
     repo.git.remote('set-url', 'origin', repo_url)
     repo.git.checkout('HEAD', b=branch_name)
     repo.git.add(all=True)
